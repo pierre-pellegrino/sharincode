@@ -1,5 +1,4 @@
 import { Controlled as CodeMirror } from "react-codemirror2";
-import React from "react";
 import { codeMirrorWrapper } from "../editor.module.scss";
 
 const Editor = (props) => {

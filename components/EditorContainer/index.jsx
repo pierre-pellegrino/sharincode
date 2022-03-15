@@ -23,6 +23,8 @@ const Editor = dynamic(
 const EditorContainer = (props) => {
   const { language, theme, value, onChange } = props;
 
+  console.log(language);
+
   return (
     <div className={editorContainer}>
       <Editor

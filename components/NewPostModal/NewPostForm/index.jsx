@@ -7,7 +7,7 @@ import { btn } from "components/forms/form.module.scss";
 const NewPostForm = () => {
   const [snippet, setSnippet] = useState("");
   const description = useRef("");
-  const selectedLanguage = useRef("");
+  const selectedLanguage = useRef();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,7 +15,7 @@ const NewPostForm = () => {
     const data = {
       snippet,
       description: description.current.value,
-      language: selectedLanguage.current.value,
+      language: selectedLanguage.current?.value.split(" ").slice(0, -1).join(" "),
     };
 
     console.group("%cPost créé !", "font-size: 20px; color: #009DFF;");
@@ -33,14 +33,14 @@ const NewPostForm = () => {
         <label htmlFor="language">Langage</label>
         <select name="language" id="language" ref={selectedLanguage}>
           {LANGUAGES.map((language) => (
-            <option value={language.mode} key={language.name}>
+            <option value={`${language.name} ${language.mode}`} key={language.name}>
               {language.name}
             </option>
           ))}
         </select>
       </div>
       <EditorContainer
-        language={selectedLanguage.current.value}
+        language={selectedLanguage.current?.value.split(" ").slice(-1)[0]}
         theme="dracula"
         value={snippet}
         onChange={setSnippet}
