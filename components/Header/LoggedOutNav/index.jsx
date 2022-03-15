@@ -6,18 +6,18 @@ const LoggedOutNav = () => {
   return (
     <ul className={navItems}>
       <li>
-        <Link href="#">
+        <Link href="/register">
           <a className={navItem}>
             <RegisterIcon />
-            <span className={text}>M&apos;identifier</span>
+            <span className={text}>M&apos;inscrire</span>
           </a>
         </Link>
       </li>
       <li>
-        <Link href="#">
+        <Link href="/login">
           <a className={navItem}>
             <LogInIcon />
-            <span className={text}>Me Connecter</span>
+            <span className={text}>Me connecter</span>
           </a>
         </Link>
       </li>
