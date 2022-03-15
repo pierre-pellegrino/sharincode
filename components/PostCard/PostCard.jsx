@@ -1,6 +1,6 @@
 import React from 'react';
 import ProfileIcon from '../ProfileIcon/ProfileIcon';
-import { postCardWrapper, top, snippet, bottom, btnsWrapper, btn, reactsWrapper, reacts, comments } from './post_card.module.scss';
+import { postCardWrapper, top, snippet, bottom, btnsWrapper, btn, reactsWrapper, reacts, comments, openReacts, reactsModal } from './post_card.module.scss';
 
 const PostCard = () => {
   return (
@@ -25,7 +25,14 @@ const PostCard = () => {
           </div>
         </div>
         <div className={btnsWrapper}>
-          <p className={btn}>Réagir</p>
+          <div className={`${btn} ${openReacts}`}>
+            <p>Réagir</p>
+            <div className={reactsModal}>
+              <img src="idea.svg" alt="lightbulb" />
+              <img src="like.svg" alt="like" />
+              <img src="approval.svg" alt="approval" />
+            </div>
+          </div>
           <p className={btn}>Commenter</p>
           <p className={btn}>Partager</p>
         </div>

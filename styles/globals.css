@@ -5,6 +5,7 @@
   --green: hsl(101, 100%, 35%);
   --grey: hsl(0, 0%, 76%);
   --lightgrey: hsl(0, 0%, 84%);
+  --hovergrey: hsl(0, 0%, 95%);
 }
 
 html, body {
