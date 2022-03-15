@@ -5,7 +5,7 @@ import { header, navItems, logo, text } from "./header.module.scss";
 import { LogoLeftSide, LogoRightSide } from "../icons";
 
 const Header = () => {
-  const connected = false;
+  const connected = true;
 
   return (
     <header className={header}>
