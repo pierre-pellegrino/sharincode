@@ -33,6 +33,7 @@ const LoginForm = () => {
             id="username-input"
             placeholder=" "
             ref={username}
+            autoComplete="username"
           />
           <label htmlFor="username-input">Nom d&apos;utilisateur</label>
         </div>
@@ -44,6 +45,7 @@ const LoginForm = () => {
             id="email-input"
             placeholder=" "
             ref={email}
+            autoComplete="email"
           />
           <label htmlFor="email-input">Email</label>
         </div>
@@ -55,6 +57,7 @@ const LoginForm = () => {
             id="password-input"
             placeholder=" "
             ref={pwd}
+            autoComplete="new-password"
           />
           <label htmlFor="password-input">Mot de passe</label>
         </div>

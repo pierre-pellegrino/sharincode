@@ -31,6 +31,7 @@ const LoginForm = () => {
             id="email-input"
             placeholder=" "
             ref={email}
+            autoComplete="email"
           />
           <label htmlFor="email-input">Email</label>
         </div>
@@ -42,6 +43,7 @@ const LoginForm = () => {
             id="password-input"
             placeholder=" "
             ref={pwd}
+            autoComplete="currentPassword"
           />
           <label htmlFor="password-input">Mot de passe</label>
         </div>
