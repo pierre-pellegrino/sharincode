@@ -1,5 +1,5 @@
 .postCardWrapper {
-  border: 1px solid #c1c1c1;
+  border: 1px solid var(--grey);
   background-color: #fff;
   border-radius: 2px;
   -webkit-border-radius: 2px;
@@ -13,7 +13,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 0.5rem 1rem;
-    border-bottom: 1px solid #d5d5d5;
+    border-bottom: 1px solid var(--lightgrey);
   }
 
   .snippet {
@@ -32,7 +32,7 @@
 
   .bottom {
     padding: 0.5rem 1rem;
-    border-top: 1px solid #d5d5d5;
+    border-top: 1px solid var(--lightgrey);
 
     .reactsWrapper {
       margin-bottom: 0.5rem;
