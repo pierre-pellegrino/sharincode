@@ -1,7 +1,7 @@
-import { Provider } from 'jotai';
-import '../styles/globals.css'
+import { Provider } from "jotai";
+import "../styles/globals.css";
 
-function MyApp({ Component, pageProps }) {
+const MyApp = ({ Component, pageProps }) => {
   return (
     <Provider>
       <Component {...pageProps} />
@@ -9,4 +9,4 @@ function MyApp({ Component, pageProps }) {
   );
 }
 
-export default MyApp
+export default MyApp;
