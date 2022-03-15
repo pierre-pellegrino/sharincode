@@ -3,13 +3,16 @@
   --lightbg: hsl(0, 0%, 96%);
   --red: hsl(355, 78%, 56%);
   --green: hsl(101, 100%, 35%);
+  --grey: hsl(0, 0%, 76%);
+  --lightgrey: hsl(0, 0%, 84%);
+  --hovergrey: hsl(0, 0%, 95%);
 }
 
 html, body {
   padding: 0;
   margin: 0;
   font-family: 'Work Sans', sans-serif;
-  background-color: #F5F5F5;
+  background-color: var(--lightbg);
 }
 
 h1, h2, h3 {
