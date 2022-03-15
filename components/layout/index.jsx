@@ -1,5 +1,5 @@
 import { container, main } from "./layout.module.scss";
-import Header from "../header";
+import Header from "../Header";
 
 const Layout = ({ children }) => (
   <div className={container}>

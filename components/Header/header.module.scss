@@ -1,0 +1,38 @@
+.navItems {
+  list-style: none;
+  svg {
+    height: 2rem;
+    width: 2rem;
+  }
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  margin: 1rem 0;
+
+  svg {
+    margin-right: 1rem;
+  }
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  margin: 2rem 0;
+
+  @media screen and (max-width: 1000px) {
+    margin-top: 1.5rem;
+
+    svg:last-of-type {
+      transform: translate(-16px, 12px);
+    }
+  }
+}
+
+.text {
+  @media screen and (max-width: 1000px) {
+    display: none;
+  }
+}

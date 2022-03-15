@@ -1,3 +1,46 @@
+export const LogoLeftSide = () => (
+  <svg
+    id="Calque_2"
+    data-name="Calque 2"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 64 64"
+  >
+    <path
+      d="M49.38.69,55,9.62,17.35,32.25l37.57,22.8-6.07,8.84L6.72,37.5l0-10.56Z"
+      style={{ fill: "#ffa000" }}
+    />
+  </svg>
+);
+
+export const LogoRightSide = () => (
+  <svg
+    id="Calque_2"
+    data-name="Calque 2"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 64 64"
+  >
+    <path
+      d="M12.24,63.75,6.62,54.81,44.36,32.29,6.86,9.38,13,.56,55,27.07l0,10.56Z"
+      style={{ fill:"#009dff" }}
+    />
+  </svg>
+);
+
+export const LogoIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 368 400">
+    <g id="Calque_2" data-name="Calque 2">
+      <path
+        d="M193.26,0l25.4,40.4L48.1,142.18,217.59,245.72,190,285.6,0,165.79l.25-47.73Z"
+        style={{ fill: "#ffa000" }}
+      />
+      <path
+        d="M175.39,398.53,150,358.12,320.56,256.35,151.07,152.8l27.55-39.87,190,119.81-.25,47.72Z"
+        style={{ fill: "#009dff" }}
+      />
+    </g>
+  </svg>
+);
+
 export const LampIcon = () => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -34,5 +77,31 @@ export const SignOutIcon = () => (
     viewBox="0 0 64 64"
   >
     <path d="M 12 8 L 8 12 L 24.666016 32 L 8 52 L 12 56 L 32 39.333984 L 52 56 L 56 52 L 39.333984 32 L 56 12 L 52 8 L 32 24.666016 L 12 8 z"></path>
+  </svg>
+);
+
+export const RegisterIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    x="0px"
+    y="0px"
+    width="64"
+    height="64"
+    viewBox="0 0 64 64"
+  >
+    <path d="M54.146 10.854c6.42 6.42 6.42 16.83 0 23.25s-16.83 6.42-23.25 0-6.42-16.83 0-23.25S47.726 4.433 54.146 10.854zM42.698 21.275c1.605 1.605 4.208 1.605 5.813 0 1.605-1.605 1.605-4.208 0-5.813-1.605-1.605-4.208-1.605-5.813 0S41.093 19.67 42.698 21.275zM29.404 35.603c-.012-.012-.023-.026-.035-.039L11 52l-.75-.75 17.297-17.784c-.982-1.265-1.812-2.618-2.487-4.031L7 49l-1 5 3 3h4l3-3h2l2-2v-2l2-2 3 1 2-2-1-3 2-2 4 1 3.225-3.225C33.112 38.727 31.138 37.337 29.404 35.603z"></path>
+  </svg>
+);
+
+export const LogInIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    x="0px"
+    y="0px"
+    width="64"
+    height="64"
+    viewBox="0 0 64 64"
+  >
+    <path d="M32,6C17.641,6,6,17.641,6,32c0,14.359,11.641,26,26,26s26-11.641,26-26C58,17.641,46.359,6,32,6z M29,42L18,31l2-3l9,6 l13.957-12L46,25L29,42z"></path>
   </svg>
 );

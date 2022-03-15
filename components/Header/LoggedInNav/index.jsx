@@ -1,30 +1,31 @@
 import Link from "next/link";
 import { FSocietyMaskIcon, LampIcon, SignOutIcon } from "../../icons";
+import { navItems, navItem, text } from "../header.module.scss";
 
 const LoggedInNav = () => {
   return (
-    <ul>
+    <ul className={navItems}>
       <li>
         <Link href="#">
-          <a>
+          <a className={navItem}>
             <LampIcon />
-            Nouveau Snippet
+            <span className={text}>Nouveau Snippet</span>
           </a>
         </Link>
       </li>
       <li>
         <Link href="#">
-          <a>
+          <a className={navItem}>
             <FSocietyMaskIcon />
-            Mon Compte
+            <span className={text}>Mon Compte</span>
           </a>
         </Link>
       </li>
       <li>
         <Link href="#">
-          <a>
+          <a className={navItem}>
             <SignOutIcon />
-            Me déconnecter
+            <span className={text}>Me déconnecter</span>
           </a>
         </Link>
       </li>

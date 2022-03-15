@@ -1,6 +1,8 @@
 import Link from "next/link";
 import LoggedInNav from "./LoggedInNav";
 import LoggedOutNav from "./LoggedOutNav";
+import { navItems, logo, text } from "./header.module.scss";
+import { LogoLeftSide, LogoRightSide } from "../icons";
 
 const Header = () => {
   const connected = false;
@@ -8,11 +10,13 @@ const Header = () => {
   return (
     <header>
       <nav>
-        <ul>
+        <ul className={navItems}>
           <li>
             <Link href="/">
-              <a>
-                SnipShare
+              <a className={logo}>
+                <LogoLeftSide />
+                <span className={text}>SnipShare</span>
+                <LogoRightSide />
               </a>
             </Link>
           </li>
