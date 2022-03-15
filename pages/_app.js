@@ -1,10 +1,13 @@
+import Layout from "components/layout";
 import { Provider } from "jotai";
 import "styles/globals.css";
 
 const MyApp = ({ Component, pageProps }) => {
   return (
     <Provider>
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </Provider>
   );
 }
