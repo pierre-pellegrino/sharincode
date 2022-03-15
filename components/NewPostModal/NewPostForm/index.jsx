@@ -1,6 +1,9 @@
-import React from "react";
+import Editor from "components/EditorContainer";
+import React, { useState } from "react";
 
 const NewPostForm = () => {
+  const [html, setHtml] = useState("");
+
   return (
     <form>
       <label htmlFor="description">Description</label>
@@ -12,6 +15,7 @@ const NewPostForm = () => {
         <option>Français (lol)</option>
         <option>Allemand (groze zauzisse)</option>
       </select>
+      <Editor language="xml" theme="material" value={html} onChange={setHtml} />
     </form>
   );
 };

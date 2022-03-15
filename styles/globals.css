@@ -30,3 +30,7 @@ a {
   margin: 0;
   box-sizing: border-box;
 }
+
+.CodeMirror {
+  height: 100% !important;
+}

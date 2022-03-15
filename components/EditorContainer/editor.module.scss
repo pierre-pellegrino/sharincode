@@ -1,0 +1,11 @@
+.editorContainer {
+  display: flex;
+  background-color: hsl(225, 6%, 25%);
+  height: 10vh;
+  text-align: left;
+}
+
+.codeMirrorWrapper {
+  overflow: hidden;
+  flex-grow: 1;
+}
