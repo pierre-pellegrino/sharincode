@@ -10,8 +10,7 @@ const NewPostModal = () => {
     <>
       <div className={blocker} onClick={() => setShowNewPostModal(false)} />
       <div className={modal}>
-        Coucou !<br />
-        Tu veux voir ma grosse modale ?
+        <h2>Créer un snippet</h2>
         <NewPostForm />
       </div>
     </>
