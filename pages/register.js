@@ -1,16 +1,16 @@
 import Head from 'next/head'
-import LoginForm from '../components/forms/LoginForm';
+import RegisterForm from '../components/forms/RegisterForm';
 import styles from '../styles/Home.module.css';
 
 const Login = () => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Login | SnipShare</title>
+        <title>Register | SnipShare</title>
       </Head>
 
       <main className={styles.main}>
-        <LoginForm />
+        <RegisterForm />
       </main>
     </div>
   );
