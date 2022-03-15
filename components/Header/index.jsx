@@ -1,7 +1,7 @@
 import Link from "next/link";
 import LoggedInNav from "./LoggedInNav";
 import LoggedOutNav from "./LoggedOutNav";
-import { header, navItems, logo, text } from "./header.module.scss";
+import { header, navItems, logo, text, skipLink } from "./header.module.scss";
 import { LogoLeftSide, LogoRightSide } from "../icons";
 
 const Header = () => {
@@ -10,10 +10,15 @@ const Header = () => {
   return (
     <header className={header}>
       <nav>
-        <ul className={navItems}>
+        <Link href="#main">
+          <a className={skipLink}>
+            Accéder au contenu principal
+          </a>
+        </Link> 
+        <ul className={navItems} role="navigation">
           <li>
             <Link href="/">
-              <a className={logo}>
+              <a className={logo} aria-label="SnipShare : Accéder à la page d'accueil.">
                 <LogoLeftSide />
                 <span className={text}>SnipShare</span>
                 <LogoRightSide />

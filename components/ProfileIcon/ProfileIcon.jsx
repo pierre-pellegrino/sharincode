@@ -8,7 +8,7 @@ const ProfileIcon = () => {
       <div className={profileIconPicture}>
         <Image 
           src="/profile.jpeg"
-          alt="profile picture"
+          alt="Profile Picture"
           height={48}
           width={48}
         />
