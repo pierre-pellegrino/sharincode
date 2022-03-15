@@ -9,18 +9,30 @@ const NewPostForm = () => {
   const description = useRef("");
   const selectedLanguage = useRef();
 
+  const canSave = [
+    snippet,
+    description.current.value,
+    selectedLanguage.current?.value.split(" ").slice(0, -1).join(" "),
+  ].every(Boolean);
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    try {
+      if (!canSave) throw new Error("Oups, quelque chose s'est mal passé !")
 
-    const data = {
-      snippet,
-      description: description.current.value,
-      language: selectedLanguage.current?.value.split(" ").slice(0, -1).join(" "),
-    };
-
-    console.group("%cPost créé !", "font-size: 20px; color: #009DFF;");
-    console.table(data);
-    console.groupEnd();
+      const data = {
+        snippet,
+        description: description.current.value,
+        language: selectedLanguage.current?.value.split(" ").slice(0, -1).join(" "),
+      }
+  
+      console.group("%cPost créé !", "font-size: 20px; color: #009DFF;");
+      console.table(data);
+      console.groupEnd();
+    } catch(e) {
+      console.error(e.message)
+    }
   };
 
   return (
