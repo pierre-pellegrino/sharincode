@@ -1,0 +1,79 @@
+.postCardWrapper {
+  border: 1px solid #c1c1c1;
+  background-color: #fff;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  -ms-border-radius: 2px;
+  -o-border-radius: 2px;
+  width: 650px;
+  
+  .top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid #c1c1c1;
+  }
+
+  .snippet {
+    margin: 1rem;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    //A enlever pour mettre le vrai snippet  //
+    background-color: #555;
+    color: #fff;
+    font-weight: 600;
+    font-size: 2rem;
+    //////////////////////////////////////////
+  }
+
+  .bottom {
+    padding: 0.5rem 1rem;
+    border-top: 1px solid #c1c1c1;
+
+    .reactsWrapper {
+      margin-bottom: 0.5rem;
+
+      .reacts {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+        
+      }
+
+      .comments {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    .btnsWrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .btn {
+        padding: 1rem;
+        margin: 0 2px;
+        flex-grow: 1;
+        text-align: center;
+        font-weight: 600;
+        border-radius: 4px;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        -ms-border-radius: 4px;
+        -o-border-radius: 4px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #f1f1f1;
+        }
+      }
+    }
+  }
+}
