@@ -13,7 +13,7 @@ const NewPostForm = () => {
         <option>Allemand (groze zauzisse)</option>
       </select>
     </form>
-  )
+  );
 };
 
 export default NewPostForm;
