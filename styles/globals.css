@@ -8,6 +8,14 @@
   --hovergrey: hsl(0, 0%, 95%);
 }
 
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
 html, body {
   padding: 0;
   margin: 0;
@@ -26,8 +34,6 @@ a {
   text-decoration: none;
 }
 
-*, :before, :after {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
+.CodeMirror {
+  height: 100% !important;
 }

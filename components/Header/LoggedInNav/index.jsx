@@ -1,17 +1,19 @@
+import { useAtom } from "jotai";
 import Link from "next/link";
+import { showNewPostModalAtom } from "store";
 import { FSocietyMaskIcon, LampIcon, SignOutIcon } from "../../icons";
 import { navItems, navItem, text } from "../header.module.scss";
 
 const LoggedInNav = () => {
+  const [_, setShowNewPostModal] = useAtom(showNewPostModalAtom);
+
   return (
     <ul className={navItems}>
       <li>
-        <Link href="#">
-          <a className={navItem}>
-            <LampIcon />
-            <span className={text}>Nouveau Snippet</span>
-          </a>
-        </Link>
+        <button className={navItem} onClick={() => setShowNewPostModal(true)}>
+          <LampIcon />
+          <span className={text}>Nouveau Snippet</span>
+        </button>
       </li>
       <li>
         <Link href="#">

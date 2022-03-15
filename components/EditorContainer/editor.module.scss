@@ -1,0 +1,13 @@
+.editorContainer {
+  display: flex;
+  background-color: #ccc;
+  height: 100%;
+  text-align: left;
+  content: "Chargement de l'éditeur";
+}
+
+.codeMirrorWrapper {
+  overflow: hidden;
+  flex: 1;
+  height: 100%;
+}

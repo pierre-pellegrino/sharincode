@@ -102,7 +102,7 @@
   width: 250px;
   padding: 0.5rem 1rem;
   background-color: var(--hovergrey);
-  z-index: 5000;
+  z-index: 1;
   box-shadow: 0 0 2px 1px var(--lightgrey);
   border-radius: 4px;
   -webkit-border-radius: 4px;
@@ -121,7 +121,7 @@
   opacity: 0;
   pointer-events: none;
 
-  img {
+  svg {
     width: 32px;
     transition: 0.2s;
     -webkit-transition: 0.2s;
