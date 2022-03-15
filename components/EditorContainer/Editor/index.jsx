@@ -15,22 +15,22 @@ const Editor = (props) => {
   };
 
   const options = {
-    mode: "javascript",
-    theme: "material",
-    // screenReaderLabel: "Code editor",
+    mode: language,
+    theme,
+    screenReaderLabel: "Code editor",
     lineNumbers: true,
-    // firstLineNumber: true,
+    firstLineNumber: true,
     lint: true,
     lineWrapping: true,
-    // scrollbarStyle: null,
+    scrollbarStyle: null,
     viewportMargin: Infinity,
-    // lineWrapping: true,
-    // smartIndent: true,
-    // extraKeys: {
-    //   "Shift-Tab": "indentLess",
-    // },
-    // showInvisibles: false,
-    // autoCloseBrackets: true,
+    lineWrapping: true,
+    smartIndent: true,
+    extraKeys: {
+      "Shift-Tab": "indentLess",
+    },
+    showInvisibles: false,
+    autoCloseBrackets: true,
   };
 
   return (
