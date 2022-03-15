@@ -13,7 +13,7 @@ const NewPostForm = () => {
       <label htmlFor="language">Langage</label>
       <select name="language" id="language" ref={selectedLanguage}>
         {LANGUAGES.map((language) => (
-          <option value={language.mode} key={language.mode}>{language.name}</option>
+          <option value={language.mode} key={language.name}>{language.name}</option>
         ))}
       </select>
       <EditorContainer language={selectedLanguage.current?.value} theme="dracula" value={snippet} onChange={setSnippet} />

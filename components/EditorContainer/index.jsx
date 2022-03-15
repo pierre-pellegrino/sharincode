@@ -18,7 +18,7 @@ const Editor = dynamic(
     return import("./Editor");
   },
   { ssr: false }
-  );
+);
   
 const EditorContainer = (props) => {
   const { language, theme, value, onChange } = props;
