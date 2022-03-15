@@ -1,14 +1,14 @@
 import Link from "next/link";
 import LoggedInNav from "./LoggedInNav";
 import LoggedOutNav from "./LoggedOutNav";
-import { navItems, logo, text } from "./header.module.scss";
+import { header, navItems, logo, text } from "./header.module.scss";
 import { LogoLeftSide, LogoRightSide } from "../icons";
 
 const Header = () => {
   const connected = false;
 
   return (
-    <header>
+    <header className={header}>
       <nav>
         <ul className={navItems}>
           <li>
