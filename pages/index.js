@@ -4,6 +4,7 @@ import PostCard from "components/PostCard/PostCard";
 import { showNewPostModalAtom } from "store";
 import styles from "styles/Home.module.css";
 import NewPostModal from "components/NewPostModal";
+import fakeData from "lib/posts.json";
 
 export default function Home() {
   const [showNewPostModal] = useAtom(showNewPostModalAtom);
@@ -19,11 +20,14 @@ export default function Home() {
       {showNewPostModal && <NewPostModal />}
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <PostCard />
+        {fakeData.posts.map((post) => (
+          <PostCard
+            language={post.language}
+            description={post.description}
+            snippet={post.snippet}
+            key={post.id}
+          />
+        ))}
       </main>
     </div>
   );
