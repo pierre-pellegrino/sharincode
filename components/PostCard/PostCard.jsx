@@ -28,7 +28,6 @@ const PostCard = ({ language, snippet, description, theme }) => {
         {description}
       </div>
       <div className={snippetStyle}>
-        {/* {snippet} */}
         <SnippetHighlighter 
           snippet={snippet} 
           language={language} 
