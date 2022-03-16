@@ -1,10 +1,10 @@
-import { USERNAME_REGEX } from 'lib/contants';
-import { useEffect, useRef, useState } from 'react';
-import { form, inputWrapper, input, btn } from './form.module.scss';
+import { USERNAME_REGEX } from "lib/contants";
+import { useEffect, useRef, useState } from "react";
+import { form, inputWrapper, input, btn } from "./form.module.scss";
 
 const LoginForm = () => {
   const errors = useRef();
-  
+
   const username = useRef();
   const [validUsername, setValidUsername] = useState(false);
   const [usernameFocus, setUsernameFocus] = useState(false);
@@ -53,62 +53,79 @@ const LoginForm = () => {
     <form className={form} onSubmit={handleLogin}>
       <h1> Inscription </h1>
 
-        <div className={inputWrapper}>
-          <input
-            type="text"
-            className={input}
-            id="username-input"
-            placeholder=" "
-            ref={username}
-            autoComplete="off"
-            aria-describedby="Identifiant Unique de l'utilisateur"
-            onChange={usernameValidation}
-          />
-          <label htmlFor="username-input">Nom d&apos;utilisateur</label>
-        </div>
+      <p
+        ref={errors}
+        className={errMsg ? "errmsg" : "offscreen"}
+        aria-live="assertive"
+      >
+        {errMsg}
+      </p>
 
-        <div className={inputWrapper}>
-          <input
-            type="text"
-            className={input}
-            id="email-input"
-            placeholder=" "
-            ref={email}
-            autoComplete="email"
-          />
-          <label htmlFor="email-input">Email</label>
-        </div>
+      <div className={inputWrapper}>
+        <input
+          type="text"
+          className={input}
+          id="username-input"
+          placeholder=" "
+          ref={username}
+          autoComplete="off"
+          required
+          aria-invalid={validUsername ? "false" : "true"}
+          aria-describedby="uidnote"
+          onChange={usernameValidation}
+          onFocus={() => setUsernameFocus(true)}
+          onBlur={() => setUsernameFocus(false)}
+        />
+        <label htmlFor="username-input">Nom d&apos;utilisateur</label>
+        <p
+          id="uidnote"
+          className={usernameFocus && username && !validUsername ? "instructions" : "offscreen"}
+        >
+          Au moins 6 caractères.<br/>
+          Doit commencer par une lettre<br/>
+          Caractères autorisés: lettres, nombres, tirets (- et _).
+        </p>
+      </div>
 
-        <div className={inputWrapper}>
-          <input
-            type="password"
-            className={input}
-            id="password-input"
-            placeholder=" "
-            ref={pwd}
-            autoComplete="new-password"
-          />
-          <label htmlFor="password-input">Mot de passe</label>
-        </div>
+      <div className={inputWrapper}>
+        <input
+          type="text"
+          className={input}
+          id="email-input"
+          placeholder=" "
+          ref={email}
+          autoComplete="email"
+        />
+        <label htmlFor="email-input">Email</label>
+      </div>
 
-        <div className={inputWrapper}>
-          <input
-            type="password"
-            className={input}
-            id="passwordConfirm-input"
-            placeholder=" "
-            ref={pwdConfirm}
-            autoComplete="off"
-          />
-          <label htmlFor="passwordConfirm-input">Confirmation du mot de passe</label>
-        </div>
+      <div className={inputWrapper}>
+        <input
+          type="password"
+          className={input}
+          id="password-input"
+          placeholder=" "
+          ref={pwd}
+          autoComplete="new-password"
+        />
+        <label htmlFor="password-input">Mot de passe</label>
+      </div>
 
-      <input
-        className={btn}
-        type="submit"
-        role="button"
-        value="M&apos;inscrire"
-      />
+      <div className={inputWrapper}>
+        <input
+          type="password"
+          className={input}
+          id="passwordConfirm-input"
+          placeholder=" "
+          ref={pwdConfirm}
+          autoComplete="off"
+        />
+        <label htmlFor="passwordConfirm-input">
+          Confirmation du mot de passe
+        </label>
+      </div>
+
+      <input className={btn} type="submit" role="button" value="M'inscrire" />
     </form>
   );
 };
