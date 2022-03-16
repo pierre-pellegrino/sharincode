@@ -1,11 +1,28 @@
+@mixin middleBreakpoint {
+  @media screen and (max-width: 1000px) {
+    @content;
+  }
+}
+
+@mixin smallBreakpoint {
+  @media screen and (max-width: 780px) {
+    @content;
+  }
+}
+
 .container {
-  display: flex;
   width: 100%;
-  margin: 0 auto;
-  // max-width: 1300px;
   height: 100%;
 }
 
 .main {
-  flex: 1;
+  margin-left: 18rem;
+
+  @include middleBreakpoint() {
+    margin-left: 5rem;
+  }
+
+  @include smallBreakpoint() {
+    margin: 0 auto;
+  }
 }
