@@ -7,8 +7,6 @@ import NewPostModal from "components/NewPostModal";
 import fakeData from "lib/posts.json";
 
 export default function Home() {
-  const [showNewPostModal] = useAtom(showNewPostModalAtom);
-
   return (
     <section className={styles.main}>
       <Head>
@@ -16,8 +14,6 @@ export default function Home() {
         <meta name="description" content="SnipShare" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      {showNewPostModal && <NewPostModal />}
 
       <h1>Accueil</h1>
 
