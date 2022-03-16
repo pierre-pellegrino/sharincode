@@ -52,7 +52,27 @@
         align-items: center;
         justify-content: center;
         gap: 1rem;
+      }
+
+      .react {
+        display: flex;
+        align-items: center;
+        background-color: var(--hovergrey);
+        padding: 0.25rem;
+        border-radius: 4px;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        -ms-border-radius: 4px;
+        -o-border-radius: 4px;
+
+        p {
+          font-weight: 600;
+          margin-right: 0.25rem;
+        }
         
+        svg {
+          width: 24px;
+        }
       }
 
       .comments {

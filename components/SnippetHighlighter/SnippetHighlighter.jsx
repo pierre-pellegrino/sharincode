@@ -5,7 +5,6 @@ import 'highlight.js/styles/night-owl.css';
 
 const SnippetHighlighter = ({snippet, language}) => {
   const highlightedSnippet = hljs.highlight(snippet, {language: language});
-  console.log(highlightedSnippet)
   return (
     <>
       <pre>
