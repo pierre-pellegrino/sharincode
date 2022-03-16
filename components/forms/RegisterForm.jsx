@@ -8,11 +8,15 @@ import {
   errmsg,
   offscreen,
   instructions,
+  formLink,
 } from "./form.module.scss";
 import cn from "classnames";
 import { EMAIL_REGEX, PWD_REGEX } from "../../lib/constants/validations";
-import APIManager from 'pages/api/axios'
-import {useRouter} from 'next/router';
+import APIManager from "pages/api/axios";
+import { useRouter } from "next/router";
+import { InfoIcon } from "components/icons";
+import ValidationIcon from "components/ValidationIcon";
+import Link from "next/link";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -37,6 +41,10 @@ const LoginForm = () => {
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
 
+  const canSave = [validUsername, validEmail, validPwd, validPwdConfirm].every(
+    Boolean
+  );
+
   useEffect(() => {
     username.current.focus();
   }, []);
@@ -54,36 +62,52 @@ const LoginForm = () => {
   const pwdValidation = () => {
     const result = PWD_REGEX.test(pwd.current.value);
     setValidPwd(result);
-  }
+  };
 
   const pwdConfirmValidation = () => {
     const result = pwd.current.value === pwdConfirm.current.value;
     setValidPwdConfirm(result);
-  }
+  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
+
+    if (!canSave) return setErrMsg("Un (ou plusieurs) champs sont invalides !");
 
     const data = {
       user: {
         username: username.current?.value.toLowerCase(),
         email: email.current?.value,
         password: pwd.current?.value,
-      }
+      },
     };
 
     try {
       const response = await APIManager.register(data);
       console.log(response.data);
+      setSuccess(true);
       router.push("/");
     } catch (error) {
-      console.log(error.message);
+      console.log(error.response);
+      if (!err?.response) {
+        setErrMsg("Oups ! Il semblerait qu'il y ait un problème de serveur...");
+      } else {
+        setErrMsg(error.response.data.error.message)
+      }
+      errors.current.focus();
     }
   };
 
   return (
     <form className={form} onSubmit={handleLogin}>
       <h1> Inscription </h1>
+
+      {success && (
+        <p>
+          Inscription réussie !<br/>
+          Vous allez être redirigé sur la page d&apos;accueil...
+        </p>
+      )}
 
       <p
         ref={errors}
@@ -109,17 +133,15 @@ const LoginForm = () => {
           onBlur={() => setUsernameFocus(false)}
         />
         <label htmlFor="username-input">Nom d&apos;utilisateur</label>
+        <ValidationIcon isValid={validUsername} />
         <p
           id="uidnote"
           className={cn(instructions, {
-            [offscreen]: !(
-              usernameFocus &&
-              username &&
-              !validUsername
-            ),
+            [offscreen]: !(usernameFocus && username && !validUsername),
           })}
         >
-          Au moins 6 caractères.
+          <InfoIcon />
+          Au moins 4 caractères.
           <br />
           Doit commencer par une lettre
           <br />
@@ -143,14 +165,11 @@ const LoginForm = () => {
           onBlur={() => setEmailFocus(false)}
         />
         <label htmlFor="email-input">Email</label>
+        <ValidationIcon isValid={validEmail} />
         <p
           id="emailnote"
           className={cn(instructions, {
-            [offscreen]: !(
-              emailFocus &&
-              email &&
-              !validEmail
-            ),
+            [offscreen]: !(emailFocus && email && !validEmail),
           })}
         >
           Veuillez entrer un email valide.
@@ -173,14 +192,11 @@ const LoginForm = () => {
           onBlur={() => setPwdFocus(false)}
         />
         <label htmlFor="password-input">Mot de passe</label>
+        <ValidationIcon isValid={validPwd} />
         <p
           id="pwdnote"
           className={cn(instructions, {
-            [offscreen]: !(
-              pwdFocus &&
-              pwd &&
-              !validPwd
-            ),
+            [offscreen]: !(pwdFocus && pwd && !validPwd),
           })}
         >
           Au moins 6 caractères.
@@ -205,21 +221,33 @@ const LoginForm = () => {
         <label htmlFor="passwordConfirm-input">
           Confirmation du mot de passe
         </label>
+        <ValidationIcon isValid={validPwdConfirm && validPwd} />
         <p
           id="pwdconfirmnote"
           className={cn(instructions, {
-            [offscreen]: !(
-              pwdConfirmFocus &&
-              pwdConfirm &&
-              !validPwdConfirm
-            ),
+            [offscreen]: !(pwdConfirmFocus && pwdConfirm && !validPwdConfirm),
           })}
         >
           Veuillez réécrire votre mot de passe.
         </p>
       </div>
 
-      <input className={btn} type="submit" role="button" value="M'inscrire" />
+      <input
+        className={btn}
+        tabIndex={0}
+        type="submit"
+        role="button"
+        value="M'inscrire"
+        disabled={!canSave}
+      />
+      <div className={formLink}>
+        <span>Déjà inscrit ?</span>
+        <Link href="/login">
+          <a>
+            {" "}Me connecter
+          </a>
+        </Link>
+      </div>
     </form>
   );
 };

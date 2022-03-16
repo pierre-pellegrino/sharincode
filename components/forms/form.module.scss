@@ -1,4 +1,5 @@
 @use "styles/abstracts/variables" as *;
+@use "sass:color";
 
 .form {
   border: 1px solid $grey;
@@ -45,6 +46,7 @@
     outline: none;
     border: 1px solid $lightgrey;
     position: relative;
+    line-height: 1rem;
 
     &:focus, &:not(.input:placeholder-shown) {
       border-color: black;
@@ -71,18 +73,50 @@
   &:hover {
     opacity: 0.8;
   }
+
+  &:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
 }
 
 .errmsg {
-  
+  color: $red;
+  margin-bottom: 1rem;
 }
 
-.offscreen {
-  display: none;
-}
 
 .instructions {
+  position: relative;
+  background-color: color.scale($red, $alpha: -20%);
+  border-radius: 0.5rem;
+  color: white;
+  padding: 1em;
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  height: auto;
+  transition: all 0.3s ease;
   
+  &.offscreen {
+    height: 0;
+    padding: 0 1em;
+  }
+
+  svg {
+    fill: white;
+    height: 1em;
+    margin-right: 1em;
+  }
+}
+
+.formLink {
+  margin-top: 1rem;
+
+  a {
+    color: $primary;
+  }
 }
 
 @media screen and (max-width: 525px) {
