@@ -6,11 +6,9 @@ import { LANGUAGES } from '../../lib/constants/languages';
 
 const SnippetHighlighter = ({snippet, language}) => {
   const languageObj = LANGUAGES.filter((lang) => lang.name === language)[0];
-  console.log(languageObj);
   const formattedLanguage = languageObj?.short ?? languageObj.mode;
 
   const highlightedSnippet = hljs.highlight(snippet, {language: formattedLanguage});
-  console.log(highlightedSnippet)
   return (
     <>
       <pre>

@@ -1,14 +1,4 @@
-@mixin middleBreakpoint {
-  @media screen and (max-width: 1000px) {
-    @content;
-  }
-}
-
-@mixin smallBreakpoint {
-  @media screen and (max-width: 780px) {
-    @content;
-  }
-}
+@use "styles/abstracts/mixins";
 
 .container {
   width: 100%;
@@ -18,11 +8,11 @@
 .main {
   margin-left: 18rem;
 
-  @include middleBreakpoint() {
+  @include mixins.middleBreakpoint() {
     margin-left: 5rem;
   }
 
-  @include smallBreakpoint() {
+  @include mixins.smallBreakpoint() {
     margin: 0 auto;
   }
 }

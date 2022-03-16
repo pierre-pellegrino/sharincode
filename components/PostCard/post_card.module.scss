@@ -1,19 +1,24 @@
+@use "styles/abstracts/mixins";
+@use "styles/abstracts/variables" as *;
+
 .postCardWrapper {
-  border: 1px solid var(--grey);
+  border: 1px solid $grey;
   background-color: #fff;
   border-radius: 2px;
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
   -ms-border-radius: 2px;
   -o-border-radius: 2px;
-  width: 650px;
+  width: 100%;
+  max-width: 700px;
+  margin: 2px 0;
   
   .top {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0.5rem 1rem;
-    border-bottom: 1px solid var(--lightgrey);
+    border-bottom: 1px solid $lightgrey;
   }
 
   .description {
@@ -38,7 +43,7 @@
 
   .bottom {
     padding: 0.5rem 1rem;
-    border-top: 1px solid var(--lightgrey);
+    border-top: 1px solid $lightgrey;
 
     .reactsWrapper {
       margin-bottom: 1rem;
@@ -81,7 +86,7 @@
         cursor: pointer;
 
         &:hover {
-          background-color: var(--hovergrey);
+          background-color: $hovergrey;
         }
       }
 
@@ -107,9 +112,9 @@
   left: 0;
   width: 250px;
   padding: 0.5rem 1rem;
-  background-color: var(--hovergrey);
+  background-color: $hovergrey;
   z-index: 1;
-  box-shadow: 0 0 2px 1px var(--lightgrey);
+  box-shadow: 0 0 2px 1px $lightgrey;
   border-radius: 4px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;

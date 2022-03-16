@@ -1,14 +1,4 @@
-@mixin middleBreakpoint {
-  @media screen and (max-width: 1000px) {
-    @content;
-  }
-}
-
-@mixin smallBreakpoint {
-  @media screen and (max-width: 780px) {
-    @content;
-  }
-}
+@use "styles/abstracts/mixins";
 
 .header {
   position: fixed;
@@ -22,12 +12,12 @@
   width: 18rem;
   z-index: 20;
 
-  @include middleBreakpoint() {
+  @include mixins.middleBreakpoint() {
     padding: 0;
     width: 5rem;
   }
 
-  @include smallBreakpoint() {
+  @include mixins.smallBreakpoint() {
     top: auto;
     right: 0;
     width: auto;
@@ -52,11 +42,11 @@
     width: 2rem;
   }
   
-  @include middleBreakpoint() {
+  @include mixins.middleBreakpoint() {
     align-items: center;
   }
 
-  @include smallBreakpoint() {
+  @include mixins.smallBreakpoint() {
     flex-direction: row;
     justify-content: space-between;
   }
@@ -80,16 +70,16 @@
   svg {
     margin: 0 1rem;
 
-    @include middleBreakpoint() {
+    @include mixins.middleBreakpoint() {
       margin: 0 1rem;
     }
   }
 
-  @include middleBreakpoint() {
+  @include mixins.middleBreakpoint() {
     padding: 1rem 0;
   }
 
-  @include smallBreakpoint() {
+  @include mixins.smallBreakpoint() {
     padding: 0;
   }
 }
@@ -100,7 +90,7 @@
   font-size: 1.5rem;
   margin: 2rem 0 2rem 1rem;
 
-  @include middleBreakpoint() {
+  @include mixins.middleBreakpoint() {
     margin-top: 1.5rem;
 
     svg:last-of-type {
@@ -108,14 +98,14 @@
     }
   }
 
-  @include smallBreakpoint() {
+  @include mixins.smallBreakpoint() {
     margin: 1rem;
     transform: translateY(-6px);
   }
 }
 
 .text {
-  @include middleBreakpoint() {
+  @include mixins.middleBreakpoint() {
     display: none;
   }
 }
