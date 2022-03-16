@@ -1,7 +1,10 @@
 import { useRef } from 'react';
 import { form, inputWrapper, input, btn } from './form.module.scss';
+import APIManager from 'pages/api/axios'
+import {useRouter} from 'next/router';
 
 const LoginForm = () => {
+  const router = useRouter();
 
   const email = useRef();
   const pwd = useRef();
@@ -15,11 +18,16 @@ const LoginForm = () => {
         username: username.current?.value.toLowerCase(),
         email: email.current?.value,
         password: pwd.current?.value,
-      },
+      }
     };
 
-    // connection
-    console.log("Inscription");
+    try {
+      const response = await APIManager.register(data);
+      console.log(response.data);
+      router.push("/");
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (

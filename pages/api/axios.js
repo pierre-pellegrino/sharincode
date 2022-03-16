@@ -2,11 +2,11 @@ import axios from 'axios'
 import Cookies from 'js-cookie' 
 
 
-const baseurl = 'https://snipshare-api.herokuapp.com/'
+const baseurl = 'https://snipshare-api.herokuapp.com'
 
 const APIRequest = axios.create({ baseURL: baseurl })
 
-APIRequest.interceptors.request.use( ({ headers, config }) => ({
+APIRequest.interceptors.request.use( ({ headers, ...config }) => ({
   ...config,
   headers: {
     ...headers,

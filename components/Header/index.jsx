@@ -3,9 +3,10 @@ import LoggedInNav from "./LoggedInNav";
 import LoggedOutNav from "./LoggedOutNav";
 import { header, navItems, logo, text } from "./header.module.scss";
 import { LogoLeftSide, LogoRightSide } from "../icons";
+import Cookies from 'js-cookie';
 
 const Header = () => {
-  const connected = true;
+  const connected = Cookies.get('token');
 
   return (
     <header className={header}>

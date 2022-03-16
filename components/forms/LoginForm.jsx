@@ -1,7 +1,10 @@
 import { useRef } from 'react';
 import { form, inputWrapper, input, btn } from './form.module.scss';
+import APIManager from 'pages/api/axios'
+import {useRouter} from 'next/router';
 
 const LoginForm = () => {
+  const router = useRouter();
 
   const email = useRef();
   const pwd = useRef();
@@ -16,8 +19,13 @@ const LoginForm = () => {
       },
     };
 
-    // connection
-    console.log("On se connecte");
+    try {
+      const response = await APIManager.login(data);
+      console.log(response.data);
+      router.push("/");
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (
