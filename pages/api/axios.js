@@ -2,7 +2,7 @@ import axios from 'axios'
 import Cookies from 'js-cookie' 
 
 
-const baseurl = 'https://sharincode-api.herokuapp.com/'
+const baseurl = 'https://snipshare-api.herokuapp.com/'
 
 const APIRequest = axios.create({ baseURL: baseurl })
 
