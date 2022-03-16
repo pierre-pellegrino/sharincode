@@ -3,6 +3,7 @@ import { LANGUAGES } from "lib/constants/languages";
 import { useRef, useState } from "react";
 import { form, inputWrapper } from "../new_post_modal.module.scss";
 import { btn } from "components/forms/form.module.scss";
+import { useEffect } from "react/cjs/react.development";
 
 const NewPostForm = () => {
   const descriptionRef = useRef();
@@ -10,6 +11,10 @@ const NewPostForm = () => {
   const [description, setDescription] = useState("");
   const [selectedLanguage, setSelectedLanguage] = useState(`${LANGUAGES[0].name} ${LANGUAGES[0].mode}`);
   const [snippet, setSnippet] = useState("");
+
+  useEffect(() => {
+    descriptionRef.current.focus();
+  }, []);
 
   const canSave = [
     snippet,
