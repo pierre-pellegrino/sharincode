@@ -16,18 +16,19 @@
     border-bottom: 1px solid var(--lightgrey);
   }
 
+  .description {
+    padding: 1rem 1rem 0 1rem;
+  }
+
   .snippet {
+    padding: 0.25rem 0;
     margin: 1rem;
-    height: 300px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    //A enlever pour mettre le vrai snippet  //
-    background-color: #555;
-    color: #fff;
-    font-weight: 600;
-    font-size: 2rem;
-    //////////////////////////////////////////
+
+    code {
+      min-height: 100px;
+      max-height: 400px;
+      overflow: auto;
+    }
   }
 
   .bottom {
