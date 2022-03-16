@@ -9,6 +9,7 @@ const SnippetHighlighter = ({snippet, language}) => {
   const formattedLanguage = languageObj?.short ?? languageObj.mode;
 
   const highlightedSnippet = hljs.highlight(snippet, {language: formattedLanguage});
+  
   return (
     <>
       <pre>
