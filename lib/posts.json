@@ -3,25 +3,25 @@
     {
       "id": 1,
       "description": "Petite astuce #JavaScript plus ou moins connue chez les développeurs débutants. Si vous avez besoin d'afficher la valeur de plusieurs variables via console.log(), passez-lui un objet en argument. Ce sera plus rapide à écrire/maintenir et tout aussi efficace pour déboguer !",
-      "language": "javascript",
+      "language": "JavaScript",
       "snippet": "let vitesse = 12;\nlet posX = 25;\nlet poxY = 8;\n\nconsole.table({ vitesse, posX, posY });\n"
     },
     {
       "id": 2,
       "description": "Create image Carousel using two lines of CSS",
-      "language": "css",
+      "language": "CSS",
       "snippet": ".container {\n  scroll-snap-type: x mandatory;\n}\n\n.slides {\n  scroll-snap-align: start;\n}\n"
     },
     {
       "id": 3,
       "description": "Use \"translate\" attribute and set it to \"no\" for your company name. So that in case, the webpage is translated into another language, your brand name will remain intact.",
-      "language": "html",
+      "language": "HTML/XML",
       "snippet": "<footer>\n  <p translate=\"no\">Company name</p>\n</footer>"
     },
     {
       "id": 4,
       "description": "Petite astuce #JavaScript plus ou moins connue chez les développeurs débutants. Si vous avez besoin d'afficher la valeur de plusieurs variables via console.log(), passez-lui un objet en argument. Ce sera plus rapide à écrire/maintenir et tout aussi efficace pour déboguer !",
-      "language": "javascript",
+      "language": "JavaScript",
       "snippet": "let vitesse = 12;let vitesse = 12;let vitesse = 12;let vitesse = 12;let vitesse = 12;let vitesse = 12;let vitesse = 12;let vitesse = 12;\nlet vitesse = 12;\nlet posX = 25;\nlet poxY = 8;\n\nconsole.table({ vitesse, posX, posY });\nlet vitesse = 12;\nlet posX = 25;\nlet poxY = 8;\n\nconsole.table({ vitesse, posX, posY });\nlet vitesse = 12;\nlet posX = 25;\nlet poxY = 8;\n\nconsole.table({ vitesse, posX, posY });\nlet vitesse = 12;\nlet posX = 25;\nlet poxY = 8;\n\nconsole.table({ vitesse, posX, posY });\nlet vitesse = 12;\nlet posX = 25;\nlet poxY = 8;\n\nconsole.table({ vitesse, posX, posY });\n"
     }
   ]

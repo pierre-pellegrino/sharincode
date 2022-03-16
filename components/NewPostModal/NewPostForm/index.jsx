@@ -1,5 +1,5 @@
 import EditorContainer from "components/EditorContainer";
-import { LANGUAGES } from "lib/contants";
+import { LANGUAGES } from "lib/constants/languages";
 import { useRef, useState } from "react";
 import { form, inputWrapper } from "../new_post_modal.module.scss";
 import { btn } from "components/forms/form.module.scss";

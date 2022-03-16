@@ -1,14 +1,4 @@
-:root {
-  --primary: hsl(212, 100%, 48%);
-  --lightbg: hsl(0, 0%, 96%);
-  --red: hsl(355, 78%, 56%);
-  --green: hsl(101, 100%, 35%);
-  --grey: hsl(0, 0%, 76%);
-  --lightgrey: hsl(0, 0%, 84%);
-  --hovergrey: hsl(0, 0%, 95%);
-}
-
-$grey: hsl(0, 0, 76%);
+@use "styles/abstracts/variables" as *;
 
 *,
 *::before,
@@ -23,7 +13,7 @@ html, body {
   margin: 0;
   min-height: 100vh;
   font-family: 'Work Sans', sans-serif;
-  background-color: var(--lightbg);
+  background-color: $lightbg;
 }
 
 h1, h2, h3 {
@@ -46,7 +36,7 @@ a {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: var(--grey);
+  background-color: $grey;
   border-radius: 1rem;
   -webkit-border-radius: 1rem;
   -moz-border-radius: 1rem;
@@ -54,7 +44,7 @@ a {
   -o-border-radius: 1rem;
 }
 ::-webkit-scrollbar-track {
-  background-color: var(--lightgrey);
+  background-color: $lightgrey;
   border-radius: 1rem;
   -webkit-border-radius: 1rem;
   -moz-border-radius: 1rem;
@@ -66,9 +56,9 @@ a {
   display: block;
 }
 
-@supports (scrollbar-color: var(--grey) var(--lightgrey) ) {
+@supports (scrollbar-color: $grey $lightgrey ) {
   * {
     scrollbar-width: auto;
-    scrollbar-color: darken($grey, 20%) var(--lightgrey);
+    scrollbar-color: darken($grey, 20%) $lightgrey;
   }
 }
