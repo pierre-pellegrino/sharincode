@@ -1,6 +1,6 @@
 import { editorContainer } from "./editor.module.scss";
 import dynamic from "next/dynamic";
-import { LANGUAGES } from "lib/contants";
+import { LANGUAGES } from "lib/constants/languages";
 
 const Editor = dynamic(
   () => {
