@@ -1,11 +1,11 @@
+@use "styles/abstracts/variables" as *;
+
 .profileIcon {
   display: flex;
   align-items: center;
   gap: 1rem;
 
   &Picture {
-    width: 48px;
-    height: 48px;
 
     img {
       object-fit: cover;
@@ -19,5 +19,15 @@
       border: 1px solid #c1c1c1;
     }
   }
+}
 
+.profilePage {
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid $grey;
+
+  .profileIconText {
+    font-size: 2rem;
+    padding-left: 1em;
+  }
 }
