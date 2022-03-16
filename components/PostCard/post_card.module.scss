@@ -1,38 +1,49 @@
+@use "styles/abstracts/mixins";
+@use "styles/abstracts/variables" as *;
+
 .postCardWrapper {
-  border: 1px solid var(--grey);
+  border: 1px solid $grey;
   background-color: #fff;
   border-radius: 2px;
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
   -ms-border-radius: 2px;
   -o-border-radius: 2px;
-  width: 650px;
+  width: 100%;
+  max-width: 700px;
+  margin: 2px 0;
   
   .top {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0.5rem 1rem;
-    border-bottom: 1px solid var(--lightgrey);
+    border-bottom: 1px solid $lightgrey;
+  }
+
+  .description {
+    padding: 1rem 1rem 0 1rem;
   }
 
   .snippet {
+    padding: 0.25rem 0;
     margin: 1rem;
-    height: 300px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    //A enlever pour mettre le vrai snippet  //
-    background-color: #555;
-    color: #fff;
-    font-weight: 600;
-    font-size: 2rem;
-    //////////////////////////////////////////
+
+    code {
+      min-height: 100px;
+      max-height: 400px;
+      overflow: auto;
+      border-radius: 0.25rem;
+      -webkit-border-radius: 0.25rem;
+      -moz-border-radius: 0.25rem;
+      -ms-border-radius: 0.25rem;
+      -o-border-radius: 0.25rem;
+    }
   }
 
   .bottom {
     padding: 0.5rem 1rem;
-    border-top: 1px solid var(--lightgrey);
+    border-top: 1px solid $lightgrey;
 
     .reactsWrapper {
       margin-bottom: 1rem;
@@ -46,7 +57,27 @@
         align-items: center;
         justify-content: center;
         gap: 1rem;
+      }
+
+      .reactItem {
+        display: flex;
+        align-items: center;
+        background-color: var(--hovergrey);
+        padding: 0.25rem;
+        border-radius: 4px;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        -ms-border-radius: 4px;
+        -o-border-radius: 4px;
+
+        p {
+          font-weight: 600;
+          margin-right: 0.25rem;
+        }
         
+        svg {
+          width: 24px;
+        }
       }
 
       .comments {
@@ -75,7 +106,7 @@
         cursor: pointer;
 
         &:hover {
-          background-color: var(--hovergrey);
+          background-color: $hovergrey;
         }
       }
 
@@ -101,9 +132,9 @@
   left: 0;
   width: 250px;
   padding: 0.5rem 1rem;
-  background-color: var(--hovergrey);
+  background-color: $hovergrey;
   z-index: 1;
-  box-shadow: 0 0 2px 1px var(--lightgrey);
+  box-shadow: 0 0 2px 1px $lightgrey;
   border-radius: 4px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;

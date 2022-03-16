@@ -1,5 +1,7 @@
+@use "styles/abstracts/variables" as *;
+
 .form {
-  border: 1px solid var(--grey);
+  border: 1px solid $grey;
   padding: 1rem 1rem 1.5rem;
   display: flex;
   flex-direction: column;
@@ -41,7 +43,7 @@
     width: 100%;
     padding: 0.5rem 1rem;
     outline: none;
-    border: 1px solid var(--lightgrey);
+    border: 1px solid $lightgrey;
     position: relative;
 
     &:focus, &:not(.input:placeholder-shown) {
@@ -54,7 +56,7 @@
   margin-top: 1.5rem;
   outline: none;
   padding: 0.5rem;
-  background-color: var(--primary);
+  background-color: $primary;
   color: white;
   font-family: 'Work Sans', sans-serif;
   text-transform: uppercase;

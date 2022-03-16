@@ -11,8 +11,11 @@ import {
 } from "./form.module.scss";
 import cn from "classnames";
 import { EMAIL_REGEX, PWD_REGEX } from "../../lib/constants/validations";
+import APIManager from 'pages/api/axios'
+import {useRouter} from 'next/router';
 
 const LoginForm = () => {
+  const router = useRouter();
   const errors = useRef();
 
   const username = useRef();
@@ -66,11 +69,16 @@ const LoginForm = () => {
         username: username.current?.value.toLowerCase(),
         email: email.current?.value,
         password: pwd.current?.value,
-      },
+      }
     };
 
-    // connection
-    console.log("Inscription");
+    try {
+      const response = await APIManager.register(data);
+      console.log(response.data);
+      router.push("/");
+    } catch (error) {
+      console.log(error.message);
+    }
   };
 
   return (

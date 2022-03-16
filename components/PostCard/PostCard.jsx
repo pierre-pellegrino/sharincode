@@ -1,37 +1,55 @@
 import { ApprovalIcon, LikeIcon, IdeaIcon } from "components/icons";
 import React from "react";
 import ProfileIcon from "../ProfileIcon/ProfileIcon";
+import SnippetHighlighter from "../SnippetHighlighter/SnippetHighlighter";
 import {
   postCardWrapper,
   top,
-  snippet,
+  description as descriptionStyle,
+  snippet as snippetStyle,
   bottom,
   btnsWrapper,
   btn,
   reactsWrapper,
   reacts,
+  reactItem,
   comments,
   openReacts,
   reactsModal,
 } from "./post_card.module.scss";
 
-const PostCard = () => {
+const PostCard = ({ language, snippet, description, theme }) => {
   return (
     <div className={postCardWrapper}>
       <div className={top}>
         <ProfileIcon />
         <p>Posté il y a 3 heures.</p>
       </div>
-      <div className={snippet}>
-        {/* A ajouter quand le système de snippets sera prêt */}
-        <p> Snippet </p>
+      <div className={descriptionStyle}>
+        {description}
+      </div>
+      <div className={snippetStyle}>
+        <SnippetHighlighter 
+          snippet={snippet} 
+          language={language} 
+          theme={theme}
+        />
       </div>
       <div className={bottom}>
         <div className={reactsWrapper}>
           <div className={reacts}>
-            <p>5 💡</p>
-            <p>3 ❤</p>
-            <p>12 🚀</p>
+            <div className={reactItem}>
+              <p>5 {/* A modifier par le nombre en back */}</p>
+              <IdeaIcon />
+            </div>
+            <div className={reactItem}>
+              <p>3 {/* A modifier par le nombre en back */}</p>
+              <LikeIcon />
+            </div>
+            <div className={reactItem}>
+              <p>12 {/* A modifier par le nombre en back */}</p>
+              <ApprovalIcon />
+            </div>
           </div>
           <div className={comments}>
             <p>2 commentaires</p>

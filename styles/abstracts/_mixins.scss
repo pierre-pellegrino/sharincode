@@ -1,0 +1,11 @@
+@mixin middleBreakpoint {
+  @media screen and (max-width: 1000px) {
+    @content;
+  }
+}
+
+@mixin smallBreakpoint {
+  @media screen and (max-width: 780px) {
+    @content;
+  }
+}
