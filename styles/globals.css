@@ -37,8 +37,3 @@ a {
 .CodeMirror {
   height: 100% !important;
 }
-
-.customScroll {
-  scrollbar-width: thin;
-  scrollbar-color: red;
-}
