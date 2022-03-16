@@ -32,12 +32,10 @@ const LoggedInNav = () => {
         </Link>
       </li>
       <li>
-        <Link href="#">
-          <a className={navItem}>
-            <SignOutIcon />
-            <span className={text} onClick={() => handleDisconnect()}>Me déconnecter</span>
-          </a>
-        </Link>
+        <button className={navItem} onClick={() => handleDisconnect()}>
+          <SignOutIcon />
+          <span className={text}>Me déconnecter</span>
+        </button>
       </li>
     </ul>
   );
