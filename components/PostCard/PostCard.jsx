@@ -4,7 +4,7 @@ import ProfileIcon from "../ProfileIcon/ProfileIcon";
 import {
   postCardWrapper,
   top,
-  snippet,
+  snippet as snippetStyle,
   bottom,
   btnsWrapper,
   btn,
@@ -15,16 +15,16 @@ import {
   reactsModal,
 } from "./post_card.module.scss";
 
-const PostCard = () => {
+const PostCard = ({ language, snippet, description }) => {
   return (
     <div className={postCardWrapper}>
       <div className={top}>
         <ProfileIcon />
         <p>Posté il y a 3 heures.</p>
       </div>
-      <div className={snippet}>
-        {/* A ajouter quand le système de snippets sera prêt */}
-        <p> Snippet </p>
+      {description}
+      <div className={snippetStyle}>
+        {snippet}
       </div>
       <div className={bottom}>
         <div className={reactsWrapper}>
