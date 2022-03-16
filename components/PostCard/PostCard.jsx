@@ -1,6 +1,7 @@
 import { ApprovalIcon, LikeIcon, IdeaIcon } from "components/icons";
 import React from "react";
 import ProfileIcon from "../ProfileIcon/ProfileIcon";
+import SnippetHighlighter from "../SnippetHighlighter/SnippetHighlighter";
 import {
   postCardWrapper,
   top,
@@ -15,7 +16,7 @@ import {
   reactsModal,
 } from "./post_card.module.scss";
 
-const PostCard = ({ language, snippet, description }) => {
+const PostCard = ({ language, snippet, description, theme }) => {
   return (
     <div className={postCardWrapper}>
       <div className={top}>
@@ -24,7 +25,12 @@ const PostCard = ({ language, snippet, description }) => {
       </div>
       {description}
       <div className={snippetStyle}>
-        {snippet}
+        {/* {snippet} */}
+        <SnippetHighlighter 
+          snippet={snippet} 
+          language={language} 
+          theme={theme}
+        />
       </div>
       <div className={bottom}>
         <div className={reactsWrapper}>
