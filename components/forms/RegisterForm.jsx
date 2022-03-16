@@ -1,4 +1,8 @@
-import { USERNAME_REGEX } from "lib/constants/validations";
+import {
+  USERNAME_REGEX,
+  EMAIL_REGEX,
+  PWD_REGEX,
+} from "lib/constants/validations";
 import { useEffect, useRef, useState } from "react";
 import {
   form,
@@ -11,7 +15,6 @@ import {
   formLink,
 } from "./form.module.scss";
 import cn from "classnames";
-import { EMAIL_REGEX, PWD_REGEX } from "../../lib/constants/validations";
 import APIManager from "pages/api/axios";
 import { useRouter } from "next/router";
 import { InfoIcon } from "components/icons";
@@ -48,6 +51,15 @@ const LoginForm = () => {
   useEffect(() => {
     username.current.focus();
   }, []);
+
+  useEffect(() => {
+    setErrMsg("");
+  }, [
+    usernameFocus,
+    emailFocus,
+    pwdFocus,
+    pwdConfirmFocus,
+  ]);
 
   const usernameValidation = () => {
     const result = USERNAME_REGEX.test(username.current.value);
@@ -87,12 +99,12 @@ const LoginForm = () => {
       console.log(response.data);
       setSuccess(true);
       router.push("/");
-    } catch (error) {
-      console.log(error.response);
+    } catch (err) {
+      console.log(err.response);
       if (!err?.response) {
-        setErrMsg("Oups ! Il semblerait qu'il y ait un problème de serveur...");
+        setErrMsg("Oups ! Pas de réponse du serveur...");
       } else {
-        setErrMsg(error.response.data.error.message)
+        setErrMsg(err.response.data.error.message);
       }
       errors.current.focus();
     }
@@ -104,7 +116,7 @@ const LoginForm = () => {
 
       {success && (
         <p>
-          Inscription réussie !<br/>
+          Inscription réussie !<br />
           Vous allez être redirigé sur la page d&apos;accueil...
         </p>
       )}
@@ -243,9 +255,7 @@ const LoginForm = () => {
       <div className={formLink}>
         <span>Déjà inscrit ?</span>
         <Link href="/login">
-          <a>
-            {" "}Me connecter
-          </a>
+          <a> Me connecter</a>
         </Link>
       </div>
     </form>
