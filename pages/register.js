@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import RegisterForm from '../components/forms/RegisterForm';
-import styles from '../styles/Home.module.css';
+import styles from '/styles/Home.module.scss';
 
 const Login = () => {
   return (
