@@ -3,34 +3,39 @@ import { useRef, useEffect, useState } from "react";
 import { form, inputWrapper, input, btn, errmsg, offscreen } from "./form.module.scss";
 import APIManager from "pages/api/axios";
 import { useRouter } from "next/router";
+import cn from "classnames";
 
 const LoginForm = () => {
   const router = useRouter();
   const errors = useRef();
 
-  const email = useRef();
-  const pwd = useRef();
+  const emailRef = useRef();
+
+  const [email, setEmail] = useState("");
+  const [pwd, setPwd] = useState("");
 
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
 
-  const canSave = [validEmail, validPwd].every(Boolean);
+  const canSave = [email, pwd].every(Boolean);
 
   useEffect(() => {
-    email.current.focus();
+    emailRef.current.focus();
   }, []);
 
   useEffect(() => {
     setErrMsg("");
-  }, [email.current?.value, pwd.current?.value]);
+  }, [email, pwd]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
+    if (!canSave) return setErrMsg("Un (ou plusieurs) champs sont invalides !");
+
     const data = {
       user: {
-        email: email.current?.value,
-        password: pwd.current?.value,
+        email,
+        password: pwd,
       },
     };
 
@@ -75,8 +80,10 @@ const LoginForm = () => {
           className={input}
           id="email-input"
           placeholder=" "
-          ref={email}
+          ref={emailRef}
           autoComplete="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           required
         />
         <label htmlFor="email-input">Email</label>
@@ -88,8 +95,9 @@ const LoginForm = () => {
           className={input}
           id="password-input"
           placeholder=" "
-          ref={pwd}
           autoComplete="current-password"
+          value={pwd}
+          onChange={(e) => setPwd(e.target.value)}
           required
         />
         <label htmlFor="password-input">Mot de passe</label>

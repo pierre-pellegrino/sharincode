@@ -23,21 +23,23 @@ import Link from "next/link";
 
 const LoginForm = () => {
   const router = useRouter();
+
+  const usernameRef = useRef();
   const errors = useRef();
 
-  const username = useRef();
+  const [username, setUsername] = useState("");
   const [validUsername, setValidUsername] = useState(false);
   const [usernameFocus, setUsernameFocus] = useState(false);
 
-  const email = useRef();
+  const [email, setEmail] = useState("");
   const [validEmail, setValidEmail] = useState(false);
   const [emailFocus, setEmailFocus] = useState(false);
 
-  const pwd = useRef();
+  const [pwd, setPwd] = useState("");
   const [validPwd, setValidPwd] = useState(false);
   const [pwdFocus, setPwdFocus] = useState(false);
 
-  const pwdConfirm = useRef();
+  const [pwdConfirm, setPwdConfirm] = useState("");
   const [validPwdConfirm, setValidPwdConfirm] = useState(false);
   const [pwdConfirmFocus, setPwdConfirmFocus] = useState(false);
 
@@ -49,37 +51,37 @@ const LoginForm = () => {
   );
 
   useEffect(() => {
-    username.current.focus();
+    usernameRef.current.focus();
   }, []);
 
   useEffect(() => {
     setErrMsg("");
   }, [
-    usernameFocus,
-    emailFocus,
-    pwdFocus,
-    pwdConfirmFocus,
+    username,
+    email,
+    pwd,
+    pwdConfirm
   ]);
 
-  const usernameValidation = () => {
-    const result = USERNAME_REGEX.test(username.current.value);
+  useEffect(() => {
+    const result = USERNAME_REGEX.test(username);
     setValidUsername(result);
-  };
+  }, [username]);
 
-  const emailValidation = () => {
-    const result = EMAIL_REGEX.test(email.current.value);
+  useEffect(() => {
+    const result = EMAIL_REGEX.test(email);
     setValidEmail(result);
-  };
+  }, [email]);
 
-  const pwdValidation = () => {
-    const result = PWD_REGEX.test(pwd.current.value);
+  useEffect(() => {
+    const result = PWD_REGEX.test(pwd);
     setValidPwd(result);
-  };
+  }, [pwd]);
 
-  const pwdConfirmValidation = () => {
-    const result = pwd.current.value === pwdConfirm.current.value;
+  useEffect(() => {
+    const result = pwd === pwdConfirm;
     setValidPwdConfirm(result);
-  };
+  }, [pwd, pwdConfirm]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -88,9 +90,9 @@ const LoginForm = () => {
 
     const data = {
       user: {
-        username: username.current?.value.toLowerCase(),
-        email: email.current?.value,
-        password: pwd.current?.value,
+        username: username.toLowerCase(),
+        email: email,
+        password: pwd,
       },
     };
 
@@ -135,12 +137,13 @@ const LoginForm = () => {
           className={input}
           id="username-input"
           placeholder=" "
-          ref={username}
+          ref={usernameRef}
           autoComplete="off"
           required
           aria-invalid={validUsername ? "false" : "true"}
           aria-describedby="uidnote"
-          onChange={usernameValidation}
+          value={username}
+          onChange={(e) => setUsername(e.target.value.toLocaleLowerCase())}
           onFocus={() => setUsernameFocus(true)}
           onBlur={() => setUsernameFocus(false)}
         />
@@ -167,12 +170,12 @@ const LoginForm = () => {
           className={input}
           id="email-input"
           placeholder=" "
-          ref={email}
           autoComplete="email"
           required
           aria-invalid={validEmail ? "false" : "true"}
           aria-describedby="emailnote"
-          onChange={emailValidation}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           onFocus={() => setEmailFocus(true)}
           onBlur={() => setEmailFocus(false)}
         />
@@ -194,12 +197,12 @@ const LoginForm = () => {
           className={input}
           id="password-input"
           placeholder=" "
-          ref={pwd}
           autoComplete="new-password"
           required
           aria-invalid={validPwd ? "false" : "true"}
           aria-describedby="pwdnote"
-          onChange={pwdValidation}
+          value={pwd}
+          onChange={(e) => setPwd(e.target.value)}
           onFocus={() => setPwdFocus(true)}
           onBlur={() => setPwdFocus(false)}
         />
@@ -221,12 +224,12 @@ const LoginForm = () => {
           className={input}
           id="passwordConfirm-input"
           placeholder=" "
-          ref={pwdConfirm}
           autoComplete="new-password"
           required
           aria-invalid={validPwdConfirm ? "false" : "true"}
           aria-describedby="pwdconfirmnote"
-          onChange={pwdConfirmValidation}
+          value={pwdConfirm}
+          onChange={(e) => setPwdConfirm(e.target.value)}
           onFocus={() => setPwdConfirmFocus(true)}
           onBlur={() => setPwdConfirmFocus(false)}
         />
