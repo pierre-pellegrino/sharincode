@@ -8,6 +8,8 @@
   --hovergrey: hsl(0, 0%, 95%);
 }
 
+$grey: hsl(0, 0, 76%);
+
 *,
 *::before,
 *::after {
@@ -66,7 +68,7 @@ a {
 
 @supports (scrollbar-color: var(--grey) var(--lightgrey) ) {
   * {
-    scrollbar-width: thin;
-    scrollbar-color: var(--grey) var(--lightgrey);
+    scrollbar-width: auto;
+    scrollbar-color: darken($grey, 20%) var(--lightgrey);
   }
 }
