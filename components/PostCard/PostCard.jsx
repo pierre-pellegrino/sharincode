@@ -12,6 +12,7 @@ import {
   btn,
   reactsWrapper,
   reacts,
+  reactItem,
   comments,
   openReacts,
   reactsModal,
@@ -37,9 +38,18 @@ const PostCard = ({ language, snippet, description, theme }) => {
       <div className={bottom}>
         <div className={reactsWrapper}>
           <div className={reacts}>
-            <p>5 💡</p>
-            <p>3 ❤</p>
-            <p>12 🚀</p>
+            <div className={reactItem}>
+              <p>5 {/* A modifier par le nombre en back */}</p>
+              <IdeaIcon />
+            </div>
+            <div className={reactItem}>
+              <p>3 {/* A modifier par le nombre en back */}</p>
+              <LikeIcon />
+            </div>
+            <div className={reactItem}>
+              <p>12 {/* A modifier par le nombre en back */}</p>
+              <ApprovalIcon />
+            </div>
           </div>
           <div className={comments}>
             <p>2 commentaires</p>
