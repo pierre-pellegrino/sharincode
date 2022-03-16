@@ -5,6 +5,7 @@ import SnippetHighlighter from "../SnippetHighlighter/SnippetHighlighter";
 import {
   postCardWrapper,
   top,
+  description as descriptionStyle,
   snippet as snippetStyle,
   bottom,
   btnsWrapper,
@@ -23,7 +24,9 @@ const PostCard = ({ language, snippet, description, theme }) => {
         <ProfileIcon />
         <p>Posté il y a 3 heures.</p>
       </div>
-      {description}
+      <div className={descriptionStyle}>
+        {description}
+      </div>
       <div className={snippetStyle}>
         {/* {snippet} */}
         <SnippetHighlighter 

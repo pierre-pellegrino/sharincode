@@ -17,6 +17,12 @@
       "description": "Use \"translate\" attribute and set it to \"no\" for your company name. So that in case, the webpage is translated into another language, your brand name will remain intact.",
       "language": "html",
       "snippet": "<footer>\n  <p translate=\"no\">Company name</p>\n</footer>"
+    },
+    {
+      "id": 4,
+      "description": "Petite astuce #JavaScript plus ou moins connue chez les développeurs débutants. Si vous avez besoin d'afficher la valeur de plusieurs variables via console.log(), passez-lui un objet en argument. Ce sera plus rapide à écrire/maintenir et tout aussi efficace pour déboguer !",
+      "language": "javascript",
+      "snippet": "let vitesse = 12;\nlet posX = 25;\nlet poxY = 8;\n\nconsole.table({ vitesse, posX, posY });\nlet vitesse = 12;\nlet posX = 25;\nlet poxY = 8;\n\nconsole.table({ vitesse, posX, posY });\nlet vitesse = 12;\nlet posX = 25;\nlet poxY = 8;\n\nconsole.table({ vitesse, posX, posY });\nlet vitesse = 12;\nlet posX = 25;\nlet poxY = 8;\n\nconsole.table({ vitesse, posX, posY });\nlet vitesse = 12;\nlet posX = 25;\nlet poxY = 8;\n\nconsole.table({ vitesse, posX, posY });\n"
     }
   ]
 }

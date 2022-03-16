@@ -1,7 +1,7 @@
 import React from 'react';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/night-owl.css';
-import 'highlight.js/styles/androidstudio.css';
+// import 'highlight.js/styles/androidstudio.css';
 
 const SnippetHighlighter = ({snippet, language}) => {
   const highlightedSnippet = hljs.highlight(snippet, {language: language});
@@ -9,7 +9,7 @@ const SnippetHighlighter = ({snippet, language}) => {
   return (
     <>
       <pre>
-        <code dangerouslySetInnerHTML={{__html: highlightedSnippet.value}}></code>
+        <code className="hljs" dangerouslySetInnerHTML={{__html: highlightedSnippet.value}}></code>
       </pre>
     </>
   );
