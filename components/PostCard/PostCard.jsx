@@ -17,13 +17,15 @@ import {
   openReacts,
   reactsModal,
 } from "./post_card.module.scss";
+import {formatDistanceToNow} from 'date-fns';
+import {en, fr} from 'date-fns/locale'
 
-const PostCard = ({ language, snippet, description, theme }) => {
+const PostCard = ({ language, snippet, description, theme, date }) => {
   return (
     <div className={postCardWrapper}>
       <div className={top}>
         <ProfileIcon />
-        <p>Posté il y a 3 heures.</p>
+        <p>{formatDistanceToNow(new Date(date), {addSuffix: true, locale: fr})}</p>
       </div>
       <div className={descriptionStyle}>
         {description}
