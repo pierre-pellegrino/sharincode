@@ -1,6 +1,6 @@
 import { useAtom } from "jotai";
 import Link from "next/link";
-import { showNewPostModalAtom } from "store";
+import { showNewPostModalAtom, userAtom } from "store";
 import { FSocietyMaskIcon, LampIcon, SignOutIcon } from "components/icons";
 import { navItems, navItem, text } from "../header.module.scss";
 import Cookies from 'js-cookie';
@@ -10,9 +10,11 @@ import NewPostModal from "components/NewPostModal";
 const LoggedInNav = () => {
   const router = useRouter();
   const [showNewPostModal, setShowNewPostModal] = useAtom(showNewPostModalAtom);
+  const [user, setUser] = useAtom(userAtom);
 
   const handleDisconnect = () => {
     Cookies.remove('token');
+    setUser(null);
     router.push('/');
   }
 
@@ -34,7 +36,7 @@ const LoggedInNav = () => {
           <Link href="#">
             <a className={navItem} aria-label="Accéder à la page de mon compte.">
               <FSocietyMaskIcon />
-              <span className={text}>Mon Compte</span>
+              <span className={text}>{user.username}</span>
             </a>
           </Link>
         </li>
@@ -42,7 +44,7 @@ const LoggedInNav = () => {
           <button
             className={navItem}
             aria-label="Bouton de déconnexion"
-            onClick={() => handleDisconnect()}
+            onClick={handleDisconnect}
           >
             <SignOutIcon />
             <span className={text}>Me déconnecter</span>

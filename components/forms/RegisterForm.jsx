@@ -20,6 +20,9 @@ import { useRouter } from "next/router";
 import { InfoIcon } from "components/icons";
 import ValidationIcon from "components/ValidationIcon";
 import Link from "next/link";
+import { useAtom } from "jotai";
+import { userAtom } from "store";
+import { unstable_renderSubtreeIntoContainer } from "react-dom";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -49,6 +52,8 @@ const LoginForm = () => {
   const canSave = [validUsername, validEmail, validPwd, validPwdConfirm].every(
     Boolean
   );
+
+  const [_, setUser] = useAtom(userAtom);
 
   useEffect(() => {
     usernameRef.current.focus();
@@ -100,6 +105,7 @@ const LoginForm = () => {
       const response = await APIManager.register(data);
       console.log(response.data);
       setSuccess(true);
+      setUser(response.data);
       router.push("/");
     } catch (err) {
       console.log(err.response);
