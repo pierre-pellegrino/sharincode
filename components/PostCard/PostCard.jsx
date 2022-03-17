@@ -23,7 +23,8 @@ import {
 import {formatDistanceToNow} from 'date-fns';
 import {en, fr} from 'date-fns/locale'
 
-const PostCard = ({ language, snippet, description, theme, date, author, detail, id }) => {
+const PostCard = ({ language, snippet, description, theme, date, author, detail, id, commentNb }) => {
+  const nbOfComments = commentNb.reduce((acc, i) => acc += 1, 0)
   return (
     <div className={`${postCardWrapper} ${detail && postCardDetailPage}`}>
       <div className={top}>
@@ -59,7 +60,7 @@ const PostCard = ({ language, snippet, description, theme, date, author, detail,
             </div>
           </div>
           <div className={comments}>
-            <p>2 commentaires</p>
+            <p>{nbOfComments} commentaire{nbOfComments > 1 && "s"}</p>
           </div>
         </div>
         <div className={btnsWrapper}>
