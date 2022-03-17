@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["snipshare-api-staging.herokuapp.com", "snipshare-api.herokuapp.com", "localhost"],
+    domains: ["snipshare-api-staging.herokuapp.com", "snipshare-api.herokuapp.com", "staging-xs3.herokuapp.com"],
   }
 }
 

@@ -16,9 +16,9 @@ const PostDetailPage = ({id, data, username}) => {
       </Head>
 
       <PostCard 
-        language={"JavaScript"}
+        // language={"JavaScript"}
         //  Working except for Sass like wtf
-        // language={post.snippets[0]?.language.replace('[', '').replace(']', '').replaceAll('"', '')}
+        language={post.snippets[0]?.language.replace('[', '').replace(']', '').replaceAll('"', '')}
         description={post.description}
         snippet={post.snippets[0]?.content || "There is no code yet."}
         key={post.id}
