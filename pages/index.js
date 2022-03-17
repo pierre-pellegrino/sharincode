@@ -20,7 +20,7 @@ export default function Home({data}) {
       {console.log(data[0].post)}
       {data.map((post) => (
         <PostCard
-          // language={"JavaScript"}
+          language={"JavaScript"}
           // Modifier les seed pour n'inclure que les langages pris en charge puis décommenter en dessous
           // language={post.post.snippets[0]?.language.replace('[', '').replace(']', '').replaceAll('"', '')}
           description={post.post.description}

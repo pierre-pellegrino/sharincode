@@ -45,6 +45,7 @@ const NewPostForm = () => {
       }
 
       const response = await APIManager.createPost(data);
+      console.log(response.data)
       router.push(`/posts/${response.data.post.id}`);
       setShowNewPostModalAtom(false);
 
