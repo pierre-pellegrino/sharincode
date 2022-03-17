@@ -3,7 +3,7 @@ import { LANGUAGES } from "lib/constants/languages";
 import { useRef, useState } from "react";
 import { form, inputWrapper } from "../new_post_modal.module.scss";
 import { btn } from "components/forms/form.module.scss";
-import { useEffect } from "react/cjs/react.development";
+import { useEffect } from "react";
 import APIManager from "pages/api/axios";
 import {useRouter} from "next/router";
 import {useAtom} from 'jotai';

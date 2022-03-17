@@ -67,4 +67,9 @@ export default class APIManager {
     const response = await APIRequest.post(endpoint, data);
     return response;
   }
+
+  static async fetcher(url) {
+    const response = await APIRequest.get(url);
+    return response.data;
+  }
 }
