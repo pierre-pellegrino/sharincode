@@ -4,6 +4,7 @@ import { useRef, useState } from "react";
 import { form, inputWrapper } from "../new_post_modal.module.scss";
 import { btn } from "components/forms/form.module.scss";
 import { useEffect } from "react/cjs/react.development";
+import APIManager from "pages/api/axios";
 
 const NewPostForm = () => {
   const descriptionRef = useRef();
@@ -22,21 +23,33 @@ const NewPostForm = () => {
     selectedLanguage.split(" ").slice(0, -1).join(" "),
   ].every(Boolean);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       if (!canSave) throw new Error("Oups, quelque chose s'est mal passé !");
 
-      const data = {
-        snippet,
-        description: description,
-        language: selectedLanguage.split(" ").slice(0, -1).join(" "),
-      };
+      // const data = {
+      //   snippet,
+      //   description: description,
+      //   language: selectedLanguage.split(" ").slice(0, -1).join(" "),
+      // };
 
-      console.group("%cPost créé !", "font-size: 20px; color: #009DFF;");
-      console.table(data);
-      console.groupEnd();
+      const data = {
+        description: description,
+        snippets: [
+            {
+                content: snippet,
+                language: selectedLanguage.split(" ").slice(0, -1).join(" ")
+            }
+        ]
+      }
+
+      const response = await APIManager.createPost(data);
+
+      // console.group("%cPost créé !", "font-size: 20px; color: #009DFF;");
+      // console.table(data);
+      // console.groupEnd();
     } catch (e) {
       console.error(e.message);
     }
