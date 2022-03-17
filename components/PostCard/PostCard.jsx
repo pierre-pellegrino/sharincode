@@ -20,11 +20,11 @@ import {
 import {formatDistanceToNow} from 'date-fns';
 import {en, fr} from 'date-fns/locale'
 
-const PostCard = ({ language, snippet, description, theme, date }) => {
+const PostCard = ({ language, snippet, description, theme, date, author }) => {
   return (
     <div className={postCardWrapper}>
       <div className={top}>
-        <ProfileIcon />
+        <ProfileIcon userName={author} />
         <p>{formatDistanceToNow(new Date(date), {addSuffix: true, locale: fr})}</p>
       </div>
       <div className={descriptionStyle}>

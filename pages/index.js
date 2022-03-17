@@ -4,7 +4,6 @@ import PostCard from "components/PostCard/PostCard";
 import { showNewPostModalAtom } from "store";
 import styles from "styles/Home.module.scss";
 import NewPostModal from "components/NewPostModal";
-import fakeData from "lib/posts.json";
 import APIManager from "pages/api/axios";
 
 export default function Home({data}) {
@@ -17,7 +16,6 @@ export default function Home({data}) {
       </Head>
 
       <h1>Accueil</h1>
-
       {data.map((post) => (
         <PostCard
           language={"JavaScript"}
@@ -27,6 +25,7 @@ export default function Home({data}) {
           snippet={post.snippets[0]?.content || "There is no code yet."}
           key={post.post.id}
           date={post.post.created_at}
+          author={post.post.user_id}
         />
       ))}
     </section>

@@ -2,7 +2,7 @@ import Image from 'next/image';
 import React from 'react';
 import { profileIcon, profileIconPicture, profileIconText } from './profile_icon.module.scss';
 
-const ProfileIcon = () => {
+const ProfileIcon = ({userName, userPicture}) => {
   return (
     <div className={profileIcon}>
       <div className={profileIconPicture}>
@@ -14,7 +14,7 @@ const ProfileIcon = () => {
         />
       </div>
       <div className={profileIconText}>
-        <p>Pseudonyme</p>
+        <p>{userName || "Pseudonyme"}</p>
       </div>
       
     </div>

@@ -50,4 +50,10 @@ export default class APIManager {
     return response;
   }
 
+  static async createPost(data) {
+    const endpoint = '/posts';
+    const response = await APIRequest.post(endpoint, data);
+    return response;
+  }
+
 }

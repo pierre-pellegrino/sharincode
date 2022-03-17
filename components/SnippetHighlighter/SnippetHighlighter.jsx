@@ -5,7 +5,6 @@ import { LANGUAGES } from '../../lib/constants/languages';
 // import 'highlight.js/styles/androidstudio.css';
 
 const SnippetHighlighter = ({snippet, language}) => {
-  console.log(language)
   const languageObj = LANGUAGES.filter((lang) => lang.name === language)[0];
   const formattedLanguage = languageObj?.short ?? languageObj.mode;
 
