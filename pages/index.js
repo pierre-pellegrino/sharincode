@@ -1,9 +1,6 @@
-import { useAtom } from "jotai";
 import Head from "next/head";
 import PostCard from "components/PostCard/PostCard";
-import { showNewPostModalAtom } from "store";
 import styles from "styles/Home.module.scss";
-import NewPostModal from "components/NewPostModal";
 import fakeData from "lib/posts.json";
 
 export default function Home() {

@@ -4,6 +4,8 @@ import { form, inputWrapper, input, btn, errmsg, offscreen } from "./form.module
 import APIManager from "pages/api/axios";
 import { useRouter } from "next/router";
 import cn from "classnames";
+import { userAtom } from "store";
+import { useAtom } from "jotai";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -18,6 +20,8 @@ const LoginForm = () => {
   const [success, setSuccess] = useState(false);
 
   const canSave = [email, pwd].every(Boolean);
+
+  const [_, setUser] = useAtom(userAtom);
 
   useEffect(() => {
     emailRef.current.focus();
@@ -43,13 +47,14 @@ const LoginForm = () => {
       const response = await APIManager.login(data);
       console.log(response.data);
       setSuccess(true);
+      setUser(response.data);
       router.push("/");
     } catch (err) {
       console.log(err.response);
       if (!err?.response) {
         setErrMsg("Oups ! Pas de réponse du serveur...");
       } else {
-        setErrMsg(err.response.data.error.message);
+        setErrMsg(err.response.data.message);
       }
       errors.current.focus();
     }
