@@ -5,9 +5,14 @@ import { form, inputWrapper } from "../new_post_modal.module.scss";
 import { btn } from "components/forms/form.module.scss";
 import { useEffect } from "react/cjs/react.development";
 import APIManager from "pages/api/axios";
+import {useRouter} from "next/router";
+import {useAtom} from 'jotai';
+import {showNewPostModalAtom} from 'store';
 
 const NewPostForm = () => {
   const descriptionRef = useRef();
+  const router = useRouter();
+  const [_,setShowNewPostModalAtom] = useAtom(showNewPostModalAtom);
 
   const [description, setDescription] = useState("");
   const [selectedLanguage, setSelectedLanguage] = useState(`${LANGUAGES[0].name} ${LANGUAGES[0].mode}`);
@@ -29,12 +34,6 @@ const NewPostForm = () => {
     try {
       if (!canSave) throw new Error("Oups, quelque chose s'est mal passé !");
 
-      // const data = {
-      //   snippet,
-      //   description: description,
-      //   language: selectedLanguage.split(" ").slice(0, -1).join(" "),
-      // };
-
       const data = {
         description: description,
         snippets: [
@@ -46,6 +45,9 @@ const NewPostForm = () => {
       }
 
       const response = await APIManager.createPost(data);
+      console.log(response.data)
+      router.push(`/posts/${response.data.post.id}`);
+      setShowNewPostModalAtom(false);
 
       // console.group("%cPost créé !", "font-size: 20px; color: #009DFF;");
       // console.table(data);

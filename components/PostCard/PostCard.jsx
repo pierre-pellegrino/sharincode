@@ -16,15 +16,17 @@ import {
   comments,
   openReacts,
   reactsModal,
+  postCardDetailPage, 
+  comment
 } from "./post_card.module.scss";
 import {formatDistanceToNow} from 'date-fns';
 import {en, fr} from 'date-fns/locale'
 
-const PostCard = ({ language, snippet, description, theme, date, author }) => {
+const PostCard = ({ language, snippet, description, theme, date, author, detail }) => {
   return (
-    <div className={postCardWrapper}>
+    <div className={`${postCardWrapper} ${detail && postCardDetailPage}`}>
       <div className={top}>
-        <ProfileIcon userName={author} />
+        <ProfileIcon user={author} />
         <p>{formatDistanceToNow(new Date(date), {addSuffix: true, locale: fr})}</p>
       </div>
       <div className={descriptionStyle}>
@@ -66,7 +68,7 @@ const PostCard = ({ language, snippet, description, theme, date, author }) => {
               <ApprovalIcon />
             </div>
           </div>
-          <p className={btn}>Commenter</p>
+          <p className={`${btn} ${comment}`}>Commenter</p>
           <p className={btn}>Partager</p>
         </div>
       </div>

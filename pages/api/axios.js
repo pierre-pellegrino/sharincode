@@ -2,6 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 const baseurl = "https://snipshare-api-staging.herokuapp.com";
+// const baseurl = 'https://snipshare-api.herokuapp.com'
 
 const APIRequest = axios.create({ baseURL: baseurl });
 
@@ -50,6 +51,12 @@ export default class APIManager {
 
   static async getPosts() {
     const endpoint = '/posts';
+    const response = await APIRequest.get(endpoint);
+    return response;
+  }
+
+  static async getPost(id) {
+    const endpoint = `/posts/${id}`;
     const response = await APIRequest.get(endpoint);
     return response;
   }
