@@ -3,9 +3,11 @@ import APIManager from 'pages/api/axios';
 import PostCard from 'components/PostCard/PostCard';
 import styles from "styles/Home.module.scss";
 import Head from "next/head";
+import CommentsSection from '../../components/CommentsSection/CommentsSection';
 
 const PostDetailPage = ({id, data, username}) => {
-  const {post, snippets} = data;
+  const {post} = data;
+  console.log(post)
   return (
     <main className={styles.main}>
       <Head>
@@ -15,15 +17,17 @@ const PostDetailPage = ({id, data, username}) => {
 
       <PostCard 
         language={"JavaScript"}
-        // language={snippets[0]?.language}
+        //  Working except for Sass like wtf
+        // language={post.snippets[0]?.language.replace('[', '').replace(']', '').replaceAll('"', '')}
         description={post.description}
-        snippet={snippets[0]?.content || "There is no code yet."}
+        snippet={post.snippets[0]?.content || "There is no code yet."}
         key={post.id}
         date={post.created_at}
-        author={post.user_id}
+        author={post.user}
         detail={true}
       />
-      </main>
+        <CommentsSection />
+    </main>
   );
 };
 

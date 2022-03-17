@@ -26,7 +26,7 @@ const PostCard = ({ language, snippet, description, theme, date, author, detail 
   return (
     <div className={`${postCardWrapper} ${detail && postCardDetailPage}`}>
       <div className={top}>
-        <ProfileIcon userName={author} />
+        <ProfileIcon user={author} />
         <p>{formatDistanceToNow(new Date(date), {addSuffix: true, locale: fr})}</p>
       </div>
       <div className={descriptionStyle}>
