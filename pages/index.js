@@ -16,8 +16,6 @@ export default function Home({data}) {
       </Head>
 
       <h1>Accueil</h1>
-      {/* {console.log(data[0].post.snippets[0]?.language.replace('[', '').replace(']', '').replaceAll('"', ''))} */}
-      {console.log(data[0].post)}
       {data.map((post) => (
         <PostCard
           // language={"JavaScript"}
@@ -37,6 +35,8 @@ export default function Home({data}) {
 export async function getServerSideProps() {
   const response = await APIManager.getPosts();
   const data = response.data.posts;
+  console.log(data)
+  data.forEach(i => console.log(i.post.snippets))
 
   return {
     props: {
