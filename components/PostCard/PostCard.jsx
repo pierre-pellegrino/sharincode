@@ -31,7 +31,7 @@ const PostCard = ({ language, snippet, description, theme, date, author, detail,
         <ProfileIcon user={author} />
         <p>{formatDistanceToNow(new Date(date), {addSuffix: true, locale: fr})}</p>
       </div>
-      <Link href={`/posts/${id}`}>
+      <Link href={`/posts/${id}`} passHref>
         <div className={descriptionStyle}>
           <a>{description}</a>
         </div>
@@ -59,9 +59,9 @@ const PostCard = ({ language, snippet, description, theme, date, author, detail,
               <ApprovalIcon />
             </div>
           </div>
-          <div className={comments}>
-            <p>{nbOfComments} commentaire{nbOfComments > 1 && "s"}</p>
-          </div>
+          <Link href={`/posts/${id}`}>
+            <a className={comments}>{nbOfComments} commentaire{nbOfComments > 1 && "s"}</a>
+          </Link>
         </div>
         <div className={btnsWrapper}>
           <div className={`${btn} ${openReacts}`}>
