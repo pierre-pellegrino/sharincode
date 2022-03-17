@@ -1,12 +1,22 @@
 import React from 'react';
+import CommentCard from '../CommentCard/CommentCard';
 import {
   commentsSectionWrapper
 } from './comments_section.module.scss';
 
-const CommentsSection = () => {
+const CommentsSection = ({comments}) => {
   return (
     <div className={commentsSectionWrapper}>
-      <h1>Commentaires</h1>
+
+      {comments && comments.map((comment) => {
+          return (
+            <CommentCard
+              key={comment.comment.id}
+              comment={comment.comment}
+            />
+          )
+          
+        })}
       
     </div>
   );

@@ -22,6 +22,7 @@ export default function Home({data}) {
           date={post.post.created_at}
           author={post.post.user}
           id={post.post.id}
+          commentNb={post.post.comments}
         />
       ))}
     </section>
