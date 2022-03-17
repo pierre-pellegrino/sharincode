@@ -16,7 +16,8 @@ import {
   comments,
   openReacts,
   reactsModal,
-  postCardDetailPage
+  postCardDetailPage, 
+  comment
 } from "./post_card.module.scss";
 import {formatDistanceToNow} from 'date-fns';
 import {en, fr} from 'date-fns/locale'
@@ -67,7 +68,7 @@ const PostCard = ({ language, snippet, description, theme, date, author, detail 
               <ApprovalIcon />
             </div>
           </div>
-          <p className={btn}>Commenter</p>
+          <p className={`${btn} ${comment}`}>Commenter</p>
           <p className={btn}>Partager</p>
         </div>
       </div>
