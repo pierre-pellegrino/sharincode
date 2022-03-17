@@ -4,7 +4,7 @@ import Header from "../Header";
 const Layout = ({ children }) => (
   <div className={container}>
     <Header />
-    <main className={main}>
+    <main className={main} id="main" aria-label="Contenu Principal">
       {children}
     </main>
   </div>
