@@ -3,10 +3,13 @@ import LoggedInNav from "./LoggedInNav";
 import LoggedOutNav from "./LoggedOutNav";
 import { header, navItems, logo, text, skipLink } from "./header.module.scss";
 import { LogoLeftSide, LogoRightSide } from "../icons";
-import Cookies from 'js-cookie';
+import { useAtom } from "jotai";
+import { isConnectedAtom } from "store";
 
 const Header = () => {
-  const connected = Cookies.get('token');
+  const [isConnected] = useAtom(isConnectedAtom);
+
+  console.log(isConnected);
 
   return (
     <header className={header}>
@@ -28,7 +31,7 @@ const Header = () => {
           </li>
           <li>
             {
-              connected
+              isConnected
               ? <LoggedInNav />
               : <LoggedOutNav />
             }
@@ -36,7 +39,7 @@ const Header = () => {
         </ul>
       </nav>
     </header>
-  )
+  );
 }
 
 export default Header;
