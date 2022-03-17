@@ -15,14 +15,13 @@ export default function Home({data}) {
       <h1>Accueil</h1>
       {data.map((post) => (
         <PostCard
-          // language={"JavaScript"}
-          // Modifier les seed pour n'inclure que les langages pris en charge puis décommenter en dessous
           language={post.post.snippets[0]?.language.replace('[', '').replace(']', '').replaceAll('"', '')}
           description={post.post.description}
           snippet={post.post.snippets[0]?.content || "There is no code yet."}
           key={post.post.id}
           date={post.post.created_at}
           author={post.post.user}
+          id={post.post.id}
         />
       ))}
     </section>
