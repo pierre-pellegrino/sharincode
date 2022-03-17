@@ -36,9 +36,7 @@ const NewPostForm = () => {
       // };
 
       const data = {
-        post: {
-            description: description,
-        },
+        description: description,
         snippets: [
             {
                 content: snippet,
