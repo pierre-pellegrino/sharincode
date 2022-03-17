@@ -2,6 +2,7 @@ import { ApprovalIcon, LikeIcon, IdeaIcon } from "components/icons";
 import React from "react";
 import ProfileIcon from "../ProfileIcon/ProfileIcon";
 import SnippetHighlighter from "../SnippetHighlighter/SnippetHighlighter";
+import Link from 'next/link'
 import {
   postCardWrapper,
   top,
@@ -22,16 +23,18 @@ import {
 import {formatDistanceToNow} from 'date-fns';
 import {en, fr} from 'date-fns/locale'
 
-const PostCard = ({ language, snippet, description, theme, date, author, detail }) => {
+const PostCard = ({ language, snippet, description, theme, date, author, detail, id }) => {
   return (
     <div className={`${postCardWrapper} ${detail && postCardDetailPage}`}>
       <div className={top}>
         <ProfileIcon user={author} />
         <p>{formatDistanceToNow(new Date(date), {addSuffix: true, locale: fr})}</p>
       </div>
-      <div className={descriptionStyle}>
-        {description}
-      </div>
+      <Link href={`/posts/${id}`}>
+        <div className={descriptionStyle}>
+          <a>{description}</a>
+        </div>
+      </Link>
       <div className={snippetStyle}>
         <SnippetHighlighter 
           snippet={snippet} 
