@@ -27,19 +27,18 @@ import { en, fr } from "date-fns/locale";
 import { ThreeDotsIcon } from "components/icons";
 import PostActionsModal from "components/PostActionsModal";
 
-const PostCard = (props) => {
-  const {
-    language,
-    snippet,
-    description,
-    theme,
-    date,
-    author,
-    detail,
-    id,
-    commentNb,
-    mutate,
-  } = props;
+const PostCard = ({ post, detail, theme }) => {
+  const language= post.snippets[0]?.language.replace(
+    /^(\[")(.+)("])$/,
+    "$2"
+  );
+  const description= post.description;
+  const snippet= post.snippets[0]?.content || "There is no code yet.";
+  const date= post.created_at;
+  const author= post.user;
+  const id= post.id;
+  const commentNb= post.comments;
+
   const [displayActionsMenu, setDisplayActionsMenu] = useState(false);
   const nbOfComments = commentNb.reduce((acc, i) => (acc += 1), 0);
 
@@ -72,6 +71,10 @@ const PostCard = (props) => {
             <PostActionsModal
               opened={displayActionsMenu}
               postId={id}
+              description={description}
+              language={language}
+              snippet={snippet}
+              post={post}
             />
           </div>
         </div>
