@@ -53,6 +53,8 @@ const PostCard = ({ post, detail, theme }) => {
     return () => window.removeEventListener("click", handleClick);
   }, [displayActionsMenu]);
 
+  if (id === 168) return <div></div>;
+
   return (
     <div className={`${postCardWrapper} ${detail && postCardDetailPage}`}>
       <div className={top}>
@@ -64,20 +66,22 @@ const PostCard = ({ post, detail, theme }) => {
               locale: fr,
             })}
           </p>
-          <div
-            className={actionsMenu}
-            onClick={() => setDisplayActionsMenu(true)}
-          >
-            <ThreeDotsIcon />
-            <PostActionsModal
-              opened={displayActionsMenu}
-              postId={id}
-              description={description}
-              language={language}
-              snippet={snippet}
-              post={post}
-            />
-          </div>
+          {user && (user.user.id === post.user.user_id) && (
+            <div
+              className={actionsMenu}
+              onClick={() => setDisplayActionsMenu(true)}
+            >
+              <ThreeDotsIcon />
+              <PostActionsModal
+                opened={displayActionsMenu}
+                postId={id}
+                description={description}
+                language={language}
+                snippet={snippet}
+                post={post}
+              />
+            </div>
+          )}
         </div>
       </div>
       <Link href={`/posts/${id}`} passHref>
