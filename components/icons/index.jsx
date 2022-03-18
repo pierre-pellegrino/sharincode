@@ -200,6 +200,7 @@ export const ThreeDotsIcon = () => (
     <circle cx="8.11" cy="32" r="7.11" />
     <circle cx="32" cy="32" r="7.11" />
     <circle cx="55.89" cy="32" r="7.11" />
+  </svg>
 );
 
 export const WarningIcon = () => (
