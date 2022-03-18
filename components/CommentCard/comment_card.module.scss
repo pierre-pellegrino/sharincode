@@ -1,0 +1,23 @@
+@use "styles/abstracts/variables" as *;
+
+.commentWrapper {
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid $lightgrey;
+  border-top: 1px solid $lightgrey;
+
+  &:nth-of-type(1) {
+    border-top: none;
+  }
+
+  &:not(:last-of-type) {
+    border-bottom: none;
+  }
+
+  .commentUser {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.25rem 1rem;
+    background-color: $hovergrey;
+  }
+}
