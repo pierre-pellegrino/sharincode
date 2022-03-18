@@ -36,6 +36,7 @@ const PostActionsModal = (props) => {
           postId={postId}
           commentId={commentId}
           content={content}
+          closeModal={() => setDisplayEditModal(false)}
         />
       )}
       <ul className={navItems}>

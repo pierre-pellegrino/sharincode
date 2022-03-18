@@ -6,8 +6,12 @@ import {
 import { btn } from "components/forms/form.module.scss";
 import {WarningIcon} from "components/icons";
 import APIManager from "pages/api/axios";
+import { 
+  editComment,
+  editCommentBlocker 
+} from "./edit_comment.module.scss";
 
-const EditCommentForm = ({commentId, postId, content}) => {
+const EditCommentForm = ({commentId, postId, content, closeModal}) => {
   const [description, setDescription] = useState(content);
 
   const handleSubmit = async () => {
@@ -20,28 +24,32 @@ const EditCommentForm = ({commentId, postId, content}) => {
   }
 
   return (
-    <div className={newCommentWrapper}>      
-      <form className={form} onSubmit={handleSubmit}>
-        <p> 
-          {description.length} / 300
-          {description.length >= 290 && <WarningIcon />}
-        </p>
-        <textarea
-          name="description"
-          id="description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          maxLength="300"
-          required
-        />
-        <input
-          type="submit"
-          className={btn}
-          role="button"
-          value="Éditer"
-          disabled={description.length<1}
-        />
-      </form>
+    <div className={editCommentBlocker} onClick={closeModal}>
+      <div className={editComment}>
+      <div className={`${newCommentWrapper}`}>      
+        <form className={form} onSubmit={handleSubmit}>
+          <p> 
+            {description.length} / 300
+            {description.length >= 290 && <WarningIcon />}
+          </p>
+          <textarea
+            name="description"
+            id="description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            maxLength="300"
+            required
+          />
+          <input
+            type="submit"
+            className={btn}
+            role="button"
+            value="Éditer"
+            disabled={description.length<1}
+          />
+        </form>
+      </div>
+      </div>
     </div>
   );
 };
