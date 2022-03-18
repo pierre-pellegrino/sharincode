@@ -80,6 +80,12 @@ export default class APIManager {
     return response;
   }
 
+  static async createComment(postId, data) {
+    const endpoint = `/posts/${postId}/comments`;
+    const response = await APIRequest.post(endpoint, data);
+    return response;
+  }
+
   static async fetcher(url) {
     const response = await APIRequest.get(url);
     return response.data;

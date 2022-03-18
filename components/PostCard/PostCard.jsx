@@ -127,7 +127,9 @@ const PostCard = ({ post, detail, theme }) => {
               <ApprovalIcon />
             </div>
           </div>
-          <p className={`${btn} ${comment}`}>Commenter</p>
+          <Link href={`/posts/${id}`}>
+            <a><p className={`${btn} ${comment}`}>Commenter</p></a>
+          </Link>
           <p className={btn}>Partager</p>
         </div>
       </div>
