@@ -7,7 +7,7 @@ import {
 import {useAtom} from 'jotai';
 import {userAtom} from 'store';
 
-const CommentsSection = ({comments, id, commentFocus}) => {
+const CommentsSection = ({comments, id}) => {
   const [currentUser] = useAtom(userAtom);
 
   return (
