@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   commentWrapper,
   commentUser,
@@ -15,6 +15,16 @@ import { actionsMenu } from "components/PostCard/post_card.module.scss";
 const CommentCard = ({comment, currentUser, postId}) => {
   const {content, created_at, username, avatar, id} = comment;
   const [displayActionsMenu, setDisplayActionsMenu] = useState(false);
+
+  useEffect(() => {
+    if (!displayActionsMenu) return;
+
+    const handleClick = () => setDisplayActionsMenu(false);
+
+    window.addEventListener("click", handleClick);
+
+    return () => window.removeEventListener("click", handleClick);
+  }, [displayActionsMenu]);
   
   return (
     <div className={commentWrapper}>
