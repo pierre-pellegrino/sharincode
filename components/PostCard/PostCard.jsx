@@ -1,7 +1,8 @@
 import { ApprovalIcon, LikeIcon, IdeaIcon } from "components/icons";
-import React from "react";
+import React, { useState } from "react";
 import ProfileIcon from "../ProfileIcon/ProfileIcon";
 import SnippetHighlighter from "../SnippetHighlighter/SnippetHighlighter";
+import Link from 'next/link'
 import {
   postCardWrapper,
   top,
@@ -17,21 +18,38 @@ import {
   openReacts,
   reactsModal,
   postCardDetailPage, 
-  comment
+  comment,
+  actionsMenu,
+  topRight,
 } from "./post_card.module.scss";
 import {formatDistanceToNow} from 'date-fns';
 import {en, fr} from 'date-fns/locale'
+import { ThreeDotsIcon } from "components/icons";
+import PostActionsModal from "components/PostActionsModal";
 
-const PostCard = ({ language, snippet, description, theme, date, author, detail }) => {
+const PostCard = ({ language, snippet, description, theme, date, author, detail, id, commentNb }) => {
+  const [displayActionsMenu, setDisplayActionsMenu] = useState(false);
+  const nbOfComments = commentNb.reduce((acc, i) => acc += 1, 0);
+
   return (
     <div className={`${postCardWrapper} ${detail && postCardDetailPage}`}>
       <div className={top}>
         <ProfileIcon user={author} />
-        <p>{formatDistanceToNow(new Date(date), {addSuffix: true, locale: fr})}</p>
+        <div className={topRight}>
+          <p>{formatDistanceToNow(new Date(date), {addSuffix: true, locale: fr})}</p>
+          <div className={actionsMenu}>
+            <div onClick={() => setDisplayActionsMenu(true)}>
+              <ThreeDotsIcon />
+            </div>
+            <PostActionsModal opened={displayActionsMenu} />
+          </div>
+        </div>
       </div>
-      <div className={descriptionStyle}>
-        {description}
-      </div>
+      <Link href={`/posts/${id}`} passHref>
+        <div className={descriptionStyle}>
+          <a>{description}</a>
+        </div>
+      </Link>
       <div className={snippetStyle}>
         <SnippetHighlighter 
           snippet={snippet} 
@@ -55,9 +73,9 @@ const PostCard = ({ language, snippet, description, theme, date, author, detail 
               <ApprovalIcon />
             </div>
           </div>
-          <div className={comments}>
-            <p>2 commentaires</p>
-          </div>
+          <Link href={`/posts/${id}`}>
+            <a className={comments}>{nbOfComments} commentaire{nbOfComments > 1 && "s"}</a>
+          </Link>
         </div>
         <div className={btnsWrapper}>
           <div className={`${btn} ${openReacts}`}>

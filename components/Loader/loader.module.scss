@@ -1,0 +1,63 @@
+.spinner {
+  position: relative;
+  height: calc(3rem - 4px);
+  width: 3rem;
+  margin-bottom: 1.5rem;
+  animation: spinnerAnim 2s linear infinite alternate forwards;
+
+  svg {
+    height: 2rem;
+    position: absolute;
+  }
+
+  svg:first-of-type {
+    left: 0;
+    top: 0;
+    transform: translate(0);
+    animation: leftAnim 1s ease infinite alternate;
+  }
+
+  svg:last-of-type {
+    right: 0;
+    bottom: 0;
+    animation: rightAnim 1s ease infinite alternate;
+  }
+}
+
+@keyframes spinnerAnim {
+  from {
+    transform: rotate(0);
+  }
+
+  33% {
+    transform: rotate(0);
+  }
+
+  66% {
+    transform: rotate(180deg);
+  }
+
+  to {
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes leftAnim {
+  from {
+    transform: translate(0);
+  }
+
+  to {
+    transform: translate(-16px, 6px);
+  }
+}
+
+@keyframes rightAnim {
+  from {
+    transform: translate(0);
+  }
+
+  to {
+    transform: translate(16px, -6px);
+  }
+}

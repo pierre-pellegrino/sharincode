@@ -23,6 +23,17 @@
 
   .description {
     padding: 1rem 1rem 0 1rem;
+
+    &:hover {
+      background-color: #f2f2f2;
+      cursor: pointer;
+    }
+
+    &:hover + .snippet {
+      padding: 1.25rem 1rem;
+      margin: 0;
+      background-color: #f2f2f2;
+    }
   }
 
   .snippet {
@@ -182,5 +193,36 @@
 
   .comment {
     display: none;
+  }
+}
+
+.topRight {
+  display: flex;
+  align-items: center;
+}
+
+.actionsMenu {
+  position: relative;
+  border-radius: 50%;
+  height: fit-content;
+  width: fit-content;
+  padding: 0.5rem;
+  margin-left: 0.5rem;
+  cursor: pointer;
+
+  svg {
+    height: 1.5rem;
+
+    circle {
+      fill: #ccc;
+    }
+  }
+
+  &:hover {
+    background-color: #ccc;
+
+    svg circle {
+      fill: #fff;
+    }
   }
 }
