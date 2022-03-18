@@ -13,7 +13,6 @@ const CommentsSection = ({comments, id}) => {
   return (
     <div className={commentsSectionWrapper}>
       {currentUser && <NewCommentForm currentUser={currentUser} id={id}/>}
-      {commentFocus && <p>Lache un com</p>}
 
       {comments && comments.map((comment) => {
         return (
