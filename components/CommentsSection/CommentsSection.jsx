@@ -19,6 +19,8 @@ const CommentsSection = ({comments, id}) => {
           <CommentCard
             key={comment.comment.id}
             comment={comment.comment}
+            currentUser={currentUser}
+            postId={id}
           />
         )          
       })}

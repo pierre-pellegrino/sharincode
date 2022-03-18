@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   commentWrapper,
   commentUser,
-  commentHeader
+  commentHeader,
+  commentActionsMenu
 } from './comment_card.module.scss';
-import ProfileIcon from "components/ProfileIcon/ProfileIcon";
 import {formatDistanceToNow} from 'date-fns';
 import {en, fr} from 'date-fns/locale'
 import Image from 'next/image';
+import CommentActionsModal from 'components/CommentActionsModal/CommentActionsModal';
+import { ThreeDotsIcon } from "components/icons";
+import { actionsMenu } from "components/PostCard/post_card.module.scss";
 
-const CommentCard = ({comment}) => {
-  const {content, created_at, username, avatar} = comment;
+const CommentCard = ({comment, currentUser, postId}) => {
+  const {content, created_at, username, avatar, id} = comment;
+  const [displayActionsMenu, setDisplayActionsMenu] = useState(false);
+  
   return (
     <div className={commentWrapper}>
       <Image 
@@ -23,6 +28,21 @@ const CommentCard = ({comment}) => {
         <div className={commentHeader}>
           <p>{username || "Pseudonyme"}</p>
           <p>{formatDistanceToNow(new Date(created_at), {addSuffix: true, locale: fr})}</p>
+          {currentUser && username === currentUser.user.username && ( 
+            <div
+              className={`${actionsMenu} ${commentActionsMenu}`}
+              onClick={() => setDisplayActionsMenu(true)}
+            >
+              <ThreeDotsIcon />
+              <CommentActionsModal
+                opened={displayActionsMenu}
+                postId={postId}
+                commentId={id}
+                content={content}
+              />
+            </div>
+          )}
+          <CommentActionsModal />
         </div>
         <p>{content}</p>
       </div>

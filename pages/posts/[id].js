@@ -7,7 +7,6 @@ import CommentsSection from '../../components/CommentsSection/CommentsSection';
 
 const PostDetailPage = ({ id, data }) => {
   const { post } = data;
-  console.log(post)
   return (
     <main className={styles.main}>
       <Head>
