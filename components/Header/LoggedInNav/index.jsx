@@ -13,8 +13,6 @@ const LoggedInNav = () => {
   const [showNewPostModal, setShowNewPostModal] = useAtom(showNewPostModalAtom);
   const [user, setUser] = useAtom(userAtom);
 
-  console.log(user);
-
   const handleDisconnect = () => {
     Cookies.remove('token');
     setUser(null);

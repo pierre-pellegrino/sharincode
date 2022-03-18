@@ -9,8 +9,6 @@ import { isConnectedAtom } from "store";
 const Header = () => {
   const [isConnected] = useAtom(isConnectedAtom);
 
-  console.log(isConnected);
-
   return (
     <header className={header}>
       <nav>

@@ -62,6 +62,7 @@ const NewPostForm = ({
               language: selectedLanguage.split(" ").slice(0, -1).join(" "),
             },
           ],
+          tags: [],
         };
 
         const response = await APIManager.createPost(data);
@@ -89,6 +90,12 @@ const NewPostForm = ({
 
       const response = await APIManager.editPost(post.id, data);
       console.log(response.data);
+
+      await mutate("/posts");
+
+      router.push(`/posts/${response.data.post.id}`);
+
+      return;
     } catch (e) {
       console.error(e.response);
     }
