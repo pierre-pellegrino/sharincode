@@ -9,8 +9,6 @@ import {WarningIcon} from "components/icons";
 import APIManager from "pages/api/axios";
 
 const NewCommentForm = ({currentUser, id}) => {
-  console.log(currentUser.user)
-
   const [description, setDescription] = useState("");
 
   const handleSubmit = async () => {

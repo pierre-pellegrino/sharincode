@@ -7,12 +7,13 @@ import {
 import {useAtom} from 'jotai';
 import {userAtom} from 'store';
 
-const CommentsSection = ({comments, id}) => {
+const CommentsSection = ({comments, id, commentFocus}) => {
   const [currentUser] = useAtom(userAtom);
 
   return (
     <div className={commentsSectionWrapper}>
       {currentUser && <NewCommentForm currentUser={currentUser} id={id}/>}
+      {commentFocus && <p>Lache un com</p>}
 
       {comments && comments.map((comment) => {
         return (
