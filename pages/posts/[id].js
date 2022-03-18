@@ -27,6 +27,7 @@ const PostDetailPage = ({id, data}) => {
 
       <CommentsSection
         comments={post.comments}
+        id={post.id}
       />
     </main>
   );
