@@ -68,6 +68,12 @@ export default class APIManager {
     return response;
   }
 
+  static async deletePost(id) {
+    const endpoint = `/posts/${id}`;
+    const response = await APIRequest.delete(endpoint);
+    return response;
+  }
+
   static async fetcher(url) {
     const response = await APIRequest.get(url);
     return response.data;

@@ -1,8 +1,8 @@
 import { ApprovalIcon, LikeIcon, IdeaIcon } from "components/icons";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ProfileIcon from "../ProfileIcon/ProfileIcon";
 import SnippetHighlighter from "../SnippetHighlighter/SnippetHighlighter";
-import Link from 'next/link'
+import Link from "next/link";
 import {
   postCardWrapper,
   top,
@@ -17,31 +17,62 @@ import {
   comments,
   openReacts,
   reactsModal,
-  postCardDetailPage, 
+  postCardDetailPage,
   comment,
   actionsMenu,
   topRight,
 } from "./post_card.module.scss";
-import {formatDistanceToNow} from 'date-fns';
-import {en, fr} from 'date-fns/locale'
+import { formatDistanceToNow } from "date-fns";
+import { en, fr } from "date-fns/locale";
 import { ThreeDotsIcon } from "components/icons";
 import PostActionsModal from "components/PostActionsModal";
 
-const PostCard = ({ language, snippet, description, theme, date, author, detail, id, commentNb }) => {
+const PostCard = (props) => {
+  const {
+    language,
+    snippet,
+    description,
+    theme,
+    date,
+    author,
+    detail,
+    id,
+    commentNb,
+    mutate,
+  } = props;
   const [displayActionsMenu, setDisplayActionsMenu] = useState(false);
-  const nbOfComments = commentNb.reduce((acc, i) => acc += 1, 0);
+  const nbOfComments = commentNb.reduce((acc, i) => (acc += 1), 0);
+
+  useEffect(() => {
+    if (!displayActionsMenu) return;
+
+    const handleClick = () => setDisplayActionsMenu(false);
+
+    window.addEventListener("click", handleClick);
+
+    return () => window.removeEventListener("click", handleClick);
+  }, [displayActionsMenu]);
 
   return (
     <div className={`${postCardWrapper} ${detail && postCardDetailPage}`}>
       <div className={top}>
         <ProfileIcon user={author} />
         <div className={topRight}>
-          <p>{formatDistanceToNow(new Date(date), {addSuffix: true, locale: fr})}</p>
-          <div className={actionsMenu}>
-            <div onClick={() => setDisplayActionsMenu(true)}>
-              <ThreeDotsIcon />
-            </div>
-            <PostActionsModal opened={displayActionsMenu} />
+          <p>
+            {formatDistanceToNow(new Date(date), {
+              addSuffix: true,
+              locale: fr,
+            })}
+          </p>
+          <div
+            className={actionsMenu}
+            onClick={() => setDisplayActionsMenu(true)}
+          >
+            <ThreeDotsIcon />
+            <PostActionsModal
+              opened={displayActionsMenu}
+              postId={id}
+            />
           </div>
         </div>
       </div>
@@ -51,9 +82,9 @@ const PostCard = ({ language, snippet, description, theme, date, author, detail,
         </div>
       </Link>
       <div className={snippetStyle}>
-        <SnippetHighlighter 
-          snippet={snippet} 
-          language={language} 
+        <SnippetHighlighter
+          snippet={snippet}
+          language={language}
           theme={theme}
         />
       </div>
@@ -74,7 +105,9 @@ const PostCard = ({ language, snippet, description, theme, date, author, detail,
             </div>
           </div>
           <Link href={`/posts/${id}`}>
-            <a className={comments}>{nbOfComments} commentaire{nbOfComments > 1 && "s"}</a>
+            <a className={comments}>
+              {nbOfComments} commentaire{nbOfComments > 1 && "s"}
+            </a>
           </Link>
         </div>
         <div className={btnsWrapper}>

@@ -38,6 +38,7 @@ export default function Home() {
             author={post.post.user}
             id={post.post.id}
             commentNb={post.post.comments}
+            mutate={mutate}
           />
         ))}
       </>

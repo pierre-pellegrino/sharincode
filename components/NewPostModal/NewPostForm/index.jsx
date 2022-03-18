@@ -8,6 +8,7 @@ import APIManager from "pages/api/axios";
 import {useRouter} from "next/router";
 import {useAtom} from 'jotai';
 import {showNewPostModalAtom} from 'store';
+import { useSWRConfig } from "swr";
 
 const NewPostForm = () => {
   const descriptionRef = useRef();
@@ -17,6 +18,8 @@ const NewPostForm = () => {
   const [description, setDescription] = useState("");
   const [selectedLanguage, setSelectedLanguage] = useState(`${LANGUAGES[0].name} ${LANGUAGES[0].mode}`);
   const [snippet, setSnippet] = useState("");
+
+  const { mutate } = useSWRConfig();
 
   useEffect(() => {
     descriptionRef.current.focus();
@@ -41,19 +44,23 @@ const NewPostForm = () => {
                 content: snippet,
                 language: selectedLanguage.split(" ").slice(0, -1).join(" ")
             }
-        ]
+        ],
+        tags: [],
       }
 
       const response = await APIManager.createPost(data);
-      console.log(response.data)
-      router.push(`/posts/${response.data.post.id}`);
       setShowNewPostModalAtom(false);
+      console.log(response.data);
+
+      await mutate("/posts");
+      
+      router.push(`/posts/${response.data.post.id}`);
 
       // console.group("%cPost créé !", "font-size: 20px; color: #009DFF;");
       // console.table(data);
       // console.groupEnd();
     } catch (e) {
-      console.error(e.message);
+      console.error(e.response);
     }
   };
 
