@@ -26,19 +26,7 @@ export default function Home() {
           Rafraichir
         </button>
         {data.posts.map((post) => (
-          <PostCard
-            language={post.post.snippets[0]?.language.replace(
-              /^(\[")(.+)("])$/,
-              "$2"
-            )}
-            description={post.post.description}
-            snippet={post.post.snippets[0]?.content || "There is no code yet."}
-            key={post.post.id}
-            date={post.post.created_at}
-            author={post.post.user}
-            id={post.post.id}
-            commentNb={post.post.comments}
-          />
+          <PostCard post={post.post} key={post.post.id} />
         ))}
       </>
     );

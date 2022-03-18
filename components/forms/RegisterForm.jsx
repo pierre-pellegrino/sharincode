@@ -162,7 +162,7 @@ const LoginForm = () => {
           })}
         >
           <InfoIcon />
-          Au moins 4 caractères.
+          Entre 4 et 36 caractères.
           <br />
           Doit commencer par une lettre
           <br />

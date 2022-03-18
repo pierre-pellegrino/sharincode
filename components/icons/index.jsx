@@ -191,6 +191,18 @@ export const InfoIcon = () => (
   </svg>
 );
 
+export const ThreeDotsIcon = () => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 64 64"
+    aria-label="Afficher les actions disponibles pour cet élément."
+  >
+    <circle cx="8.11" cy="32" r="7.11" />
+    <circle cx="32" cy="32" r="7.11" />
+    <circle cx="55.89" cy="32" r="7.11" />
+  </svg>
+);
+
 export const WarningIcon = () => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
     <path fill="#fff945" stroke="#000" strokeWidth="2" d="m1,31c0,0 15,-30.5 15,-30l15,30c0.5,0 -30.5,0 -30,0z"/>

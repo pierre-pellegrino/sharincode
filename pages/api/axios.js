@@ -68,6 +68,18 @@ export default class APIManager {
     return response;
   }
 
+  static async editPost(id, data) {
+    const endpoint = `/posts/${id}`;
+    const response = await APIRequest.put(endpoint, data);
+    return response;
+  }
+
+  static async deletePost(id) {
+    const endpoint = `/posts/${id}`;
+    const response = await APIRequest.delete(endpoint);
+    return response;
+  }
+
   static async createComment(postId, data) {
     const endpoint = `/posts/${postId}/comments`;
     const response = await APIRequest.post(endpoint, data);
