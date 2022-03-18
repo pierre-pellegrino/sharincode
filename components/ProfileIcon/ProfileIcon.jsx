@@ -14,7 +14,7 @@ const ProfileIcon = ({user}) => {
         />
       </div>
       <div className={profileIconText}>
-        <p>{user.username || "Pseudonyme"}</p>
+        <p>{user.username || user.user.username || "Pseudonyme"}</p>
       </div>
       
     </div>

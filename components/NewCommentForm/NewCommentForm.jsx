@@ -6,12 +6,20 @@ import {
 } from "./new_comment_form.module.scss";
 import { btn } from "components/forms/form.module.scss";
 import {WarningIcon} from "components/icons";
+import APIManager from "pages/api/axios";
 
-const NewCommentForm = ({currentUser}) => {
+const NewCommentForm = ({currentUser, id}) => {
+  console.log(currentUser.user)
 
   const [description, setDescription] = useState("");
-  const handleSubmit = () => {
 
+  const handleSubmit = async () => {
+    const data = {
+      content: description
+    }
+
+    const response = await APIManager.createComment(id, data);
+    console.log(response.data);
   }
 
   return (
@@ -36,6 +44,7 @@ const NewCommentForm = ({currentUser}) => {
           className={btn}
           role="button"
           value="Commenter"
+          disabled={description.length<1}
         />
       </form>
     </div>

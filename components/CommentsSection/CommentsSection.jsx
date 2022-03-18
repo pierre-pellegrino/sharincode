@@ -7,22 +7,21 @@ import {
 import {useAtom} from 'jotai';
 import {userAtom} from 'store';
 
-const CommentsSection = ({comments}) => {
+const CommentsSection = ({comments, id}) => {
   const [currentUser] = useAtom(userAtom);
 
   return (
     <div className={commentsSectionWrapper}>
-      {currentUser && <NewCommentForm currentUser={currentUser}/>}
+      {currentUser && <NewCommentForm currentUser={currentUser} id={id}/>}
 
       {comments && comments.map((comment) => {
-          return (
-            <CommentCard
-              key={comment.comment.id}
-              comment={comment.comment}
-            />
-          )
-          
-        })}
+        return (
+          <CommentCard
+            key={comment.comment.id}
+            comment={comment.comment}
+          />
+        )          
+      })}
       
     </div>
   );
