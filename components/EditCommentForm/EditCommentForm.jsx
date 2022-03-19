@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   newCommentWrapper,
   form,
@@ -9,10 +9,15 @@ import APIManager from "pages/api/axios";
 import { editComment, editCommentBlocker } from "./edit_comment.module.scss";
 import { useSWRConfig } from "swr";
 
-const EditCommentForm = ({ commentId, postId, content, closeModal }) => {
+const EditCommentForm = ({ commentId, postId, content, closeModal, setButtonDisabled }) => {
   const [description, setDescription] = useState(content);
 
   const { mutate } = useSWRConfig();
+
+  useEffect(() => {
+    if (setButtonDisabled) setButtonDisabled(true);
+    document.body.style.overflow = "hidden";
+  }, [setButtonDisabled]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,6 +31,8 @@ const EditCommentForm = ({ commentId, postId, content, closeModal }) => {
 
     await mutate(`/posts/${postId}/comments`);
     closeModal();
+    setButtonDisabled(false);
+    document.body.style.overflow = "auto";
   };
 
   return (

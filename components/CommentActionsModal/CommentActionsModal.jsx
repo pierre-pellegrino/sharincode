@@ -11,7 +11,7 @@ import {
 import EditCommentForm from "../EditCommentForm/EditCommentForm";
 
 const PostActionsModal = (props) => {
-  const { opened, postId, commentId, content } = props;
+  const { opened, postId, commentId, content, setButtonDisabled } = props;
 
   const { mutate } = useSWRConfig();
   const [displayEditModal, setDisplayEditModal] = useState(false);
@@ -37,6 +37,7 @@ const PostActionsModal = (props) => {
           commentId={commentId}
           content={content}
           closeModal={() => setDisplayEditModal(false)}
+          setButtonDisabled={setButtonDisabled}
         />
       )}
       <ul className={navItems}>
