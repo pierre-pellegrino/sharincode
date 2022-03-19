@@ -1,43 +1,74 @@
 import { useAtom } from "jotai";
-import Link from "next/link";
+import Link from "components/Link";
 import { showNewPostModalAtom, userAtom } from "store";
 import { FSocietyMaskIcon, LampIcon, SignOutIcon } from "components/icons";
-import { navItems, navItem, text, avatarContainer, avatar } from "../header.module.scss";
-import Cookies from 'js-cookie';
-import { useRouter } from 'next/router';
+import {
+  navItems,
+  navItem,
+  text,
+  avatarContainer,
+  avatar,
+} from "../header.module.scss";
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 import NewPostModal from "components/NewPostModal";
 import Image from "next/image";
+import { CreateIconOutlined } from "components/icons";
+import { LogInIconOutline } from "components/icons";
+import { useMediaQuery } from "react-responsive";
 
 const LoggedInNav = () => {
   const router = useRouter();
   const [showNewPostModal, setShowNewPostModal] = useAtom(showNewPostModalAtom);
   const [user, setUser] = useAtom(userAtom);
+  const smallBreakpoint = useMediaQuery({ query: "(max-width: 780px)" });
+
+  console.log(smallBreakpoint);
 
   const handleDisconnect = () => {
-    Cookies.remove('token');
+    Cookies.remove("token");
     setUser(null);
-    router.push('/');
-  }
+    router.push("/");
+  };
 
   return (
     <>
       {showNewPostModal && <NewPostModal />}
       <ul className={navItems} role="navigation">
         <li>
-          <button
-            className={navItem}
-            aria-label="Créer un nouveau snippet."
-            onClick={() => setShowNewPostModal(true)}
-          >
-            <LampIcon />
-            <span className={text}>Nouveau Snippet</span>
-          </button>
+          {smallBreakpoint ? (
+            <Link
+              href="/new-post"
+              className={navItem}
+              aria-label="Créer un nouveau snippet."
+            >
+              {({ isActive }) => (
+                <>
+                  <CreateIconOutlined />
+                  <span className={text}>Nouveau Snippet</span>
+                </>
+              )}
+            </Link>
+          ) : (
+            <button
+              className={navItem}
+              aria-label="Créer un nouveau snippet."
+              onClick={() => setShowNewPostModal(true)}
+            >
+              <CreateIconOutlined />
+              <span className={text}>Nouveau Snippet</span>
+            </button>
+          )}
         </li>
         <li>
-          <Link href="#">
-            <a className={navItem} aria-label="Accéder à la page de mon compte.">
-              {user?.avatar
-                ? (
+          <Link
+            href="#"
+            className={navItem}
+            aria-label="Accéder à la page de mon compte."
+          >
+            {({ isActive }) => (
+              <>
+                {user?.avatar ? (
                   <div className={avatarContainer}>
                     <Image
                       src={user.avatar}
@@ -47,11 +78,12 @@ const LoggedInNav = () => {
                       className={avatar}
                     />
                   </div>
-                  )
-                : <FSocietyMaskIcon />
-              }
-              <span className={text}>{user?.user.username}</span>
-            </a>
+                ) : (
+                  <LogInIconOutline />
+                )}
+                <span className={text}>{user?.user.username}</span>
+              </>
+            )}
           </Link>
         </li>
         <li>
