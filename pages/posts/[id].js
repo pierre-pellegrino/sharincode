@@ -4,9 +4,32 @@ import PostCard from 'components/PostCard/PostCard';
 import styles from "styles/Home.module.scss";
 import Head from "next/head";
 import CommentsSection from '../../components/CommentsSection/CommentsSection';
+import useSWR from 'swr';
+import Loader from 'components/Loader';
 
 const PostDetailPage = ({ id, data }) => {
   const { post } = data;
+
+  const {
+    data: comments,
+    error
+  } = useSWR(`/posts/${id}/comments`, APIManager.fetcher);
+
+  console.log(comments);
+
+  let commentsSection = <Loader />;
+
+  if (error) commentsSection = <p>Erreur de chargement des commentaires.</p>;
+
+  if (comments) {
+    commentsSection = (
+      <CommentsSection
+        comments={comments.comments}
+        id={post.id}
+      />
+    );
+  }
+
   return (
     <main className={styles.main}>
       <Head>
@@ -19,10 +42,7 @@ const PostDetailPage = ({ id, data }) => {
         detail={true}
       />
 
-      <CommentsSection
-        comments={post.comments}
-        id={post.id}
-      />
+      {commentsSection}
     </main>
   );
 };

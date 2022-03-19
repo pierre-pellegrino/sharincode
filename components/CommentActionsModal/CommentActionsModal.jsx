@@ -19,7 +19,7 @@ const PostActionsModal = (props) => {
   const handleDelete = async () => {
     try {
       await APIManager.deleteComment(postId, commentId);
-      await mutate(`/posts/${postId}`);
+      await mutate(`/posts/${postId}/comments`);
     } catch (e) {
       console.error(e.response);
     }
