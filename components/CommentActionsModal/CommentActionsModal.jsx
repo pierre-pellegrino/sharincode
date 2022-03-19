@@ -36,7 +36,11 @@ const PostActionsModal = (props) => {
           postId={postId}
           commentId={commentId}
           content={content}
-          closeModal={() => setDisplayEditModal(false)}
+          closeModal={() => {
+            setDisplayEditModal(false);
+            document.body.style.overflow = "auto";
+            setButtonDisabled(false);
+          }}
           setButtonDisabled={setButtonDisabled}
         />
       )}
