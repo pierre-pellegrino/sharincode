@@ -15,7 +15,7 @@ const LoggedOutNav = () => {
           {({ isActive }) => (
             <>
               {isActive ? (
-                <LogInIconFilled className={active} />
+                <LogInIconFilled />
               ) : (
                 <LogInIconOutline />
               )}
