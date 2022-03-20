@@ -121,15 +121,18 @@ const LoginForm = () => {
           required
         />
         <label htmlFor="password-input">Mot de passe</label>
-        <button
+        <div
           className={`${showPwdIcon} ${showPwdIconLogin}`}
+          focusable="false"
+          aria-hidden="true"
+          role="complementary"
           onClick={(e) => {
             e.preventDefault();
             setShowPwd(!showPwd);
           }}
         >
           {showPwd ? <EyeOffIcon /> : <EyeIcon />}
-        </button>
+        </div>
       </div>
 
       <input

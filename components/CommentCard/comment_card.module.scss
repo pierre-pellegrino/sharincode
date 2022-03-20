@@ -50,15 +50,22 @@
       color: $primary;
     }
 
-    & p:nth-child(2) {
+    i {
       font-size: 0.8rem;
+      color: #333;
+      text-align: right;
     }
 
   }
 
   .commentActionsMenu {
     position: absolute;
-    top: 1.75rem;
+    top: auto;
     right: 0;
+    bottom: -100%;
+  }
+
+  .contentStyle {
+    margin-right: 2rem;
   }
 }

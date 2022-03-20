@@ -237,15 +237,17 @@ const LoginForm = () => {
         />
         <label htmlFor="password-input">Mot de passe</label>
         <ValidationIcon isValid={validPwd} />
-        <button
+        <div
           className={showPwdIcon}
+          focusable="false"
+          aria-hidden="true"
           onClick={(e) => {
             e.preventDefault();
             setShowPwd(!showPwd);
           }}
         >
           {showPwd ? <EyeOffIcon /> : <EyeIcon />}
-        </button>
+        </div>
         <p
           id="pwdnote"
           className={cn(instructions, {
@@ -275,15 +277,17 @@ const LoginForm = () => {
           Confirmation du mot de passe
         </label>
         <ValidationIcon isValid={validPwdConfirm && validPwd} />
-        <button
+        <div
           className={showPwdIcon}
+          focusable="false"
+          aria-hidden="true"
           onClick={(e) => {
             e.preventDefault();
             setShowPwdConfirm(!showPwdConfirm);
           }}
         >
           {showPwdConfirm ? <EyeOffIcon /> : <EyeIcon />}
-        </button>
+        </div>
         <p
           id="pwdconfirmnote"
           className={cn(instructions, {

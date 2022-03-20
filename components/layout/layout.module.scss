@@ -13,6 +13,7 @@
   }
 
   @include mixins.smallBreakpoint() {
-    margin: 0 auto;
+    margin: 0;
+    padding-bottom: 3rem;
   }
 }
