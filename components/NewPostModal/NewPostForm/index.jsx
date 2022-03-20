@@ -11,7 +11,6 @@ import { showNewPostModalAtom } from "store";
 import { useSWRConfig } from "swr";
 
 const NewPostForm = ({
-  id,
   editDescription,
   editLanguage,
   editSnippet,

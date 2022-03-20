@@ -1,4 +1,3 @@
-import { EMAIL_REGEX, PWD_REGEX } from "lib/constants/validations";
 import { useRef, useEffect, useState } from "react";
 import {
   form,
@@ -9,6 +8,7 @@ import {
   offscreen,
   showPwdIcon,
   showPwdIconLogin,
+  formLink,
 } from "./form.module.scss";
 import APIManager from "pages/api/axios";
 import { useRouter } from "next/router";
@@ -17,6 +17,7 @@ import { userAtom } from "store";
 import { useAtom } from "jotai";
 import { EyeOffIcon } from "components/icons";
 import { EyeIcon } from "components/icons";
+import Link from "next/link";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -137,6 +138,12 @@ const LoginForm = () => {
         value="Me connecter"
         disabled={!canSave}
       />
+      <div className={formLink}>
+        <span>Pas encore de compte ?</span>
+        <Link href="/register">
+          <a> M&apos;inscrire</a>
+        </Link>
+      </div>
     </form>
   );
 };
