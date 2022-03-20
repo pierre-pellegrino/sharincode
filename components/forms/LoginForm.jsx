@@ -1,11 +1,22 @@
 import { EMAIL_REGEX, PWD_REGEX } from "lib/constants/validations";
 import { useRef, useEffect, useState } from "react";
-import { form, inputWrapper, input, btn, errmsg, offscreen } from "./form.module.scss";
+import {
+  form,
+  inputWrapper,
+  input,
+  btn,
+  errmsg,
+  offscreen,
+  showPwdIcon,
+  showPwdIconLogin,
+} from "./form.module.scss";
 import APIManager from "pages/api/axios";
 import { useRouter } from "next/router";
 import cn from "classnames";
 import { userAtom } from "store";
 import { useAtom } from "jotai";
+import { EyeOffIcon } from "components/icons";
+import { EyeIcon } from "components/icons";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -14,7 +25,9 @@ const LoginForm = () => {
   const emailRef = useRef();
 
   const [email, setEmail] = useState("");
+
   const [pwd, setPwd] = useState("");
+  const [showPwd, setShowPwd] = useState(false);
 
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
@@ -96,7 +109,7 @@ const LoginForm = () => {
 
       <div className={inputWrapper}>
         <input
-          type="password"
+          type={showPwd ? "text" : "password"}
           className={input}
           id="password-input"
           placeholder=" "
@@ -106,6 +119,15 @@ const LoginForm = () => {
           required
         />
         <label htmlFor="password-input">Mot de passe</label>
+        <button
+          className={`${showPwdIcon} ${showPwdIconLogin}`}
+          onClick={(e) => {
+            e.preventDefault();
+            setShowPwd(!showPwd);
+          }}
+        >
+          {showPwd ? <EyeOffIcon /> : <EyeIcon />}
+        </button>
       </div>
 
       <input

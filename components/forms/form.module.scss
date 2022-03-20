@@ -119,6 +119,26 @@
   }
 }
 
+.showPwdIcon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: auto;
+  border: none;
+  background-color: transparent;
+  width: 1.3em;
+  height: fit-content;
+  margin: 0.5rem 2.2rem;
+
+  &Login {
+    margin: 0.5rem;
+  }
+  
+  svg {
+    height: 1.3em;
+  }
+}
+
 @media screen and (max-width: 525px) {
   .form {
     min-width: 100%;

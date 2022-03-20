@@ -13,6 +13,7 @@ import {
   offscreen,
   instructions,
   formLink,
+  showPwdIcon,
 } from "./form.module.scss";
 import cn from "classnames";
 import APIManager from "pages/api/axios";
@@ -22,7 +23,8 @@ import ValidationIcon from "components/ValidationIcon";
 import Link from "next/link";
 import { useAtom } from "jotai";
 import { userAtom } from "store";
-import { unstable_renderSubtreeIntoContainer } from "react-dom";
+import { EyeIcon } from "components/icons";
+import { EyeOffIcon } from "components/icons";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -41,10 +43,12 @@ const LoginForm = () => {
   const [pwd, setPwd] = useState("");
   const [validPwd, setValidPwd] = useState(false);
   const [pwdFocus, setPwdFocus] = useState(false);
+  const [showPwd, setShowPwd] = useState(false);
 
   const [pwdConfirm, setPwdConfirm] = useState("");
   const [validPwdConfirm, setValidPwdConfirm] = useState(false);
   const [pwdConfirmFocus, setPwdConfirmFocus] = useState(false);
+  const [showPwdConfirm, setShowPwdConfirm] = useState(false);
 
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
@@ -61,12 +65,7 @@ const LoginForm = () => {
 
   useEffect(() => {
     setErrMsg("");
-  }, [
-    username,
-    email,
-    pwd,
-    pwdConfirm
-  ]);
+  }, [username, email, pwd, pwdConfirm]);
 
   useEffect(() => {
     const result = USERNAME_REGEX.test(username);
@@ -199,7 +198,7 @@ const LoginForm = () => {
 
       <div className={inputWrapper}>
         <input
-          type="password"
+          type={showPwd ? "text" : "password"}
           className={input}
           id="password-input"
           placeholder=" "
@@ -214,6 +213,15 @@ const LoginForm = () => {
         />
         <label htmlFor="password-input">Mot de passe</label>
         <ValidationIcon isValid={validPwd} />
+        <button
+          className={showPwdIcon}
+          onClick={(e) => {
+            e.preventDefault();
+            setShowPwd(!showPwd);
+          }}
+        >
+          {showPwd ? <EyeOffIcon /> : <EyeIcon />}
+        </button>
         <p
           id="pwdnote"
           className={cn(instructions, {
@@ -226,7 +234,7 @@ const LoginForm = () => {
 
       <div className={inputWrapper}>
         <input
-          type="password"
+          type={showPwdConfirm ? "text" : "password"}
           className={input}
           id="passwordConfirm-input"
           placeholder=" "
@@ -243,6 +251,15 @@ const LoginForm = () => {
           Confirmation du mot de passe
         </label>
         <ValidationIcon isValid={validPwdConfirm && validPwd} />
+        <button
+          className={showPwdIcon}
+          onClick={(e) => {
+            e.preventDefault();
+            setShowPwdConfirm(!showPwdConfirm);
+          }}
+        >
+          {showPwdConfirm ? <EyeOffIcon /> : <EyeIcon />}
+        </button>
         <p
           id="pwdconfirmnote"
           className={cn(instructions, {
