@@ -1,11 +1,19 @@
-import { EMAIL_REGEX, PWD_REGEX } from "lib/constants/validations";
 import { useRef, useEffect, useState } from "react";
-import { form, inputWrapper, input, btn, errmsg, offscreen } from "./form.module.scss";
+import {
+  form,
+  inputWrapper,
+  input,
+  btn,
+  errmsg,
+  offscreen,
+  formLink,
+} from "./form.module.scss";
 import APIManager from "pages/api/axios";
 import { useRouter } from "next/router";
 import cn from "classnames";
 import { userAtom } from "store";
 import { useAtom } from "jotai";
+import Link from "next/link";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -115,6 +123,12 @@ const LoginForm = () => {
         value="Me connecter"
         disabled={!canSave}
       />
+      <div className={formLink}>
+        <span>Pas encore de compte ?</span>
+        <Link href="/register">
+          <a> M&apos;inscrire</a>
+        </Link>
+      </div>
     </form>
   );
 };
