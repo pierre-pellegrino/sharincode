@@ -7,17 +7,23 @@ import {
 import { btn } from "components/forms/form.module.scss";
 import {WarningIcon} from "components/icons";
 import APIManager from "pages/api/axios";
+import { useSWRConfig } from 'swr';
 
 const NewCommentForm = ({currentUser, id}) => {
   const [description, setDescription] = useState("");
+  const { mutate } = useSWRConfig();
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
     const data = {
       content: description
     }
 
     const response = await APIManager.createComment(id, data);
     console.log(response.data);
+    setDescription("");
+    await mutate(`/posts/${id}/comments`);
   }
 
   return (

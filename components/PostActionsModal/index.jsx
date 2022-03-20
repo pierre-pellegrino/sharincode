@@ -1,7 +1,7 @@
 import cn from "classnames";
 import NewPostModal from "components/NewPostModal";
 import APIManager from "pages/api/axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSWRConfig } from "swr";
 import {
   modal,
@@ -11,7 +11,15 @@ import {
 } from "./post_actions_modal.module.scss";
 
 const PostActionsModal = (props) => {
-  const { opened, postId, description, language, snippet, post } = props;
+  const {
+    opened,
+    postId,
+    description,
+    language,
+    snippet,
+    post,
+    setButtonDisabled,
+  } = props;
 
   const { mutate } = useSWRConfig();
   const [displayEditModal, setDisplayEditModal] = useState(false);
@@ -38,6 +46,7 @@ const PostActionsModal = (props) => {
           language={language}
           snippet={snippet}
           post={post}
+          setButtonDisabled={setButtonDisabled}
         />
       )}
       <ul className={navItems}>

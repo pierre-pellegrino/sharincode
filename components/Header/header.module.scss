@@ -10,7 +10,6 @@
   padding: 2rem;
   padding-right: 0;
   width: 18rem;
-  z-index: 20;
 
   @include mixins.middleBreakpoint() {
     padding: 0;

@@ -235,4 +235,16 @@
       fill: #fff;
     }
   }
+
+  &.menuDisabled {
+    cursor: auto;
+
+    &:hover {
+      background-color: transparent;
+
+      svg circle {
+        fill: #ccc;
+      }
+    }
+  }
 }
