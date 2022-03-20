@@ -3,6 +3,7 @@ import {
   form,
   inputWrapper,
   input,
+  inputPwd,
   btn,
   errmsg,
   offscreen,
@@ -111,7 +112,7 @@ const LoginForm = () => {
       <div className={inputWrapper}>
         <input
           type={showPwd ? "text" : "password"}
-          className={input}
+          className={`${input} ${inputPwd}`}
           id="password-input"
           placeholder=" "
           autoComplete="current-password"

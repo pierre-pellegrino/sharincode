@@ -8,12 +8,14 @@ import {
   form,
   inputWrapper,
   input,
+  inputPwd,
   btn,
   errmsg,
   offscreen,
   instructions,
   formLink,
   showPwdIcon,
+  advantages
 } from "./form.module.scss";
 import cn from "classnames";
 import APIManager from "pages/api/axios";
@@ -120,6 +122,28 @@ const LoginForm = () => {
   return (
     <form className={form} onSubmit={handleLogin}>
       <h1> Inscription </h1>
+      <div className={advantages}>
+        <p>
+          En créant un compte, vous pourrez&nbsp;:
+        </p>
+        <ul>
+          <li>
+            Partager vos meilleurs snippets au monde&nbsp;✨
+          </li>
+          <li>
+            Commenter des snippets&nbsp;✍️
+          </li>
+          <li>
+            Réagir aux snippets que vous aimez&nbsp;💡
+          </li>
+          <li>
+            Enregistrer vos snippets préférés dans vos favoris&nbsp;⭐
+          </li>
+          <li>
+            Choisir votre thème préféré&nbsp;🎨
+          </li>
+        </ul>
+      </div>
 
       {success && (
         <p>
@@ -199,7 +223,7 @@ const LoginForm = () => {
       <div className={inputWrapper}>
         <input
           type={showPwd ? "text" : "password"}
-          className={input}
+          className={`${input} ${inputPwd}`}
           id="password-input"
           placeholder=" "
           autoComplete="new-password"
@@ -235,7 +259,7 @@ const LoginForm = () => {
       <div className={inputWrapper}>
         <input
           type={showPwdConfirm ? "text" : "password"}
-          className={input}
+          className={`${input} ${inputPwd}`}
           id="passwordConfirm-input"
           placeholder=" "
           autoComplete="new-password"

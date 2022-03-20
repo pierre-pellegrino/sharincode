@@ -8,7 +8,6 @@
   flex-direction: column;
   align-items: center;
   background-color: #fafafa;
-  width: 50%;
   min-width: 325px;
 
   h1 {
@@ -43,10 +42,15 @@
 .input {
     width: 100%;
     padding: 0.5rem 1rem;
+    padding-right: 2.5rem;
     outline: none;
     border: 1px solid $lightgrey;
     position: relative;
     line-height: 1rem;
+
+    &Pwd {
+      padding-right: 4rem;
+    }
 
     &:focus, &:not(.input:placeholder-shown) {
       border-color: black;
@@ -136,6 +140,21 @@
   
   svg {
     height: 1.3em;
+  }
+}
+
+.advantages {
+  text-align: center;
+  background-color: color.scale($orange, $alpha: -90%);
+  padding: 1em;
+  border-radius: 1rem;
+
+  p {
+    margin-bottom: 1rem;
+  }
+
+  ul {
+    list-style: none;
   }
 }
 
