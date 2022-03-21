@@ -17,6 +17,7 @@
 
   .description {
     padding: 1rem 1rem 0 1rem;
+    line-break: anywhere;
 
     &:hover {
       cursor: pointer;
@@ -204,7 +205,8 @@
 
   i {
     font-size: 0.8rem;
-    color: #333;
+    color: inherit;
+    opacity: 0.9;
   }
 }
 
