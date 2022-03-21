@@ -1,6 +1,13 @@
 const SetTheme = ({ highlights }) => (
   <style jsx global>
     {`
+      // SCROLLBARS
+
+      :root {
+        --scroll-thumb: ${highlights.comment};
+        --scroll-track: hsl(${highlights.background2});
+      }
+
       // GLOBAL COLORS
 
       .bg-global {
