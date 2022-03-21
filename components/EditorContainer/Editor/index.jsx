@@ -1,5 +1,3 @@
-import { THEMES, THEMES_HASH } from "lib/constants/themes";
-import dynamic from "next/dynamic";
 import { Controlled as CodeMirror } from "react-codemirror2";
 import { codeMirrorWrapper } from "../editor.module.scss";
 
@@ -30,7 +28,9 @@ const Editor = (props) => {
       "Shift-Tab": "indentLess",
     },
     showInvisibles: false,
-    autoCloseBrackets: true
+    autoCloseBrackets: true,
+    matchBrackets: true,
+    styleActiveLine: true,
   };
 
   return (

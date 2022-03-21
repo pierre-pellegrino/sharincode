@@ -3,6 +3,9 @@ import {
   newCommentWrapper,
   form,
 } from "components/NewCommentForm/new_comment_form.module.scss";
+import {
+  inputWrapper
+} from "components/NewPostModal/new_post_modal.module.scss";
 import { btn } from "components/forms/form.module.scss";
 import { WarningIcon } from "components/icons";
 import APIManager from "pages/api/axios";
@@ -38,24 +41,26 @@ const EditCommentForm = ({ commentId, postId, content, closeModal, setButtonDisa
   return (
     <>
       <div className={editCommentBlocker} onClick={closeModal} />
-      <div className={editComment}>
+      <div className={`${editComment} bg-global-secondary`}>
         <div className={`${newCommentWrapper}`}>
           <form className={form} onSubmit={handleSubmit}>
-            <p>
-              {description.length} / 300
-              {description.length >= 290 && <WarningIcon />}
-            </p>
-            <textarea
-              name="description"
-              id="description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              maxLength="300"
-              required
-            />
+            <div className={inputWrapper}>
+              <p className="txt-primary">
+                {description.length} / 300
+                {description.length >= 290 && <WarningIcon />}
+              </p>
+              <textarea
+                name="description"
+                id="description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                maxLength="300"
+                required
+              />
+            </div>
             <input
               type="submit"
-              className={btn}
+              className={`${btn} bg-primary`}
               role="button"
               value="Éditer"
               disabled={description.length < 1}

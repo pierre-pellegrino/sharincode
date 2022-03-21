@@ -27,7 +27,7 @@ const PostActionsModal = (props) => {
 
   return (
     <div
-      className={cn(modal, {
+      className={cn(modal, "bg-global-secondary", {
         [offscreen]: !opened,
       })}
     >

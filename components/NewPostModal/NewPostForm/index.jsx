@@ -142,7 +142,7 @@ const NewPostForm = ({
       />
       <input
         type="submit"
-        className={btn}
+        className={`${btn} bg-primary`}
         role="button"
         value="Partager mon code au monde ! 🚀"
         disabled={!canSave}

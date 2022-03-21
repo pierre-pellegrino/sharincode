@@ -2,13 +2,8 @@
 @use "styles/abstracts/variables" as *;
 
 .postCardWrapper {
-  border: 1px solid $grey;
   background-color: #fff;
-  border-radius: 2px;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  -ms-border-radius: 2px;
-  -o-border-radius: 2px;
+  border-radius: 5px;
   width: 100%;
   max-width: 700px;
   margin: 6px 0;
@@ -18,21 +13,18 @@
     align-items: center;
     justify-content: space-between;
     padding: 0.5rem 1rem;
-    border-bottom: 1px solid $lightgrey;
   }
 
   .description {
     padding: 1rem 1rem 0 1rem;
 
     &:hover {
-      background-color: #f2f2f2;
       cursor: pointer;
     }
 
     &:hover + .snippet {
       padding: 1.25rem 1rem;
       margin: 0;
-      background-color: #f2f2f2;
     }
   }
 
@@ -54,7 +46,6 @@
 
   .bottom {
     padding: 0.5rem 1rem;
-    border-top: 1px solid $lightgrey;
 
     .reactsWrapper {
       margin-bottom: 1rem;
@@ -73,7 +64,6 @@
       .reactItem {
         display: flex;
         align-items: center;
-        background-color: var(--hovergrey);
         padding: 0.25rem;
         border-radius: 4px;
         -webkit-border-radius: 4px;
@@ -103,7 +93,7 @@
         -o-border-radius: 4px;
         
         &:hover {
-          background-color: $hovergrey;
+          background-color: var(--hover);
         }
       }
     }
@@ -127,7 +117,7 @@
         cursor: pointer;
 
         &:hover {
-          background-color: $hovergrey;
+          background-color: var(--hover);
         }
       }
 
@@ -153,9 +143,9 @@
   left: 0;
   width: 250px;
   padding: 0.5rem 1rem;
-  background-color: $hovergrey;
+  background-color: var(--hover);
   z-index: 1;
-  box-shadow: 0 0 2px 1px $lightgrey;
+  box-shadow: var(--shadow-low);
   border-radius: 4px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -230,7 +220,7 @@
   }
 
   &:hover {
-    background-color: #ccc;
+    background-color: var(--hover);
 
     svg circle {
       fill: #fff;

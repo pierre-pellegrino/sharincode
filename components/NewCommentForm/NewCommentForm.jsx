@@ -39,13 +39,14 @@ const NewCommentForm = ({currentUser, id}) => {
           name="description"
           id="description"
           value={description}
+          className="bg-global-secondary"
           onChange={(e) => setDescription(e.target.value)}
           maxLength="300"
           required
         />
         <input
           type="submit"
-          className={btn}
+          className={`${btn} bg-primary`}
           role="button"
           value="Commenter"
           disabled={description.length<1}

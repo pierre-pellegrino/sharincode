@@ -1,6 +1,71 @@
 const SetTheme = ({ highlights }) => (
   <style jsx global>
     {`
+      // GLOBAL COLORS
+
+      .bg-global {
+        --hover: hsl(${highlights.background2});
+
+        background-color: ${highlights.background};
+      }
+
+      .bg-global-secondary {
+        --bg-secondary: hsl(${highlights.background2});
+
+        --hover: ${highlights.background};
+
+        --shadow-medium: 0.3px 0.5px 0.7px hsl(${highlights.shadow ?? highlights.background2} / 0.36),
+        0.8px 1.6px 2px -0.8px hsl(${highlights.shadow ?? highlights.background2} / 0.36),
+        2.1px 4.1px 5.2px -1.7px hsl(${highlights.shadow ?? highlights.background2} / 0.36),
+        5px 10px 12.6px -2.5px hsl(${highlights.shadow ?? highlights.background2} / 0.36);
+
+        --shadow-low:
+          0.3px 0.5px 0.7px hsl(${highlights.shadow ?? highlights.background2} / 0.34),
+          0.4px 0.8px 1px -1.2px hsl(${highlights.shadow ?? highlights.background2} / 0.34),
+          1px 2px 2.5px -2.5px hsl(${highlights.shadow ?? highlights.background2} / 0.34);
+
+        --border: ${highlights.border ?? "none"};
+
+        background-color: hsl(${highlights.background2});
+        box-shadow: var(--shadow-medium);
+      }
+
+      .txt-global {
+        color: ${highlights.text};
+      }
+
+      .bg-primary {
+        background-color: ${highlights.def};
+      }
+
+      .bg-secondary {
+        background-color: ${highlights.keyword};
+      }
+
+      .txt-primary {
+        color: ${highlights.def};
+      }
+
+      .txt-secondary {
+        color: ${highlights.keyword};
+      }
+
+      .fill-primary {
+        fill: ${highlights.def};
+      }
+
+      .fill-secondary {
+        fill: ${highlights.keyword};
+      }
+
+      .stroke-primary {
+        stroke: ${highlights.def};
+      }
+
+      .stroke-secondary {
+        stroke: ${highlights.keyword};
+      }
+
       // GLOBAL
 
       .CodeMirror,
@@ -18,7 +83,7 @@ const SetTheme = ({ highlights }) => (
       }
 
       .CodeMirror-gutters {
-        color: ${highlights.gutters} !important;
+        background-color: ${highlights.gutters} !important;
         border-right: ${highlights.guttersBorder} !important;
       }
 
@@ -44,31 +109,40 @@ const SetTheme = ({ highlights }) => (
 
       // VARIABLES
 
-      .cm-keyword {
+      .cm-keyword,
+      .hljs-keyword {
         color: ${highlights.keyword} !important;
       }
-      .cm-atom {
+      .cm-atom,
+      .hljs-literal {
         color: ${highlights.atom} !important;
       }
-      .cm-number {
+      .cm-number,
+      .hljs-number {
         color: ${highlights.number} !important;
       }
-      .cm-def {
+      .cm-def,
+      .hljs-params,
+      .hljs-title {
         color: ${highlights.def} !important;
       }
       .cm-punctuation {
         color: ${highlights.punctuation} !important;
       }
-      .cm-property {
+      .cm-property,
+      .hljs-property,
+      .hljs-attr {
         color: ${highlights.property} !important;
       }
       .cm-operator {
         color: ${highlights.operator} !important;
       }
-      .cm-variable {
+      .cm-variable,
+      .hljs-title {
         color: ${highlights.variable} !important;
       }
-      .cm-variable-2 {
+      .cm-variable-2,
+      .hljs-subst {
         color: ${highlights.variable2 || highlights.variable} !important;
       }
       .cm-variable-3 {
@@ -77,10 +151,12 @@ const SetTheme = ({ highlights }) => (
       .cm-type {
         color: ${highlights.type} !important;
       }
-      .cm-comment {
+      .cm-comment,
+      .hljs-comment {
         color: ${highlights.comment} !important;
       }
-      .cm-string {
+      .cm-string,
+      .hljs-string {
         color: ${highlights.string} !important;
       }
       .cm-string-2 {
@@ -98,10 +174,13 @@ const SetTheme = ({ highlights }) => (
       .cm-bracket {
         color: ${highlights.bracket} !important;
       }
-      .cm-tag {
+      .cm-tag,
+      .hljs-tag,
+      .hljs-name {
         color: ${highlights.tag} !important;
       }
-      .cm-attribute {
+      .cm-attribute,
+      .hljs-attr {
         color: ${highlights.attribute} !important;
       }
       .cm-hr {
@@ -109,6 +188,12 @@ const SetTheme = ({ highlights }) => (
       }
       .cm-link {
         color: ${highlights.link} !important;
+      }
+      .cm-special {
+        color: ${highlights.special} !important;
+      }
+      .cm-header {
+        color: ${highlights.header} !important;
       }
       .cm-error {
         color: ${highlights.error} !important;
@@ -124,6 +209,8 @@ const SetTheme = ({ highlights }) => (
       .CodeMirror-matchingbrackets {
         text-decoration: ${highlights.matchingBracketsDecoration} !important;
         color: ${highlights.matchingBrackets} !important;
+        background-color: ${highlights.matchingBracketsBg} !important;
+        outline: ${highlights.matchingBracketsOutline} !important;
       }
     `}
   </style>

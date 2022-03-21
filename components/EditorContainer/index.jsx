@@ -7,7 +7,7 @@ const Editor = dynamic(
     import("codemirror/lib/codemirror.css");
     
     LANGUAGES.filter(
-      (language) => language.mode !== "text" && language.mode !== "apache"
+      (language) => language.mode !== "text"
     ).forEach(
       (language) => import(`codemirror/mode/${language.mode}/${language.mode}.js`)
     );
@@ -15,6 +15,8 @@ const Editor = dynamic(
     // import("codemirror/theme/3024-day.css");
     import("codemirror/addon/edit/closebrackets");
     import("codemirror/addon/lint/lint");
+    import("codemirror/addon/edit/matchbrackets");
+    import("codemirror/addon/selection/active-line");
     return import("./Editor");
   },
   { ssr: false }

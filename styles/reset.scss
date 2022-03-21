@@ -34,9 +34,16 @@ select {
   font: inherit;
   display: block;
   outline: none;
+  color: inherit;
 
   &:focus {
     outline: none;
+  }
+
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover,
+  &:-webkit-autofill:focus {
+    color: inherit;
   }
 }
 

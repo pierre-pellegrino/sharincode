@@ -58,7 +58,7 @@ const PostCard = ({ post, detail, theme }) => {
   if (id === 168) return <div></div>;
 
   return (
-    <div className={`${postCardWrapper} ${detail && postCardDetailPage}`}>
+    <div className={`${postCardWrapper} ${detail && postCardDetailPage} bg-global-secondary`}>
       <div className={top}>
         <ProfileIcon user={author} />
         <div className={topRight}>
@@ -149,8 +149,8 @@ const PostCard = ({ post, detail, theme }) => {
             </div>
           </div>
           <Link href={`/posts/${id}`}>
-            <a>
-              <p className={`${btn} ${comment}`}>Commenter</p>
+            <a className={btn}>
+              <p className={{comment}}>Commenter</p>
             </a>
           </Link>
           <p className={btn}>Partager</p>

@@ -69,7 +69,7 @@ const LoginForm = () => {
   };
 
   return (
-    <form className={form} onSubmit={handleLogin}>
+    <form className={`${form} bg-global-secondary`} onSubmit={handleLogin}>
       <h1> Connexion </h1>
 
       {success && (
@@ -117,7 +117,7 @@ const LoginForm = () => {
       </div>
 
       <input
-        className={btn}
+        className={`${btn} bg-primary`}
         type="submit"
         role="button"
         value="Me connecter"
@@ -126,7 +126,7 @@ const LoginForm = () => {
       <div className={formLink}>
         <span>Pas encore de compte ?</span>
         <Link href="/register">
-          <a> M&apos;inscrire</a>
+          <a className="txt-primary"> M&apos;inscrire</a>
         </Link>
       </div>
     </form>

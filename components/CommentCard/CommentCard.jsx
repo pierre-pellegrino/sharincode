@@ -28,7 +28,7 @@ const CommentCard = ({ comment, currentUser, postId }) => {
   }, [displayActionsMenu]);
 
   return (
-    <div className={commentWrapper}>
+    <div className={`${commentWrapper} bg-global`}>
       <Image
         src={avatar ?? "/profile.jpeg"}
         alt="Profile Picture"
