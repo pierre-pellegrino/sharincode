@@ -14,6 +14,7 @@ const MyMiddleware = (req) => {
 
   const authOnlyRoutes = [
     "/profile",
+    "/new-post",
   ];
 
   if (unauthOnlyRoutes.includes(path)) {

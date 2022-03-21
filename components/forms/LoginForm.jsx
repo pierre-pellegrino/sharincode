@@ -3,9 +3,12 @@ import {
   form,
   inputWrapper,
   input,
+  inputPwd,
   btn,
   errmsg,
   offscreen,
+  showPwdIcon,
+  showPwdIconLogin,
   formLink,
 } from "./form.module.scss";
 import APIManager from "pages/api/axios";
@@ -13,6 +16,8 @@ import { useRouter } from "next/router";
 import cn from "classnames";
 import { userAtom } from "store";
 import { useAtom } from "jotai";
+import { EyeOffIcon } from "components/icons";
+import { EyeIcon } from "components/icons";
 import Link from "next/link";
 
 const LoginForm = () => {
@@ -22,7 +27,9 @@ const LoginForm = () => {
   const emailRef = useRef();
 
   const [email, setEmail] = useState("");
+
   const [pwd, setPwd] = useState("");
+  const [showPwd, setShowPwd] = useState(false);
 
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
@@ -104,8 +111,8 @@ const LoginForm = () => {
 
       <div className={inputWrapper}>
         <input
-          type="password"
-          className={input}
+          type={showPwd ? "text" : "password"}
+          className={`${input} ${inputPwd}`}
           id="password-input"
           placeholder=" "
           autoComplete="current-password"
@@ -114,6 +121,18 @@ const LoginForm = () => {
           required
         />
         <label htmlFor="password-input">Mot de passe</label>
+        <div
+          className={`${showPwdIcon} ${showPwdIconLogin}`}
+          focusable="false"
+          aria-hidden="true"
+          role="complementary"
+          onClick={(e) => {
+            e.preventDefault();
+            setShowPwd(!showPwd);
+          }}
+        >
+          {showPwd ? <EyeOffIcon /> : <EyeIcon />}
+        </div>
       </div>
 
       <input

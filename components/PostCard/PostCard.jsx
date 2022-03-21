@@ -62,12 +62,12 @@ const PostCard = ({ post, detail, theme }) => {
       <div className={top}>
         <ProfileIcon user={author} />
         <div className={topRight}>
-          <p>
+          <i>
             {formatDistanceToNow(new Date(date), {
               addSuffix: true,
               locale: fr,
             })}
-          </p>
+          </i>
           {user &&
             user.user.id === post.user.user_id &&
             (buttonDisabled ? (
