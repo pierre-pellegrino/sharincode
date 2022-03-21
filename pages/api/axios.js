@@ -1,8 +1,8 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-// const baseurl = "https://snipshare-api-staging.herokuapp.com";
-const baseurl = 'https://snipshare-api.herokuapp.com'
+const baseurl = "https://snipshare-api-staging.herokuapp.com";
+// const baseurl = 'https://snipshare-api.herokuapp.com'
 // const baseurl = 'https://staging-xs3.herokuapp.com'
 
 const APIRequest = axios.create({ baseURL: baseurl });
@@ -44,14 +44,26 @@ export default class APIManager {
     return response;
   }
 
+  static async getProfile(id) {
+    const endpoint = `/profiles/${id}`;
+    const response = await APIRequest.get(endpoint);
+    return response;
+  }
+
   static async updateProfile(id, data) {
-    const endpoint = `/users/${id}`;
+    const endpoint = `/profiles/${id}`;
     const response = await APIRequest.patch(endpoint, data);
     return response;
   }
 
-  static async getPosts() {
-    const endpoint = '/posts';
+  static async deleteUser(id) {
+    const endpoint = `/profiles/${id}`;
+    const response = await APIRequest.delete(endpoint);
+    return response;
+  }
+
+  static async getPosts(page=1) {
+    const endpoint = `/posts?page=${page}`;
     const response = await APIRequest.get(endpoint);
     return response;
   }

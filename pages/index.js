@@ -7,8 +7,9 @@ import Loader from "../components/Loader";
 import ThemeSelect from "components/ThemeSelect";
 
 export default function Home() {
+  const page = 1;
   const { data, error, isValidating, mutate } = useSWR(
-    "/posts",
+    `/posts?page=${page}`,
     APIManager.fetcher
   );
 

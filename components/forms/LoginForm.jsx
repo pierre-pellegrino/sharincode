@@ -81,7 +81,7 @@ const LoginForm = () => {
 
       {success && (
         <p>
-          Inscription réussie !<br />
+          Connexion réussie !<br />
           Vous allez être redirigé sur la page d&apos;accueil...
         </p>
       )}
