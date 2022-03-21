@@ -1,0 +1,15 @@
+@use "styles/abstracts/variables" as *;
+
+.profileInfos {
+  margin-bottom: 1.5rem;
+
+  p {
+    margin: 4px 0;
+
+    a {
+      margin-left: 0.5rem;
+      // text-decoration: underline;
+      color: $primary;
+    }
+  }
+}

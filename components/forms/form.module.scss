@@ -159,6 +159,14 @@
   }
 }
 
+.deleteAccount {
+  color: $red;
+  text-align: center;
+  font-weight: bolder;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
 @media screen and (max-width: 525px) {
   .form {
     min-width: 100%;

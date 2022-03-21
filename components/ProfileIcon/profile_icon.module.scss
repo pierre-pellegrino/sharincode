@@ -1,3 +1,5 @@
+@use "styles/abstracts/variables" as *;
+
 .profileIcon {
   display: flex;
   align-items: center;
@@ -5,7 +7,7 @@
 
   &Picture {
     min-width: 48px;
-    height: 48px;
+    min-height: 48px;
 
     &Comment {
       margin-left: 1rem;
@@ -23,5 +25,14 @@
       border: 1px solid #c1c1c1;
     }
   }
+}
 
+.profilePage {
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+
+  .profileIconText {
+    font-size: 2rem;
+    padding-left: 1em;
+  }
 }
