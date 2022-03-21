@@ -1,4 +1,5 @@
 @use "styles/abstracts/variables" as *;
+@use "sass:color";
 
 .form {
   border: 1px solid $grey;
@@ -7,7 +8,6 @@
   flex-direction: column;
   align-items: center;
   background-color: #fafafa;
-  width: 50%;
   min-width: 325px;
 
   h1 {
@@ -42,9 +42,15 @@
 .input {
     width: 100%;
     padding: 0.5rem 1rem;
+    padding-right: 2.5rem;
     outline: none;
     border: 1px solid $lightgrey;
     position: relative;
+    line-height: 1rem;
+
+    &Pwd {
+      padding-right: 4rem;
+    }
 
     &:focus, &:not(.input:placeholder-shown) {
       border-color: black;
@@ -70,6 +76,86 @@
 
   &:hover {
     opacity: 0.8;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}
+
+.errmsg {
+  color: $red;
+  margin-bottom: 1rem;
+}
+
+
+.instructions {
+  position: relative;
+  background-color: color.scale($red, $alpha: -20%);
+  border-radius: 0.5rem;
+  color: white;
+  padding: 1em;
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  height: auto;
+  transition: all 0.3s ease;
+  
+  &.offscreen {
+    height: 0;
+    padding: 0 1em;
+  }
+
+  svg {
+    fill: white;
+    height: 1em;
+    margin-right: 1em;
+  }
+}
+
+.formLink {
+  margin-top: 1rem;
+
+  a {
+    color: $primary;
+  }
+}
+
+.showPwdIcon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: auto;
+  border: none;
+  background-color: transparent;
+  width: 1.3em;
+  height: fit-content;
+  margin: 0.5rem 2.2rem;
+  cursor: pointer;
+
+  &Login {
+    margin: 0.5rem;
+  }
+  
+  svg {
+    height: 1.3em;
+  }
+}
+
+.advantages {
+  text-align: center;
+  background-color: color.scale($orange, $alpha: -90%);
+  padding: 1em;
+  border-radius: 1rem;
+
+  p {
+    margin-bottom: 1rem;
+  }
+
+  ul {
+    list-style: none;
   }
 }
 

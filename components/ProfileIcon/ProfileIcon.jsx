@@ -7,19 +7,20 @@ import {
   profilePage
 } from './profile_icon.module.scss';
 
-const ProfileIcon = ({type}) => {
+const ProfileIcon = ({user, type}) => {
+  console.log(user)
   return (
     <div className={`${profileIcon} ${type && profilePage}`}>
       <div className={profileIconPicture}>
         <Image 
-          src="/profile.jpeg"
-          alt="profile picture"
-          height={type ? 128 : 48}
-          width={type ? 128 : 48}
+          src={ user && user.avatar || "/profile.jpeg"}
+          alt="Profile Picture"
+          height={48}
+          width={48}
         />
       </div>
-      <div className={`${type && profileIconText}`}>
-        <p>Pseudonyme</p>
+      <div className={profileIconText}>
+        <p>{user.username || user.user.username || "Pseudonyme"}</p>
       </div>
       
     </div>

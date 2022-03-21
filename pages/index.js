@@ -1,13 +1,36 @@
-import { useAtom } from "jotai";
 import Head from "next/head";
 import PostCard from "components/PostCard/PostCard";
-import { showNewPostModalAtom } from "store";
 import styles from "styles/Home.module.scss";
-import NewPostModal from "components/NewPostModal";
-import fakeData from "lib/posts.json";
+import APIManager from "pages/api/axios";
+import useSWR from "swr";
+import Loader from "../components/Loader";
 
 export default function Home() {
-  const [showNewPostModal] = useAtom(showNewPostModalAtom);
+  const { data, error, isValidating, mutate } = useSWR(
+    "/posts",
+    APIManager.fetcher
+  );
+
+  let content = <Loader />;
+
+  if (error) content = <div>Oups ! Il y a eu un problème...</div>;
+
+  if (data) {
+    content = (
+      <>
+        <button
+          className={styles.btn}
+          onClick={() => mutate()}
+          disabled={isValidating}
+        >
+          Rafraichir
+        </button>
+        {data.posts.map((post) => (
+          <PostCard post={post.post} key={post.post.id} />
+        ))}
+      </>
+    );
+  }
 
   return (
     <section className={styles.main}>
@@ -17,18 +40,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {showNewPostModal && <NewPostModal />}
-
       <h1>Accueil</h1>
-
-      {fakeData.posts.map((post) => (
-        <PostCard
-          language={post.language}
-          description={post.description}
-          snippet={post.snippet}
-          key={post.id}
-        />
-      ))}
+      {content}
     </section>
   );
 }

@@ -1,0 +1,17 @@
+@use "styles/abstracts/variables" as *;
+
+.icon {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 1.3rem;
+  margin: 0.5rem;
+}
+
+.nice {
+  fill: $green;
+}
+
+.bad {
+  fill: $red;
+}

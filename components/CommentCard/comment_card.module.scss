@@ -1,0 +1,71 @@
+@use "styles/abstracts/variables" as *;
+
+.commentWrapper {
+  padding-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  max-width: 100%;
+
+  &:hover {
+    background-color: #fff;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+  }
+
+  img {
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+  }
+
+  &:nth-of-type(1) {
+    border-top: none;
+  }
+
+  &:not(:last-of-type) {
+    border-bottom: none;
+  }
+
+  .commentUser {
+    padding: 0.25rem 1rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .commentHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+
+    & p:nth-child(1) {
+      font-weight: bolder;
+      color: $primary;
+    }
+
+    i {
+      font-size: 0.8rem;
+      color: #333;
+      text-align: right;
+    }
+
+  }
+
+  .commentActionsMenu {
+    position: absolute;
+    top: auto;
+    right: 0;
+    bottom: -100%;
+  }
+
+  .contentStyle {
+    margin-right: 2rem;
+  }
+}

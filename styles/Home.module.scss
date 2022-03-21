@@ -1,14 +1,14 @@
+@use "./abstracts/variables" as *;
+
 .container {
   padding: 0 2rem;
 }
 
 .main {
-  min-height: 100vh;
   padding: 2rem 0;
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 
   h1 {
@@ -110,6 +110,28 @@
 .logo {
   height: 1em;
   margin-left: 0.5rem;
+}
+
+.btn {
+  margin-bottom: 1.5rem;
+  outline: none;
+  padding: 0.5rem;
+  background-color: $primary;
+  color: white;
+  font-family: 'Work Sans', sans-serif;
+  text-transform: uppercase;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
 }
 
 @media (max-width: 600px) {

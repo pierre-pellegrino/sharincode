@@ -2,8 +2,9 @@ import React from 'react';
 import styles from '/styles/Home.module.scss';
 import Head from 'next/head';
 import ProfileIcon from '/components/ProfileIcon/ProfileIcon'
+import APIManager from 'pages/api/axios';
 
-const ProfilePage = ({username}) => {
+const ProfilePage = ({username, user}) => {
   return (
     <div className={styles.container}>
       <Head>
@@ -11,8 +12,9 @@ const ProfilePage = ({username}) => {
       </Head>
 
       <main className={styles.main}>
-        <ProfileIcon type="profile"/>
+        {/* <ProfileIcon type="profile"/> */}
         {username}
+        {user}
       </main>
     </div>
   );
@@ -21,9 +23,13 @@ const ProfilePage = ({username}) => {
 export const getServerSideProps = async (context) => {
   const { username } = context.params;
 
+  const response = await APIManager.getProfile(username);
+  const user = await response.data;
+
   return {
     props: {
-      username
+      username,
+      user
     }
   }
 }
