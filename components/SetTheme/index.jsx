@@ -41,36 +41,40 @@ const SetTheme = ({ highlights }) => (
         color: ${highlights.text};
       }
 
+      .txt-btn {
+        color: ${highlights.btnColor ?? "inherit"};
+      }
+
       .bg-primary {
-        background-color: ${highlights.def};
+        background-color: ${highlights.switchColors ? highlights.keyword : highlights.def};
       }
 
       .bg-secondary {
-        background-color: ${highlights.keyword};
+        background-color: ${highlights.switchColors ? highlights.def : highlights.keyword};
       }
 
       .txt-primary {
-        color: ${highlights.def};
+        color: ${highlights.switchColors ? highlights.keyword : highlights.def};
       }
 
       .txt-secondary {
-        color: ${highlights.keyword};
+        color: ${highlights.switchColors ? highlights.def : highlights.keyword};
       }
 
       .fill-primary {
-        fill: ${highlights.def};
+        fill: ${highlights.switchColors ? highlights.keyword : highlights.def};
       }
 
       .fill-secondary {
-        fill: ${highlights.keyword};
+        fill: ${highlights.switchColors ? highlights.def : highlights.keyword};
       }
 
       .stroke-primary {
-        stroke: ${highlights.def};
+        stroke: ${highlights.switchColors ? highlights.keyword : highlights.def};
       }
 
       .stroke-secondary {
-        stroke: ${highlights.keyword};
+        stroke: ${highlights.switchColors ? highlights.def : highlights.keyword};
       }
 
       // GLOBAL

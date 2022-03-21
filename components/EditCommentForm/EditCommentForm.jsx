@@ -60,7 +60,7 @@ const EditCommentForm = ({ commentId, postId, content, closeModal, setButtonDisa
             </div>
             <input
               type="submit"
-              className={`${btn} bg-primary`}
+              className={`${btn} bg-primary txt-btn`}
               role="button"
               value="Éditer"
               disabled={description.length < 1}

@@ -299,7 +299,7 @@ const LoginForm = () => {
       </div>
 
       <input
-        className={`${btn} bg-primary`}
+        className={`${btn} bg-primary txt-btn`}
         tabIndex={0}
         type="submit"
         role="button"

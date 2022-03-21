@@ -46,7 +46,7 @@ const NewCommentForm = ({currentUser, id}) => {
         />
         <input
           type="submit"
-          className={`${btn} bg-primary`}
+          className={`${btn} bg-primary txt-btn`}
           role="button"
           value="Commenter"
           disabled={description.length<1}

@@ -114,7 +114,7 @@ const EditUserForm = ({user}) => {
         <p> Thème favori à venir </p>
 
         <input
-          className={btn}
+          className={`${btn} bg-primary txt-btn`}
           type="submit"
           role="button"
           value="éditer"

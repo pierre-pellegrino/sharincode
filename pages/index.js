@@ -21,7 +21,7 @@ export default function Home() {
     content = (
       <>
         <button
-          className={`${styles.btn} bg-primary`}
+          className={`${styles.btn} bg-primary txt-btn`}
           onClick={() => mutate()}
           disabled={isValidating}
         >

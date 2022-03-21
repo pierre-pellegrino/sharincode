@@ -136,7 +136,7 @@ const LoginForm = () => {
       </div>
 
       <input
-        className={`${btn} bg-primary`}
+        className={`${btn} bg-primary txt-btn`}
         type="submit"
         role="button"
         value="Me connecter"
