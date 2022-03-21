@@ -1,29 +1,28 @@
 import { useAtom } from "jotai";
 import Link from "components/Link";
 import { showNewPostModalAtom, userAtom } from "store";
-import { FSocietyMaskIcon, LampIcon, SignOutIcon } from "components/icons";
+import { SignOutIcon, LogInIconOutline, CreateIconOutlined } from "components/icons";
 import {
   navItems,
   navItem,
   text,
   avatarContainer,
   avatar,
+  active,
 } from "../header.module.scss";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import NewPostModal from "components/NewPostModal";
 import Image from "next/image";
-import { CreateIconOutlined } from "components/icons";
-import { LogInIconOutline } from "components/icons";
 import { useMediaQuery } from "react-responsive";
 
 const LoggedInNav = () => {
   const router = useRouter();
   const [showNewPostModal, setShowNewPostModal] = useAtom(showNewPostModalAtom);
   const [user, setUser] = useAtom(userAtom);
-  const smallBreakpoint = useMediaQuery({ query: "(max-width: 780px)" });
+  const middleBreakpoint = useMediaQuery({ query: "(max-width: 1000px)" });
 
-  console.log(smallBreakpoint);
+  console.log(middleBreakpoint);
 
   const handleDisconnect = () => {
     Cookies.remove("token");
@@ -36,16 +35,24 @@ const LoggedInNav = () => {
       {showNewPostModal && <NewPostModal />}
       <ul className={navItems} role="navigation">
         <li>
-          {smallBreakpoint ? (
+          {middleBreakpoint ? (
             <Link
               href="/new-post"
               className={navItem}
+              activeClassName={active}
               aria-label="Créer un nouveau snippet."
             >
               {({ isActive }) => (
                 <>
-                  <CreateIconOutlined />
-                  <span className={text}>Nouveau Snippet</span>
+                  {
+                    isActive ? (
+                      <CreateIconOutlined />
+                    ) : (
+                      <CreateIconOutlined />
+                      )
+            
+                    }
+                    <span className={text}>Nouveau Snippet</span>
                 </>
               )}
             </Link>
