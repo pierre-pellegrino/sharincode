@@ -8,8 +8,12 @@ import {
 } from "./form.module.scss";
 import APIManager from "pages/api/axios";
 import { useRouter } from "next/router";
+import { useAtom } from "jotai";
+import { userAtom } from "store";
 
 const EditUserForm = ({user}) => {
+  const [_, setUser] = useAtom(userAtom);
+
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
   const [description, setDescription] = useState(user?.description ?? "");
@@ -19,6 +23,8 @@ const EditUserForm = ({user}) => {
   const handleDeleteAccount = () => {
     if (confirm("Êtes-vous sûr ?\nCette action est irréversible.")) {
       APIManager.deleteUser(user.id);
+      setUser(null);
+
       router.push('/');
     }
   }
