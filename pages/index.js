@@ -6,8 +6,9 @@ import useSWR from "swr";
 import Loader from "../components/Loader";
 
 export default function Home() {
+  const page = 1;
   const { data, error, isValidating, mutate } = useSWR(
-    "/posts",
+    `/posts?page=${page}`,
     APIManager.fetcher
   );
 
