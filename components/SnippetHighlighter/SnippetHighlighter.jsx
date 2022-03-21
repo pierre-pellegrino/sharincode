@@ -1,11 +1,10 @@
 import React from 'react';
 import hljs from 'highlight.js';
 import 'highlight.js/styles/default.css';
-import { LANGUAGES } from '../../lib/constants/languages';
-// import 'highlight.js/styles/androidstudio.css';
+import { LANGUAGES_HASH } from '../../lib/constants/languages';
 
 const SnippetHighlighter = ({snippet, language}) => {
-  const languageObj = LANGUAGES.filter((lang) => lang.name === language)[0];
+  const languageObj = LANGUAGES_HASH[language];
   const formattedLanguage = languageObj?.short ?? languageObj.mode;
 
   const highlightedSnippet = hljs.highlight(snippet, {language: formattedLanguage});
