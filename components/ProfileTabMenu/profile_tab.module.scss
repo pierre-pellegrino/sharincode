@@ -59,3 +59,21 @@
 .profileTabContent {
   margin-top: 1.5rem;
 }
+
+@media screen and (max-width: 510px) {
+  .profileTabMenu {
+   flex-direction: column;
+   width: 100%;
+
+   .tab {
+     width: 100%;
+     flex-grow: 1;
+     text-align: center;
+   }
+
+   div {
+     width: 100%;
+     margin-bottom: 1rem;
+   }
+  }
+}

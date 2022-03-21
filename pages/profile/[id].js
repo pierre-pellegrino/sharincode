@@ -22,7 +22,6 @@ const ProfilePage = ({id}) => {
   if (data) {
     const profileData = {avatar: data.avatar, username: data.user.username}
     const isCurrentUser = userData && userData.user.id === data.user.id;
-    console.log(userData)
     content = (
       <>
         <Head>
