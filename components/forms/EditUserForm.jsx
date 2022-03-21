@@ -77,7 +77,6 @@ const EditUserForm = ({user}) => {
             placeholder=" "
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            required
           />
           <label htmlFor="description-input">Description</label>
         </div>
@@ -90,7 +89,6 @@ const EditUserForm = ({user}) => {
             placeholder=" "
             value={github}
             onChange={(e) => setGithub(e.target.value)}
-            required
           />
           <label htmlFor="github-input">Lien Github</label>
         </div>
@@ -103,7 +101,6 @@ const EditUserForm = ({user}) => {
             placeholder=" "
             value={personal}
             onChange={(e) => setPersonal(e.target.value)}
-            required
           />
           <label htmlFor="personal-input">Autre lien</label>
         </div>

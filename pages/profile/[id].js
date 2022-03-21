@@ -8,6 +8,9 @@ import Loader from "components/Loader";
 import ProfileTabMenu from '../../components/ProfileTabMenu/ProfileTabMenu';
 import {useAtom} from "jotai";
 import {userAtom} from "store";
+import {
+  profileInfos,
+} from "./profile.module.scss";
 
 
 const ProfilePage = ({id}) => {
@@ -28,6 +31,19 @@ const ProfilePage = ({id}) => {
           <title>{data.user.username} | SnipShare</title>
         </Head>
         <ProfileIcon type="profile" user={profileData}/>
+        <div className={profileInfos}>
+          <p>Description : {data.user.description}</p>
+          <p>Github : 
+            <a href={data.user.github_url} target="_blank" rel="noreferrer">
+              {data.user.github_url}
+            </a>
+          </p>
+          <p>Lien personnel : 
+            <a href={data.user.personal_url} target="_blank" rel="noreferrer">
+              {data.user.personal_url}
+            </a>
+          </p>
+        </div>
         <ProfileTabMenu user={data.user} isCurrentUser={isCurrentUser} currentUser={userData && userData.user} />
       </>
     );
