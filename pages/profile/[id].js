@@ -22,13 +22,14 @@ const ProfilePage = ({id}) => {
   if (data) {
     const profileData = {avatar: data.avatar, username: data.user.username}
     const isCurrentUser = userData && userData.user.id === data.user.id;
+    console.log(userData)
     content = (
       <>
         <Head>
           <title>{data.user.username} | SnipShare</title>
         </Head>
         <ProfileIcon type="profile" user={profileData}/>
-        <ProfileTabMenu user={data.user} isCurrentUser={isCurrentUser} currentUser={userData.user} />
+        <ProfileTabMenu user={data.user} isCurrentUser={isCurrentUser} currentUser={userData && userData.user} />
       </>
     );
   }

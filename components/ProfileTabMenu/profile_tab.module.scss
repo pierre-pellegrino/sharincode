@@ -2,7 +2,7 @@
 
 .profileTabMenu {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   width: 100%;
 
@@ -54,4 +54,8 @@
   .profileSettingsTab {
     flex-grow: 1;
   }
+}
+
+.profileTabContent {
+  margin-top: 1.5rem;
 }
