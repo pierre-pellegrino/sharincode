@@ -12,7 +12,7 @@ const Editor = dynamic(
       (language) => import(`codemirror/mode/${language.mode}/${language.mode}.js`)
     );
 
-    import("codemirror/theme/dracula.css");
+    // import("codemirror/theme/3024-day.css");
     import("codemirror/addon/edit/closebrackets");
     import("codemirror/addon/lint/lint");
     return import("./Editor");
@@ -30,6 +30,8 @@ const EditorContainer = (props) => {
         theme={theme}
         value={value}
         onChange={onChange}
+        number={3}
+        boolean={false}
       />
     </div>
   );

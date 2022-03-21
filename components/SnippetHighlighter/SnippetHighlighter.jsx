@@ -1,6 +1,6 @@
 import React from 'react';
 import hljs from 'highlight.js';
-import 'highlight.js/styles/night-owl.css';
+import 'highlight.js/styles/default.css';
 import { LANGUAGES } from '../../lib/constants/languages';
 // import 'highlight.js/styles/androidstudio.css';
 
