@@ -25,12 +25,13 @@ import { formatDistanceToNow } from "date-fns";
 import { en, fr } from "date-fns/locale";
 import { ThreeDotsIcon } from "components/icons";
 import PostActionsModal from "components/PostActionsModal";
-import { userAtom } from "store";
+import { userAtom, isConnectedAtom } from "store";
 import { useAtom } from "jotai";
 import ReactionsModal from "components/ReactionsModal/ReactionsModal";
 
 const PostCard = ({ post, detail, theme }) => {
   const [user] = useAtom(userAtom);
+  const [isConnected] = useAtom(isConnectedAtom);
 
   const language = post.snippets[0]?.language.replace(/^(\[")(.+)("])$/, "$2");
   const description = post.description;
@@ -141,7 +142,7 @@ const PostCard = ({ post, detail, theme }) => {
           </Link>
         </div>
         <div className={btnsWrapper}>
-          <ReactionsModal postId={id} reactions={reactions}/>
+          {isConnected && <ReactionsModal postId={id} reactions={reactions}/>}
           <Link href={`/posts/${id}`}>
             <a className={btn}>
               <p className={{comment}}>Commenter</p>
