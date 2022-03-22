@@ -1,10 +1,29 @@
+import Loader from "components/Loader";
 import NewPostForm from "components/NewPostModal/NewPostForm";
+import { useAtom } from "jotai";
+import { useRouter } from "next/router";
 import APIManager from "pages/api/axios";
+import { useEffect, useState } from "react";
+import { userAtom } from "store";
+import styles from "styles/Home.module.scss";
 
 const CommentEdit = ({ data }) => {
-  const { description, snippets } = data.post;
+  const { description, snippets, user } = data.post;
+  const [currentUser] = useAtom(userAtom);
+  const [userChecked, setUserChecked] = useState(false);
+  const router = useRouter();
 
-  console.log(snippets)
+  useEffect(() => {
+    if (currentUser && user.user_id !== currentUser.user.id) return router.replace("/");
+    if (currentUser) setUserChecked(true);
+  }, [currentUser, router, user.user_id]);
+
+  if (!userChecked)
+    return (
+      <div className={styles.main}>
+        <Loader />
+      </div>
+    );
 
   return (
     <NewPostForm
