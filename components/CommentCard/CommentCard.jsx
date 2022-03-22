@@ -93,7 +93,7 @@ const CommentCard = ({ comment, currentUser, postId }) => {
             [contentStyle]: username === currentUser?.user.username,
           })}
           style={{
-            lineBreak: "anywhere",
+            overflowWrap: "break-word",
           }}
         >
           {content}

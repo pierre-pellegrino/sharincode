@@ -145,6 +145,11 @@
   
   svg {
     height: 1.3em;
+    stroke: var(--txt-color);
+
+    path {
+      fill: var(--txt-color);
+    }
   }
 }
 

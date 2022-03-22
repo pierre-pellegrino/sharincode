@@ -19,7 +19,7 @@ const EditCommentForm = ({ commentId, postId, content, closeModal, setButtonDisa
 
   useEffect(() => {
     if (setButtonDisabled) setButtonDisabled(true);
-    document.body.style.overflow = "hidden";
+    // document.body.style.overflow = "hidden";
   }, [setButtonDisabled]);
 
   const handleSubmit = async (e) => {
@@ -35,7 +35,7 @@ const EditCommentForm = ({ commentId, postId, content, closeModal, setButtonDisa
     await mutate(`/posts/${postId}/comments`);
     closeModal();
     setButtonDisabled(false);
-    document.body.style.overflow = "auto";
+    // document.body.style.overflow = "auto";
   };
 
   return (

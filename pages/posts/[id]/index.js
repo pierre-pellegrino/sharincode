@@ -3,7 +3,7 @@ import APIManager from 'pages/api/axios';
 import PostCard from 'components/PostCard/PostCard';
 import styles from "styles/Home.module.scss";
 import Head from "next/head";
-import CommentsSection from '../../components/CommentsSection/CommentsSection';
+import CommentsSection from 'components/CommentsSection/CommentsSection';
 import useSWR from 'swr';
 import Loader from 'components/Loader';
 
