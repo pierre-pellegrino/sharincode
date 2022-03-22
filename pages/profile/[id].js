@@ -11,10 +11,12 @@ import {userAtom} from "store";
 import {
   profileInfos,
 } from "./profile.module.scss";
+import { useRouter } from 'next/router';
 
 
-const ProfilePage = ({id}) => {
-
+const ProfilePage = () => {
+  const router = useRouter();
+  const { id } = router.query;
   const { data, error } = useSWR(`profiles/${id}`, APIManager.fetcher);
   const [userData] = useAtom(userAtom);
 
@@ -61,14 +63,5 @@ const ProfilePage = ({id}) => {
     </div>
   );
 };
-
-export const getServerSideProps = async (context) => {
-  const { id } = context.params;
-  return {
-    props: {
-      id,
-    }
-  }
-}
 
 export default ProfilePage;
