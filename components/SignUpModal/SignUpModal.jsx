@@ -15,7 +15,7 @@ const SignUpInvitation = ({user}) => {
           Vous devez avoir un compte pour accéder au profil de {user}.
         </p>
 
-        <p className={subcategory}>J'ai déjà un compte</p>
+        <p className={subcategory}>J&apos;ai déjà un compte</p>
         <Link href="/login">
           <a>
             <button className={`${styles.btn} bg-primary txt-btn`}>Me connecter</button>
