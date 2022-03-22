@@ -2,8 +2,8 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 // const baseurl = "https://snipshare-api-staging.herokuapp.com";
-// const baseurl = 'https://snipshare-api.herokuapp.com'
-const baseurl = 'https://staging-xs3.herokuapp.com'
+const baseurl = 'https://snipshare-api.herokuapp.com'
+// const baseurl = 'https://staging-xs3.herokuapp.com'
 
 const APIRequest = axios.create({ baseURL: baseurl });
 
