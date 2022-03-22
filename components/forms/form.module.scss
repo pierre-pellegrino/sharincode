@@ -2,13 +2,13 @@
 @use "sass:color";
 
 .form {
-  border: 1px solid $grey;
   padding: 1rem 1rem 1.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #fafafa;
+  width: 50%;
   min-width: 325px;
+  border-radius: 4px;
 
   h1 {
     margin-bottom: 1rem;
@@ -22,8 +22,9 @@
     label {
       position: absolute;
       left: 1rem;
-      top:0.5rem;
-      color: rgba(0,0,0,0.5);
+      top:0.4rem;
+      color: inherit;
+      opacity: 0.5;
       transition: all 0.3s;
       -webkit-transition: all 0.3s;
       -moz-transition: all 0.3s;
@@ -34,7 +35,7 @@
     .input:focus + label, :not(.input:placeholder-shown) + label {
       left: 0;
       top: -1.25rem;
-      color: black;
+      opacity: 1;
     }
   }
 }
@@ -44,9 +45,12 @@
     padding: 0.5rem 1rem;
     padding-right: 2.5rem;
     outline: none;
-    border: 1px solid $lightgrey;
+    border: var(--border);
+    border-radius: 4px;
     position: relative;
     line-height: 1rem;
+    background-color: var(--hover);
+    color: inherit;
 
     &Pwd {
       padding-right: 4rem;
@@ -117,10 +121,6 @@
 
 .formLink {
   margin-top: 1rem;
-
-  a {
-    color: $primary;
-  }
 }
 
 .showPwdIcon {

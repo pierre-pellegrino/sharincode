@@ -37,7 +37,7 @@ const CommentCard = ({ comment, currentUser, postId }) => {
   }, [displayActionsMenu]);
 
   return (
-    <div className={commentWrapper}>
+    <div className={`${commentWrapper} bg-global`}>
       <div className={`${profileIconPicture} ${profileIconPictureComment}`}>
         <Image
           src={avatar ?? "/profile.jpeg"}
@@ -88,9 +88,16 @@ const CommentCard = ({ comment, currentUser, postId }) => {
             ))}
           <CommentActionsModal />
         </div>
-        <p className={cn({
-          [contentStyle]: username === currentUser?.user.username
-        })}>{content}</p>
+        <p
+          className={cn({
+            [contentStyle]: username === currentUser?.user.username,
+          })}
+          style={{
+            lineBreak: "anywhere",
+          }}
+        >
+          {content}
+        </p>
       </div>
     </div>
   );

@@ -32,7 +32,7 @@ const NewPostModal = (props) => {
   return (
     <>
       <div className={blocker} onClick={handleClose} />
-      <div className={modal}>
+      <div className={`${modal} bg-global-secondary`}>
         <h2>{post ? "Editer un snippet" : "Créer un snippet"}</h2>
         <NewPostForm
           editDescription={description}

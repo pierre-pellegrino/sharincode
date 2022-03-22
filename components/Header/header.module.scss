@@ -65,7 +65,7 @@
   border-radius: 5px;
   
   &:hover {
-    background-color: #eee;
+    background-color: var(--hover);
 
     svg {
       filter: grayscale(0);
@@ -138,7 +138,7 @@
 
 .skipLink {
   position: absolute;
-  top: -999px;
+  top: -9999px;
   left: 0;
   background-color: white;
   border: 1px solid black;

@@ -1,5 +1,10 @@
 @use "styles/abstracts/variables" as *;
 
+:root {
+  --scroll-thumb: darken($grey, 20%);
+  --scroll-track: $lightgrey;
+}
+
 *,
 *::before,
 *::after {
@@ -36,7 +41,7 @@ a {
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: $grey;
+  background-color: var(--scroll-thumb);
   border-radius: 1rem;
   -webkit-border-radius: 1rem;
   -moz-border-radius: 1rem;
@@ -44,7 +49,7 @@ a {
   -o-border-radius: 1rem;
 }
 ::-webkit-scrollbar-track {
-  background-color: $lightgrey;
+  background-color: var(--scroll-track);
   border-radius: 1rem;
   -webkit-border-radius: 1rem;
   -moz-border-radius: 1rem;
@@ -59,7 +64,7 @@ a {
 @supports (scrollbar-color: $grey $lightgrey ) {
   * {
     scrollbar-width: auto;
-    scrollbar-color: darken($grey, 20%) $lightgrey;
+    scrollbar-color: var(--scroll-thumb) var(--scroll-track);
   }
 }
 

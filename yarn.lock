@@ -2107,6 +2107,11 @@ to-regex-range@^5.0.1:
   dependencies:
     is-number "^7.0.0"
 
+tohash@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/tohash/-/tohash-1.0.2.tgz#9e66e497da0cfd77ba85f9663065adf2d8c99981"
+  integrity sha512-43wprToArRleSD+7ITVXP0XFpz80giO/jUwLjf1Y5OvU/geB5lMJ3+ghmTh74pNQ+2Szjp69LpHEJSsgvQu4sQ==
+
 tsconfig-paths@^3.12.0, tsconfig-paths@^3.9.0:
   version "3.14.0"
   resolved "https://registry.yarnpkg.com/tsconfig-paths/-/tsconfig-paths-3.14.0.tgz#4fcc48f9ccea8826c41b9ca093479de7f5018976"

@@ -10,7 +10,7 @@ const Header = () => {
   const [isConnected] = useAtom(isConnectedAtom);
 
   return (
-    <header className={header}>
+    <header className={`${header} bg-global-secondary`}>
       <nav>
         <Link href="#main">
           <a className={skipLink}>
