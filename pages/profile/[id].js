@@ -32,13 +32,13 @@ const ProfilePage = ({id}) => {
         </Head>
         <ProfileIcon type="profile" user={profileData}/>
         <div className={profileInfos}>
-          <p>Description : {data.user.description}</p>
-          <p>Github : 
+          <p>Description&nbsp;: {data.user.description}</p>
+          <p>Github&nbsp;: 
             <a href={data.user.github_url} target="_blank" rel="noreferrer">
               {data.user.github_url}
             </a>
           </p>
-          <p>Lien personnel : 
+          <p>Lien personnel&nbsp;: 
             <a href={data.user.personal_url} target="_blank" rel="noreferrer">
               {data.user.personal_url}
             </a>
