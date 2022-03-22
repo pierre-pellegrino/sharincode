@@ -57,7 +57,8 @@ export default class APIManager {
   }
 
   static async deleteUser(id) {
-    const endpoint = `/profiles/${id}`;
+    // const endpoint = `/profiles/${id}`;
+    const endpoint = `/users`;
     const response = await APIRequest.delete(endpoint);
     return response;
   }
