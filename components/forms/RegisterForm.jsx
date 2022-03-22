@@ -8,11 +8,14 @@ import {
   form,
   inputWrapper,
   input,
+  inputPwd,
   btn,
   errmsg,
   offscreen,
   instructions,
   formLink,
+  showPwdIcon,
+  advantages
 } from "./form.module.scss";
 import cn from "classnames";
 import APIManager from "pages/api/axios";
@@ -22,7 +25,8 @@ import ValidationIcon from "components/ValidationIcon";
 import Link from "next/link";
 import { useAtom } from "jotai";
 import { userAtom } from "store";
-import { unstable_renderSubtreeIntoContainer } from "react-dom";
+import { EyeIcon } from "components/icons";
+import { EyeOffIcon } from "components/icons";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -41,10 +45,12 @@ const LoginForm = () => {
   const [pwd, setPwd] = useState("");
   const [validPwd, setValidPwd] = useState(false);
   const [pwdFocus, setPwdFocus] = useState(false);
+  const [showPwd, setShowPwd] = useState(false);
 
   const [pwdConfirm, setPwdConfirm] = useState("");
   const [validPwdConfirm, setValidPwdConfirm] = useState(false);
   const [pwdConfirmFocus, setPwdConfirmFocus] = useState(false);
+  const [showPwdConfirm, setShowPwdConfirm] = useState(false);
 
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
@@ -61,12 +67,7 @@ const LoginForm = () => {
 
   useEffect(() => {
     setErrMsg("");
-  }, [
-    username,
-    email,
-    pwd,
-    pwdConfirm
-  ]);
+  }, [username, email, pwd, pwdConfirm]);
 
   useEffect(() => {
     const result = USERNAME_REGEX.test(username);
@@ -119,8 +120,30 @@ const LoginForm = () => {
   };
 
   return (
-    <form className={form} onSubmit={handleLogin}>
+    <form className={`${form} bg-global-secondary`} onSubmit={handleLogin}>
       <h1> Inscription </h1>
+      <div className={advantages}>
+        <p>
+          En créant un compte, vous pourrez&nbsp;:
+        </p>
+        <ul>
+          <li>
+            Partager vos meilleurs snippets au monde&nbsp;✨
+          </li>
+          <li>
+            Commenter des snippets&nbsp;✍️
+          </li>
+          <li>
+            Réagir aux snippets que vous aimez&nbsp;💡
+          </li>
+          <li>
+            Enregistrer vos snippets préférés dans vos favoris&nbsp;⭐
+          </li>
+          <li>
+            Choisir votre thème préféré&nbsp;🎨
+          </li>
+        </ul>
+      </div>
 
       {success && (
         <p>
@@ -199,8 +222,8 @@ const LoginForm = () => {
 
       <div className={inputWrapper}>
         <input
-          type="password"
-          className={input}
+          type={showPwd ? "text" : "password"}
+          className={`${input} ${inputPwd}`}
           id="password-input"
           placeholder=" "
           autoComplete="new-password"
@@ -214,6 +237,17 @@ const LoginForm = () => {
         />
         <label htmlFor="password-input">Mot de passe</label>
         <ValidationIcon isValid={validPwd} />
+        <div
+          className={showPwdIcon}
+          focusable="false"
+          aria-hidden="true"
+          onClick={(e) => {
+            e.preventDefault();
+            setShowPwd(!showPwd);
+          }}
+        >
+          {showPwd ? <EyeOffIcon /> : <EyeIcon />}
+        </div>
         <p
           id="pwdnote"
           className={cn(instructions, {
@@ -226,8 +260,8 @@ const LoginForm = () => {
 
       <div className={inputWrapper}>
         <input
-          type="password"
-          className={input}
+          type={showPwdConfirm ? "text" : "password"}
+          className={`${input} ${inputPwd}`}
           id="passwordConfirm-input"
           placeholder=" "
           autoComplete="new-password"
@@ -243,6 +277,17 @@ const LoginForm = () => {
           Confirmation du mot de passe
         </label>
         <ValidationIcon isValid={validPwdConfirm && validPwd} />
+        <div
+          className={showPwdIcon}
+          focusable="false"
+          aria-hidden="true"
+          onClick={(e) => {
+            e.preventDefault();
+            setShowPwdConfirm(!showPwdConfirm);
+          }}
+        >
+          {showPwdConfirm ? <EyeOffIcon /> : <EyeIcon />}
+        </div>
         <p
           id="pwdconfirmnote"
           className={cn(instructions, {
@@ -254,7 +299,7 @@ const LoginForm = () => {
       </div>
 
       <input
-        className={btn}
+        className={`${btn} bg-primary txt-btn`}
         tabIndex={0}
         type="submit"
         role="button"
@@ -264,7 +309,7 @@ const LoginForm = () => {
       <div className={formLink}>
         <span>Déjà inscrit ?</span>
         <Link href="/login">
-          <a> Me connecter</a>
+          <a className="txt-primary"> Me connecter</a>
         </Link>
       </div>
     </form>

@@ -21,6 +21,7 @@ import {
   comment,
   actionsMenu,
   topRight,
+  menuDisabled,
 } from "./post_card.module.scss";
 import { formatDistanceToNow } from "date-fns";
 import { en, fr } from "date-fns/locale";
@@ -41,6 +42,7 @@ const PostCard = ({ post, detail, theme }) => {
   const commentNb = post.comments;
 
   const [displayActionsMenu, setDisplayActionsMenu] = useState(false);
+  const [buttonDisabled, setButtonDisabled] = useState(false);
   const nbOfComments = commentNb.reduce((acc, i) => (acc += 1), 0);
 
   useEffect(() => {
@@ -56,32 +58,51 @@ const PostCard = ({ post, detail, theme }) => {
   if (id === 168) return <div></div>;
 
   return (
-    <div className={`${postCardWrapper} ${detail && postCardDetailPage}`}>
+    <div className={`${postCardWrapper} ${detail && postCardDetailPage} bg-global-secondary`}>
       <div className={top}>
         <ProfileIcon user={author} />
         <div className={topRight}>
-          <p>
+          <i>
             {formatDistanceToNow(new Date(date), {
               addSuffix: true,
               locale: fr,
             })}
-          </p>
-          {user && (user.user.id === post.user.user_id) && (
-            <div
-              className={actionsMenu}
-              onClick={() => setDisplayActionsMenu(true)}
-            >
-              <ThreeDotsIcon />
-              <PostActionsModal
-                opened={displayActionsMenu}
-                postId={id}
-                description={description}
-                language={language}
-                snippet={snippet}
-                post={post}
-              />
-            </div>
-          )}
+          </i>
+          {user &&
+            user.user.id === post.user.user_id &&
+            (buttonDisabled ? (
+              <div
+                className={`${actionsMenu} ${menuDisabled}`}
+              >
+                <ThreeDotsIcon />
+                <PostActionsModal
+                  opened={displayActionsMenu}
+                  postId={id}
+                  description={description}
+                  language={language}
+                  snippet={snippet}
+                  post={post}
+                  setButtonDisabled={setButtonDisabled}
+                />
+              </div>
+            ) : (
+              <div
+                role="button"
+                className={actionsMenu}
+                onClick={() => setDisplayActionsMenu(true)}
+              >
+                <ThreeDotsIcon />
+                <PostActionsModal
+                  opened={displayActionsMenu}
+                  postId={id}
+                  description={description}
+                  language={language}
+                  snippet={snippet}
+                  post={post}
+                  setButtonDisabled={setButtonDisabled}
+                />
+              </div>
+            ))}
         </div>
       </div>
       <Link href={`/posts/${id}`} passHref>
@@ -128,7 +149,9 @@ const PostCard = ({ post, detail, theme }) => {
             </div>
           </div>
           <Link href={`/posts/${id}`}>
-            <a><p className={`${btn} ${comment}`}>Commenter</p></a>
+            <a className={btn}>
+              <p className={{comment}}>Commenter</p>
+            </a>
           </Link>
           <p className={btn}>Partager</p>
         </div>

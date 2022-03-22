@@ -7,7 +7,7 @@
   max-width: 100%;
 
   &:hover {
-    background-color: #fff;
+    background-color: var(--hover);
     border-radius: 4px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
@@ -43,14 +43,29 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: relative;
 
     & p:nth-child(1) {
       font-weight: bolder;
-      color: $primary;
     }
 
-    & p:nth-child(2) {
+    i {
       font-size: 0.8rem;
+      color: inherit;
+      opacity: 0.9;
+      text-align: right;
     }
+
+  }
+
+  .commentActionsMenu {
+    position: absolute;
+    top: auto;
+    right: 0;
+    bottom: -150%;
+  }
+
+  .contentStyle {
+    margin-right: 2rem;
   }
 }

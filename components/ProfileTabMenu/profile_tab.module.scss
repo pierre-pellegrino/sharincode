@@ -1,0 +1,79 @@
+@use "styles/abstracts/variables" as *;
+
+.profileTabMenu {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+
+  h3 {
+    text-align: center;
+
+    &:hover {
+      cursor: pointer;
+      opacity: 0.8;
+    }
+  }
+
+  .tab {
+    position: relative;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid grey;
+
+    &::after {
+      position: absolute;
+      content: "";
+      background-color: $primary;
+      width: 100%;
+      height: 0.5rem;
+      bottom: 0;
+      left: 0;
+      opacity: 0;
+      transition: opacity 0.2s;
+      -webkit-transition: opacity 0.2s;
+      -moz-transition: opacity 0.2s;
+      -ms-transition: opacity 0.2s;
+      -o-transition: opacity 0.2s;
+    }
+
+    &.active {
+      &::after {
+        opacity: 1;
+      }
+    }
+  }
+
+  .ownSnippetsTab {
+    flex-grow: 1;
+  }
+
+  .favSnippetsTab {
+    flex-grow: 1;
+  }
+
+  .profileSettingsTab {
+    flex-grow: 1;
+  }
+}
+
+.profileTabContent {
+  margin-top: 1.5rem;
+}
+
+@media screen and (max-width: 510px) {
+  .profileTabMenu {
+   flex-direction: column;
+   width: 100%;
+
+   .tab {
+     width: 100%;
+     flex-grow: 1;
+     text-align: center;
+   }
+
+   div {
+     width: 100%;
+     margin-bottom: 1rem;
+   }
+  }
+}

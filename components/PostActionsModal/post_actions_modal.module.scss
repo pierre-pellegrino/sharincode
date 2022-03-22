@@ -5,8 +5,8 @@
   position: absolute;
   top: 0;
   right: 0;
-  background-color: #fff;
-  box-shadow: 0 0 7px color.adjust($grey, $alpha: 0.8);
+  background-color: var(--hover);
+  box-shadow: var(--shadow-low);
   border-radius: 2px;
 
   &.offscreen {
@@ -25,6 +25,6 @@
   border-radius: 2px;
 
   &:hover {
-    background-color: $hovergrey;
+    background-color: var(--bg-secondary);
   }
 }

@@ -11,7 +11,6 @@ import { showNewPostModalAtom } from "store";
 import { useSWRConfig } from "swr";
 
 const NewPostForm = ({
-  id,
   editDescription,
   editLanguage,
   editSnippet,
@@ -143,7 +142,7 @@ const NewPostForm = ({
       />
       <input
         type="submit"
-        className={btn}
+        className={`${btn} bg-primary txt-btn`}
         role="button"
         value="Partager mon code au monde ! 🚀"
         disabled={!canSave}
