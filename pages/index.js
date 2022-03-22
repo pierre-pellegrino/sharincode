@@ -4,7 +4,6 @@ import styles from "styles/Home.module.scss";
 import APIManager from "pages/api/axios";
 import useSWR from "swr";
 import Loader from "../components/Loader";
-import ThemeSelect from "components/ThemeSelect";
 
 export default function Home() {
   const page = 1;
@@ -27,8 +26,6 @@ export default function Home() {
         >
           Rafraichir
         </button>
-
-        <ThemeSelect />
         
         {data.posts.map((post) => (
           <PostCard post={post.post} key={post.post.id} />

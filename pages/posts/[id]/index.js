@@ -3,7 +3,7 @@ import APIManager from 'pages/api/axios';
 import PostCard from 'components/PostCard/PostCard';
 import styles from "styles/Home.module.scss";
 import Head from "next/head";
-import CommentsSection from '../../components/CommentsSection/CommentsSection';
+import CommentsSection from 'components/CommentsSection/CommentsSection';
 import useSWR from 'swr';
 import Loader from 'components/Loader';
 
@@ -14,8 +14,6 @@ const PostDetailPage = ({ id, data }) => {
     data: comments,
     error
   } = useSWR(`/posts/${id}/comments`, APIManager.fetcher);
-
-  console.log(comments);
 
   let commentsSection = <Loader />;
 

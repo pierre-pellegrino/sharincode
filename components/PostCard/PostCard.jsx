@@ -55,8 +55,6 @@ const PostCard = ({ post, detail, theme }) => {
     return () => window.removeEventListener("click", handleClick);
   }, [displayActionsMenu]);
 
-  if (id === 168) return <div></div>;
-
   return (
     <div className={`${postCardWrapper} ${detail && postCardDetailPage} bg-global-secondary`}>
       <div className={top}>

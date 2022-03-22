@@ -6,6 +6,7 @@ const SetTheme = ({ highlights }) => (
       :root {
         --scroll-thumb: ${highlights.comment};
         --scroll-track: hsl(${highlights.background2});
+        --txt-color: ${highlights.text};
       }
 
       // GLOBAL COLORS
@@ -21,15 +22,21 @@ const SetTheme = ({ highlights }) => (
 
         --hover: ${highlights.background};
 
-        --shadow-medium: 0.3px 0.5px 0.7px hsl(${highlights.shadow ?? highlights.background2} / 0.36),
-        0.8px 1.6px 2px -0.8px hsl(${highlights.shadow ?? highlights.background2} / 0.36),
-        2.1px 4.1px 5.2px -1.7px hsl(${highlights.shadow ?? highlights.background2} / 0.36),
-        5px 10px 12.6px -2.5px hsl(${highlights.shadow ?? highlights.background2} / 0.36);
+        --shadow-medium: 0.3px 0.5px 0.7px
+            hsl(${highlights.shadow ?? highlights.background2} / 0.36),
+          0.8px 1.6px 2px -0.8px hsl(${highlights.shadow ??
+                highlights.background2} / 0.36),
+          2.1px 4.1px 5.2px -1.7px hsl(${highlights.shadow ??
+                highlights.background2} / 0.36),
+          5px 10px 12.6px -2.5px hsl(${highlights.shadow ??
+                highlights.background2} / 0.36);
 
-        --shadow-low:
-          0.3px 0.5px 0.7px hsl(${highlights.shadow ?? highlights.background2} / 0.34),
-          0.4px 0.8px 1px -1.2px hsl(${highlights.shadow ?? highlights.background2} / 0.34),
-          1px 2px 2.5px -2.5px hsl(${highlights.shadow ?? highlights.background2} / 0.34);
+        --shadow-low: 0.3px 0.5px 0.7px
+            hsl(${highlights.shadow ?? highlights.background2} / 0.34),
+          0.4px 0.8px 1px -1.2px hsl(${highlights.shadow ??
+                highlights.background2} / 0.34),
+          1px 2px 2.5px -2.5px hsl(${highlights.shadow ??
+                highlights.background2} / 0.34);
 
         --border: ${highlights.border ?? "none"};
 
@@ -46,11 +53,15 @@ const SetTheme = ({ highlights }) => (
       }
 
       .bg-primary {
-        background-color: ${highlights.switchColors ? highlights.keyword : highlights.def};
+        background-color: ${highlights.switchColors
+          ? highlights.keyword
+          : highlights.def};
       }
 
       .bg-secondary {
-        background-color: ${highlights.switchColors ? highlights.def : highlights.keyword};
+        background-color: ${highlights.switchColors
+          ? highlights.def
+          : highlights.keyword};
       }
 
       .txt-primary {
@@ -70,11 +81,15 @@ const SetTheme = ({ highlights }) => (
       }
 
       .stroke-primary {
-        stroke: ${highlights.switchColors ? highlights.keyword : highlights.def};
+        stroke: ${highlights.switchColors
+          ? highlights.keyword
+          : highlights.def};
       }
 
       .stroke-secondary {
-        stroke: ${highlights.switchColors ? highlights.def : highlights.keyword};
+        stroke: ${highlights.switchColors
+          ? highlights.def
+          : highlights.keyword};
       }
 
       // GLOBAL

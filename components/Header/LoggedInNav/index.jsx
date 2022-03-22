@@ -22,8 +22,6 @@ const LoggedInNav = () => {
   const [user, setUser] = useAtom(userAtom);
   const middleBreakpoint = useMediaQuery({ query: "(max-width: 1000px)" });
 
-  console.log(middleBreakpoint);
-
   const handleDisconnect = () => {
     Cookies.remove("token");
     setUser(null);

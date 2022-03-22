@@ -1,3 +1,7 @@
+:root {
+  --txt-color: black;
+}
+
 *,
 *::before,
 *::after {
@@ -75,6 +79,7 @@ textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--txt-color);
   transition: background-color 5000s ease-in-out 0s;
 }
 

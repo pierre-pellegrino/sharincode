@@ -10,6 +10,10 @@
   min-width: 325px;
   border-radius: 4px;
 
+  select {
+    width: 100%;
+  }
+
   h1 {
     margin-bottom: 1rem;
   }
@@ -141,6 +145,11 @@
   
   svg {
     height: 1.3em;
+    stroke: var(--txt-color);
+
+    path {
+      fill: var(--txt-color);
+    }
   }
 }
 
@@ -165,6 +174,11 @@
   font-weight: bolder;
   cursor: pointer;
   margin-top: 1rem;
+}
+
+.favoriteTheme {
+  align-self: flex-start;
+  margin-top: 2rem;
 }
 
 @media screen and (max-width: 525px) {
