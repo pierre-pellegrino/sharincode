@@ -16,7 +16,7 @@ const Layout = ({ children }) => {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const response = await APIManager.loginWithToken();
+        const response = await APIManager.getMyProfile();
         setUser(response.data);
       } catch (e) {
         console.error(e.response);
