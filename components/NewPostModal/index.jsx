@@ -23,10 +23,10 @@ const NewPostModal = (props) => {
   }, [setButtonDisabled]);
 
   const handleClose = () => {
+    document.body.style.overflow = "auto";
     setShowNewPostModal(false);
     if (closeModal) closeModal();
     if (setButtonDisabled) setButtonDisabled(false);
-    document.body.style.overflow = "auto";
   };
 
   return (
