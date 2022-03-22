@@ -5,18 +5,34 @@ import { form, inputWrapper } from "../new_post_modal.module.scss";
 import { btn } from "components/forms/form.module.scss";
 import { useEffect } from "react";
 import APIManager from "pages/api/axios";
-import {useRouter} from "next/router";
-import {useAtom} from 'jotai';
-import {showNewPostModalAtom} from 'store';
+import { useRouter } from "next/router";
+import { useAtom } from "jotai";
+import { showNewPostModalAtom } from "store";
+import { useSWRConfig } from "swr";
 
-const NewPostForm = () => {
+const NewPostForm = ({
+  editDescription,
+  editLanguage,
+  editSnippet,
+  post,
+}) => {
   const descriptionRef = useRef();
   const router = useRouter();
-  const [_,setShowNewPostModalAtom] = useAtom(showNewPostModalAtom);
+  const [_, setShowNewPostModalAtom] = useAtom(showNewPostModalAtom);
 
-  const [description, setDescription] = useState("");
-  const [selectedLanguage, setSelectedLanguage] = useState(`${LANGUAGES[0].name} ${LANGUAGES[0].mode}`);
-  const [snippet, setSnippet] = useState("");
+  const [description, setDescription] = useState(editDescription ?? "");
+  const [snippet, setSnippet] = useState(editSnippet ?? "");
+  const [selectedLanguage, setSelectedLanguage] = useState(() => {
+    if (!editLanguage) return `${LANGUAGES[0].name} ${LANGUAGES[0].mode}`;
+
+    const languageObj = LANGUAGES.filter(
+      (lang) => lang.name === editLanguage
+    )[0];
+
+    return `${languageObj.name} ${languageObj.mode}`;
+  });
+
+  const { mutate } = useSWRConfig();
 
   useEffect(() => {
     descriptionRef.current.focus();
@@ -34,26 +50,53 @@ const NewPostForm = () => {
     try {
       if (!canSave) throw new Error("Oups, quelque chose s'est mal passé !");
 
-      const data = {
-        description: description,
-        snippets: [
+      console.log(post);
+
+      if (!editSnippet) {
+        const data = {
+          description: description,
+          snippets: [
             {
-                content: snippet,
-                language: selectedLanguage.split(" ").slice(0, -1).join(" ")
-            }
-        ]
+              content: snippet,
+              language: selectedLanguage.split(" ").slice(0, -1).join(" "),
+            },
+          ],
+          tags: [],
+        };
+
+        const response = await APIManager.createPost(data);
+        setShowNewPostModalAtom(false);
+        console.log(response.data);
+
+        await mutate("/posts");
+
+        router.push(`/posts/${response.data.post.id}`);
+
+        return;
       }
 
-      const response = await APIManager.createPost(data);
-      console.log(response.data)
-      router.push(`/posts/${response.data.post.id}`);
-      setShowNewPostModalAtom(false);
+      const data = {
+        ...post,
+        description,
+        snippets: [
+          {
+            ...post.snippets[0],
+            content: snippet,
+            language: selectedLanguage.split(" ").slice(0, -1).join(" "),
+          },
+        ],
+      };
 
-      // console.group("%cPost créé !", "font-size: 20px; color: #009DFF;");
-      // console.table(data);
-      // console.groupEnd();
+      const response = await APIManager.editPost(post.id, data);
+      console.log(response.data);
+
+      await mutate("/posts");
+
+      router.push(`/posts/${response.data.post.id}`);
+
+      return;
     } catch (e) {
-      console.error(e.message);
+      console.error(e.response);
     }
   };
 
@@ -99,7 +142,7 @@ const NewPostForm = () => {
       />
       <input
         type="submit"
-        className={btn}
+        className={`${btn} bg-primary txt-btn`}
         role="button"
         value="Partager mon code au monde ! 🚀"
         disabled={!canSave}

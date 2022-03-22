@@ -4,10 +4,12 @@ import styles from "styles/Home.module.scss";
 import APIManager from "pages/api/axios";
 import useSWR from "swr";
 import Loader from "../components/Loader";
+import ThemeSelect from "components/ThemeSelect";
 
 export default function Home() {
+  const page = 1;
   const { data, error, isValidating, mutate } = useSWR(
-    "/posts",
+    `/posts?page=${page}`,
     APIManager.fetcher
   );
 
@@ -19,26 +21,17 @@ export default function Home() {
     content = (
       <>
         <button
-          className={styles.btn}
+          className={`${styles.btn} bg-primary txt-btn`}
           onClick={() => mutate()}
           disabled={isValidating}
         >
           Rafraichir
         </button>
+
+        <ThemeSelect />
+        
         {data.posts.map((post) => (
-          <PostCard
-            language={post.post.snippets[0]?.language.replace(
-              /^(\[")(.+)("])$/,
-              "$2"
-            )}
-            description={post.post.description}
-            snippet={post.post.snippets[0]?.content || "There is no code yet."}
-            key={post.post.id}
-            date={post.post.created_at}
-            author={post.post.user}
-            id={post.post.id}
-            commentNb={post.post.comments}
-          />
+          <PostCard post={post.post} key={post.post.id} />
         ))}
       </>
     );

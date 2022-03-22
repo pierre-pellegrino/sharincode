@@ -1,28 +1,31 @@
-import Link from "next/link";
-import { LogInIcon, RegisterIcon } from "../../icons";
-import { navItems, navItem, text } from "../header.module.scss";
+import Link from "components/Link";
+import { LogInIconOutline, LogInIconFilled } from "../../icons";
+import { navItems, navItem, text, active } from "../header.module.scss";
 
 const LoggedOutNav = () => {
   return (
     <ul className={navItems} role="navigation ">
       <li>
-        <Link href="/register">
-          <a className={navItem} aria-label="Accéder à la page d'inscription" >
-            <RegisterIcon />
-            <span className={text}>M&apos;inscrire</span>
-          </a>
-        </Link>
-      </li>
-      <li>
-        <Link href="/login">
-          <a className={navItem} aria-label="Accéder à la page de connexion">
-            <LogInIcon />
-            <span className={text}>Me connecter</span>
-          </a>
+        <Link
+          href="/login"
+          aria-label="Accéder à la page de connexion"
+          className={navItem}
+          activeClassName={active}
+        >
+          {({ isActive }) => (
+            <>
+              {isActive ? (
+                <LogInIconFilled />
+              ) : (
+                <LogInIconOutline />
+              )}
+              <span className={text}>Me connecter</span>
+            </>
+          )}
         </Link>
       </li>
     </ul>
-  )
+  );
 };
 
 export default LoggedOutNav;

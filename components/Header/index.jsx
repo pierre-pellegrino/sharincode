@@ -9,10 +9,8 @@ import { isConnectedAtom } from "store";
 const Header = () => {
   const [isConnected] = useAtom(isConnectedAtom);
 
-  console.log(isConnected);
-
   return (
-    <header className={header}>
+    <header className={`${header} bg-global-secondary`}>
       <nav>
         <Link href="#main">
           <a className={skipLink}>

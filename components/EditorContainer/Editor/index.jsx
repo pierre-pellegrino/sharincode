@@ -15,7 +15,6 @@ const Editor = (props) => {
 
   const options = {
     mode: language,
-    theme,
     screenReaderLabel: "Code editor",
     lineNumbers: true,
     firstLineNumber: true,
@@ -30,6 +29,8 @@ const Editor = (props) => {
     },
     showInvisibles: false,
     autoCloseBrackets: true,
+    matchBrackets: true,
+    styleActiveLine: true,
   };
 
   return (

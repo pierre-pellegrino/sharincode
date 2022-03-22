@@ -44,14 +44,26 @@ export default class APIManager {
     return response;
   }
 
+  static async getProfile(id) {
+    const endpoint = `/profiles/${id}`;
+    const response = await APIRequest.get(endpoint);
+    return response;
+  }
+
   static async updateProfile(id, data) {
-    const endpoint = `/users/${id}`;
+    const endpoint = `/profiles/${id}`;
     const response = await APIRequest.patch(endpoint, data);
     return response;
   }
 
-  static async getPosts() {
-    const endpoint = '/posts';
+  static async deleteUser(id) {
+    const endpoint = `/profiles/${id}`;
+    const response = await APIRequest.delete(endpoint);
+    return response;
+  }
+
+  static async getPosts(page=1) {
+    const endpoint = `/posts?page=${page}`;
     const response = await APIRequest.get(endpoint);
     return response;
   }
@@ -65,6 +77,36 @@ export default class APIManager {
   static async createPost(data) {
     const endpoint = '/posts';
     const response = await APIRequest.post(endpoint, data);
+    return response;
+  }
+
+  static async editPost(id, data) {
+    const endpoint = `/posts/${id}`;
+    const response = await APIRequest.put(endpoint, data);
+    return response;
+  }
+
+  static async deletePost(id) {
+    const endpoint = `/posts/${id}`;
+    const response = await APIRequest.delete(endpoint);
+    return response;
+  }
+
+  static async createComment(postId, data) {
+    const endpoint = `/posts/${postId}/comments`;
+    const response = await APIRequest.post(endpoint, data);
+    return response;
+  }
+
+  static async editComment(postId, commentId, data) {
+    const endpoint = `/posts/${postId}/comments/${commentId}`;
+    const response = await APIRequest.put(endpoint, data);
+    return response;
+  }
+
+  static async deleteComment(postId, commentId) {
+    const endpoint = `/posts/${postId}/comments/${commentId}`;
+    const response = await APIRequest.delete(endpoint);
     return response;
   }
 

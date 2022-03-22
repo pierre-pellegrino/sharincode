@@ -1,0 +1,25 @@
+.newCommentWrapper {
+  padding: 0.5rem 1rem 1.5rem;
+}
+
+.form {
+  width: 100%;
+
+  & p:nth-child(1) {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+  }
+  
+  textarea {
+    padding: 0.5rem;
+    resize: none;
+    width: 100%;
+    border: var(--border);
+  }
+
+  svg {
+    width: 1rem;
+    display: inline-block;
+    margin-left: 0.5rem;
+  }
+}

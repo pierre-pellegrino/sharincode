@@ -4,30 +4,45 @@ import PostCard from 'components/PostCard/PostCard';
 import styles from "styles/Home.module.scss";
 import Head from "next/head";
 import CommentsSection from '../../components/CommentsSection/CommentsSection';
+import useSWR from 'swr';
+import Loader from 'components/Loader';
 
-const PostDetailPage = ({id, data}) => {
-  const {post} = data;
-  console.log(post)
+const PostDetailPage = ({ id, data }) => {
+  const { post } = data;
+
+  const {
+    data: comments,
+    error
+  } = useSWR(`/posts/${id}/comments`, APIManager.fetcher);
+
+  console.log(comments);
+
+  let commentsSection = <Loader />;
+
+  if (error) commentsSection = <p>Erreur de chargement des commentaires.</p>;
+
+  if (comments) {
+    commentsSection = (
+      <CommentsSection
+        comments={comments.comments}
+        id={post.id}
+      />
+    );
+  }
+
   return (
     <main className={styles.main}>
       <Head>
         <title>{post.user.username ?? "User"}&apos;s snippet | SnipShare</title>
       </Head>
 
-      <PostCard 
-        language={post.snippets[0]?.language.replace('[', '').replace(']', '').replaceAll('"', '')}
-        description={post.description}
-        snippet={post.snippets[0]?.content || "There is no code yet."}
+      <PostCard
+        post={post}
         key={post.id}
-        date={post.created_at}
-        author={post.user}
         detail={true}
-        commentNb={post.comments}
       />
 
-      <CommentsSection
-        comments={post.comments}
-      />
+      {commentsSection}
     </main>
   );
 };
