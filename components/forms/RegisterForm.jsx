@@ -100,7 +100,7 @@ const LoginForm = () => {
 
     const data = {
       user: {
-        username: username.toLowerCase(),
+        username: username.trim(),
         email: email,
         password: pwd,
       },
@@ -176,7 +176,7 @@ const LoginForm = () => {
           aria-invalid={validUsername ? "false" : "true"}
           aria-describedby="uidnote"
           value={username}
-          onChange={(e) => setUsername(e.target.value.toLocaleLowerCase())}
+          onChange={(e) => setUsername(e.target.value)}
           onFocus={() => setUsernameFocus(true)}
           onBlur={() => setUsernameFocus(false)}
         />
