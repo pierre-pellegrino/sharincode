@@ -146,6 +146,7 @@ const LoginForm = () => {
           <a className="txt-primary"> M&apos;inscrire</a>
         </Link>
       </div>
+      <a href={'https://github.com/login/oauth/authorize?client_id=33b913b565563d4f87c2'}>Me connecter avec github</a>
     </form>
   );
 };
