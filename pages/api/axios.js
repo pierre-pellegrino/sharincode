@@ -57,7 +57,8 @@ export default class APIManager {
   }
 
   static async deleteUser(id) {
-    const endpoint = `/profiles/${id}`;
+    // const endpoint = `/profiles/${id}`;
+    const endpoint = `/users`;
     const response = await APIRequest.delete(endpoint);
     return response;
   }
@@ -119,6 +120,19 @@ export default class APIManager {
         in: "languages",
       },
     });
+
+    return response;
+  }
+
+  static async deleteReaction(postId) {
+    const endpoint = `/posts/${postId}/post_reactions`;
+    const response = await APIRequest.delete(endpoint);
+    return response;
+  }
+
+  static async addReaction(postId, data) {
+    const endpoint = `/posts/${postId}/post_reactions`;
+    const response = await APIRequest.post(endpoint, data);
     return response;
   }
 
