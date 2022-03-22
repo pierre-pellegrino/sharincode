@@ -1,8 +1,8 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-// const baseurl = "https://snipshare-api-staging.herokuapp.com";
-const baseurl = 'https://snipshare-api.herokuapp.com'
+const baseurl = "https://snipshare-api-staging.herokuapp.com";
+// const baseurl = 'https://snipshare-api.herokuapp.com'
 // const baseurl = 'https://staging-xs3.herokuapp.com'
 
 const APIRequest = axios.create({ baseURL: baseurl });
@@ -62,7 +62,7 @@ export default class APIManager {
     return response;
   }
 
-  static async getPosts(page=1) {
+  static async getPosts(page = 1) {
     const endpoint = `/posts?page=${page}`;
     const response = await APIRequest.get(endpoint);
     return response;
@@ -75,7 +75,7 @@ export default class APIManager {
   }
 
   static async createPost(data) {
-    const endpoint = '/posts';
+    const endpoint = "/posts";
     const response = await APIRequest.post(endpoint, data);
     return response;
   }
@@ -107,6 +107,17 @@ export default class APIManager {
   static async deleteComment(postId, commentId) {
     const endpoint = `/posts/${postId}/comments/${commentId}`;
     const response = await APIRequest.delete(endpoint);
+    return response;
+  }
+
+  static async search({ query }) {
+    const endpoint = "/searches";
+    const response = await APIRequest.get(endpoint, {
+      params: {
+        keywords: query.replace(" ", "_"),
+        in: "all",
+      },
+    });
     return response;
   }
 

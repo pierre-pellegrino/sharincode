@@ -1,0 +1,18 @@
+.searchContainer {
+  padding: 0.25em 1em;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 500px;
+}
+
+.search {
+  border: none;
+  font: inherit;
+  outline: none;
+  height: 2.25em;
+  width: 100%;
+  padding-left: 1em;
+  background: none;
+}

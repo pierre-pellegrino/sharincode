@@ -8,6 +8,7 @@ import Cookies from "js-cookie";
 import SetTheme from "components/SetTheme";
 import { THEMES_HASH } from "lib/constants/themes";
 import { preferedThemeAtom } from "store";
+import Searchbar from "components/Searchbar";
 
 const Layout = ({ children }) => {
   const [_, setUser] = useAtom(userAtom);
@@ -32,6 +33,7 @@ const Layout = ({ children }) => {
       <SetTheme highlights={THEMES_HASH[preferedTheme].highlights} />
       <Header />
       <main className={main} id="main" aria-label="Contenu Principal">
+        <Searchbar />
         {children}
       </main>
     </div>
