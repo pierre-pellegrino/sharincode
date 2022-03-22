@@ -2,6 +2,7 @@ import cn from "classnames";
 import NewPostModal from "components/NewPostModal";
 import APIManager from "pages/api/axios";
 import { useEffect, useState } from "react";
+import { useMediaQuery } from "react-responsive";
 import { useSWRConfig } from "swr";
 import {
   modal,
@@ -23,6 +24,14 @@ const PostActionsModal = (props) => {
 
   const { mutate } = useSWRConfig();
   const [displayEditModal, setDisplayEditModal] = useState(false);
+  const middleBreakpoint = useMediaQuery({ query: "(max-width: 1000px)" });
+
+  const handleEdit = () => {
+    if (middleBreakpoint) {
+      return "#";
+    }
+    setDisplayEditModal(true);
+  }
 
   const handleDelete = async () => {
     try {
