@@ -38,7 +38,7 @@ const PostActionsModal = (props) => {
           content={content}
           closeModal={() => {
             setDisplayEditModal(false);
-            document.body.style.overflow = "auto";
+            // document.body.style.overflow = "auto";
             setButtonDisabled(false);
           }}
           setButtonDisabled={setButtonDisabled}
