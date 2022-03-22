@@ -6,7 +6,7 @@ import {
 } from "components/PostCard/post_card.module.scss";
 import { ApprovalIcon, LikeIcon, IdeaIcon } from "components/icons";
 import APIManager from "pages/api/axios";
-import useSWR from "swr";
+import {useSWRConfig} from "swr";
 import {useAtom} from "jotai";
 import {userAtom} from "store";
 
@@ -14,7 +14,7 @@ const ReactionsModal = ({postId, reactions}) => {
   const [currentUser] = useAtom(userAtom);
   const currentUserId = currentUser?.user.id ?? null;
   const currentUserReact = reactions.filter(react => react.user_id === currentUserId);
-  console.log(currentUserReact)
+  const {mutate} = useSWRConfig();
 
   const reacts = [
     "",
@@ -38,6 +38,8 @@ const ReactionsModal = ({postId, reactions}) => {
       const response = await APIManager.addReaction(postId, data);
       console.log(response.data);
     }
+
+    mutate("/posts?page=1");
   }
 
   return (
