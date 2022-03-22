@@ -15,8 +15,6 @@ import {
   reacts,
   reactItem,
   comments,
-  openReacts,
-  reactsModal,
   postCardDetailPage,
   comment,
   actionsMenu,
@@ -27,11 +25,13 @@ import { formatDistanceToNow } from "date-fns";
 import { en, fr } from "date-fns/locale";
 import { ThreeDotsIcon } from "components/icons";
 import PostActionsModal from "components/PostActionsModal";
-import { userAtom } from "store";
+import { userAtom, isConnectedAtom } from "store";
 import { useAtom } from "jotai";
+import ReactionsModal from "components/ReactionsModal/ReactionsModal";
 
 const PostCard = ({ post, detail, theme }) => {
   const [user] = useAtom(userAtom);
+  const [isConnected] = useAtom(isConnectedAtom);
 
   const language = post.snippets[0]?.language.replace(/^(\[")(.+)("])$/, "$2");
   const description = post.description;
@@ -40,6 +40,10 @@ const PostCard = ({ post, detail, theme }) => {
   const author = post.user;
   const id = post.id;
   const commentNb = post.comments;
+  const reactions = post.reactions;
+  const lightReacts = reactions.filter(react => react.reaction_id === 1);
+  const loveReacts = reactions.filter(react => react.reaction_id === 2);
+  const checkReacts = reactions.filter(react => react.reaction_id === 3);
 
   const [displayActionsMenu, setDisplayActionsMenu] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
@@ -119,15 +123,15 @@ const PostCard = ({ post, detail, theme }) => {
         <div className={reactsWrapper}>
           <div className={reacts}>
             <div className={reactItem}>
-              <p>5 {/* A modifier par le nombre en back */}</p>
+              <p>{lightReacts.length}</p>
               <IdeaIcon />
             </div>
             <div className={reactItem}>
-              <p>3 {/* A modifier par le nombre en back */}</p>
+              <p>{loveReacts.length}</p>
               <LikeIcon />
             </div>
             <div className={reactItem}>
-              <p>12 {/* A modifier par le nombre en back */}</p>
+              <p>{checkReacts.length}</p>
               <ApprovalIcon />
             </div>
           </div>
@@ -138,14 +142,7 @@ const PostCard = ({ post, detail, theme }) => {
           </Link>
         </div>
         <div className={btnsWrapper}>
-          <div className={`${btn} ${openReacts}`}>
-            <p>Réagir</p>
-            <div className={reactsModal}>
-              <IdeaIcon />
-              <LikeIcon />
-              <ApprovalIcon />
-            </div>
-          </div>
+          {isConnected && <ReactionsModal postId={id} reactions={reactions}/>}
           <Link href={`/posts/${id}`}>
             <a className={btn}>
               <p className={{comment}}>Commenter</p>
