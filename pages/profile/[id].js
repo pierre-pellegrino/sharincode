@@ -17,7 +17,7 @@ import { useRouter } from 'next/router';
 const ProfilePage = () => {
   const router = useRouter();
   const { id } = router.query;
-  const { data, error } = useSWR(`profiles/${id}`, APIManager.fetcher);
+  const { data, error, mutate } = useSWR(`profiles/${id}`, APIManager.fetcher);
   const [userData] = useAtom(userAtom);
 
   let content = <Loader />;
@@ -46,7 +46,7 @@ const ProfilePage = () => {
             </a>
           </p>
         </div>
-        <ProfileTabMenu user={data.user} isCurrentUser={isCurrentUser} currentUser={userData && userData.user} />
+        <ProfileTabMenu user={data.user} isCurrentUser={isCurrentUser} currentUser={userData && userData.user} mutate={mutate} />
       </>
     );
   }

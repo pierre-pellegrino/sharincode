@@ -15,6 +15,7 @@ const NewPostForm = ({
   editLanguage,
   editSnippet,
   post,
+  closeModal
 }) => {
   const descriptionRef = useRef();
   const router = useRouter();
@@ -31,6 +32,7 @@ const NewPostForm = ({
 
     return `${languageObj.name} ${languageObj.mode}`;
   });
+  const [btnValue, setBtnValue] = useState(editSnippet ? "Editer mon snippet" : "Partager mon code au monde ! 🚀")
 
   const { mutate } = useSWRConfig();
 
@@ -46,11 +48,11 @@ const NewPostForm = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    
     try {
       if (!canSave) throw new Error("Oups, quelque chose s'est mal passé !");
-
-      console.log(post);
+      
+      setBtnValue(editSnippet ? "Edition en cours..." : "Création en cours...");
 
       if (!editSnippet) {
         const data = {
@@ -66,7 +68,6 @@ const NewPostForm = ({
 
         const response = await APIManager.createPost(data);
         setShowNewPostModalAtom(false);
-        console.log(response.data);
 
         await mutate("/posts");
 
@@ -88,14 +89,14 @@ const NewPostForm = ({
       };
 
       const response = await APIManager.editPost(post.id, data);
-      console.log(response.data);
 
       await mutate("/posts");
 
-      router.push(`/posts/${response.data.post.id}`);
+      closeModal();
 
-      return;
+      router.push(`/posts/${response.data.post.id}`);
     } catch (e) {
+      setBtnValue(editSnippet ? "Editer mon snippet" : "Partager mon code au monde ! 🚀");
       console.error(e.response);
     }
   };
@@ -144,7 +145,7 @@ const NewPostForm = ({
         type="submit"
         className={`${btn} bg-primary txt-btn`}
         role="button"
-        value="Partager mon code au monde ! 🚀"
+        value={btnValue}
         disabled={!canSave}
       />
     </form>

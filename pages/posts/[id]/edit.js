@@ -12,22 +12,22 @@ const CommentEdit = () => {
   const router = useRouter();
   const { id } = router.query;
 
-  const { data, error } = useSWR(`/posts/${id}`, APIManager.fetcher);
+  const { data } = useSWR(`/posts/${id}`, APIManager.fetcher);
 
   const [currentUser] = useAtom(userAtom);
   const [userChecked, setUserChecked] = useState(false);
-  
+
   useEffect(() => {
     if (!data) return;
-    
+
     const user = data.post.user;
     if (currentUser && user.user_id !== currentUser.user.id) {
       return router.replace("/");
     }
-    
+
     if (currentUser) setUserChecked(true);
   }, [currentUser, data, router]);
-  
+
   if (!userChecked || !data) {
     return (
       <div className={styles.main}>
@@ -36,8 +36,8 @@ const CommentEdit = () => {
     );
   }
 
-  const { description, snippets, user } = data?.post;
-  
+  const { description, snippets } = data?.post;
+
   return (
     <NewPostForm
       editDescription={description}

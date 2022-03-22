@@ -55,6 +55,8 @@ const LoginForm = () => {
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
 
+  const [btnValue, setBtnValue] = useState("M'inscrire");
+
   const canSave = [validUsername, validEmail, validPwd, validPwdConfirm].every(
     Boolean
   );
@@ -94,6 +96,8 @@ const LoginForm = () => {
 
     if (!canSave) return setErrMsg("Un (ou plusieurs) champs sont invalides !");
 
+    setBtnValue("Inscription en cours...");
+
     const data = {
       user: {
         username: username.toLowerCase(),
@@ -104,12 +108,12 @@ const LoginForm = () => {
 
     try {
       const response = await APIManager.register(data);
-      console.log(response.data);
       setSuccess(true);
       setUser(response.data);
       router.push("/");
     } catch (err) {
-      console.log(err.response);
+      setBtnValue("M'inscrire");
+
       if (!err?.response) {
         setErrMsg("Oups ! Pas de réponse du serveur...");
       } else {
@@ -303,7 +307,7 @@ const LoginForm = () => {
         tabIndex={0}
         type="submit"
         role="button"
-        value="M'inscrire"
+        value={btnValue}
         disabled={!canSave}
       />
       <div className={formLink}>
