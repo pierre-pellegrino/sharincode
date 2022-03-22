@@ -15,7 +15,8 @@ const NewPostForm = ({
   editLanguage,
   editSnippet,
   post,
-  closeModal
+  closeModal,
+  setButtonDisabled,
 }) => {
   const descriptionRef = useRef();
   const router = useRouter();
@@ -32,7 +33,9 @@ const NewPostForm = ({
 
     return `${languageObj.name} ${languageObj.mode}`;
   });
-  const [btnValue, setBtnValue] = useState(editSnippet ? "Editer mon snippet" : "Partager mon code au monde ! 🚀")
+  const [btnValue, setBtnValue] = useState(
+    editSnippet ? "Editer mon snippet" : "Partager mon code au monde ! 🚀"
+  );
 
   const { mutate } = useSWRConfig();
 
@@ -48,10 +51,10 @@ const NewPostForm = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
       if (!canSave) throw new Error("Oups, quelque chose s'est mal passé !");
-      
+
       setBtnValue(editSnippet ? "Edition en cours..." : "Création en cours...");
 
       if (!editSnippet) {
@@ -70,12 +73,12 @@ const NewPostForm = ({
         setShowNewPostModalAtom(false);
 
         await mutate("/posts");
-
+        
         router.push(`/posts/${response.data.post.id}`);
-
+        
         return;
       }
-
+      
       const data = {
         ...post,
         description,
@@ -87,16 +90,19 @@ const NewPostForm = ({
           },
         ],
       };
-
+      
       const response = await APIManager.editPost(post.id, data);
-
+      
       await mutate("/posts");
-
+      
       closeModal();
+      setButtonDisabled(false);
 
       router.push(`/posts/${response.data.post.id}`);
     } catch (e) {
-      setBtnValue(editSnippet ? "Editer mon snippet" : "Partager mon code au monde ! 🚀");
+      setBtnValue(
+        editSnippet ? "Editer mon snippet" : "Partager mon code au monde ! 🚀"
+      );
       console.error(e.response);
     }
   };

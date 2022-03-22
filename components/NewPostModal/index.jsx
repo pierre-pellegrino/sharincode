@@ -39,6 +39,7 @@ const NewPostModal = (props) => {
           id={id}
           post={post}
           closeModal={closeModal}
+          setButtonDisabled={setButtonDisabled}
         />
       </div>
     </>
