@@ -15,8 +15,6 @@ import {
   reacts,
   reactItem,
   comments,
-  openReacts,
-  reactsModal,
   postCardDetailPage,
   comment,
   actionsMenu,
@@ -29,6 +27,7 @@ import { ThreeDotsIcon } from "components/icons";
 import PostActionsModal from "components/PostActionsModal";
 import { userAtom } from "store";
 import { useAtom } from "jotai";
+import ReactionsModal from "components/ReactionsModal/ReactionsModal";
 
 const PostCard = ({ post, detail, theme }) => {
   const [user] = useAtom(userAtom);
@@ -40,6 +39,10 @@ const PostCard = ({ post, detail, theme }) => {
   const author = post.user;
   const id = post.id;
   const commentNb = post.comments;
+  const reactions = post.reactions;
+  const lightReacts = reactions.filter(react => react.reaction_id === 1);
+  const loveReacts = reactions.filter(react => react.reaction_id === 2);
+  const checkReacts = reactions.filter(react => react.reaction_id === 3);
 
   const [displayActionsMenu, setDisplayActionsMenu] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
@@ -119,15 +122,15 @@ const PostCard = ({ post, detail, theme }) => {
         <div className={reactsWrapper}>
           <div className={reacts}>
             <div className={reactItem}>
-              <p>5 {/* A modifier par le nombre en back */}</p>
+              <p>{lightReacts.length}</p>
               <IdeaIcon />
             </div>
             <div className={reactItem}>
-              <p>3 {/* A modifier par le nombre en back */}</p>
+              <p>{loveReacts.length}</p>
               <LikeIcon />
             </div>
             <div className={reactItem}>
-              <p>12 {/* A modifier par le nombre en back */}</p>
+              <p>{checkReacts.length}</p>
               <ApprovalIcon />
             </div>
           </div>
@@ -138,14 +141,7 @@ const PostCard = ({ post, detail, theme }) => {
           </Link>
         </div>
         <div className={btnsWrapper}>
-          <div className={`${btn} ${openReacts}`}>
-            <p>Réagir</p>
-            <div className={reactsModal}>
-              <IdeaIcon />
-              <LikeIcon />
-              <ApprovalIcon />
-            </div>
-          </div>
+          <ReactionsModal postId={id} reactions={reactions}/>
           <Link href={`/posts/${id}`}>
             <a className={btn}>
               <p className={{comment}}>Commenter</p>
