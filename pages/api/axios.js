@@ -110,12 +110,13 @@ export default class APIManager {
     return response;
   }
 
-  static async search({ query }) {
+  static async search({ language }) {
     const endpoint = "/searches";
+    const formattedQuery = language.replace(" ", "_");
     const response = await APIRequest.get(endpoint, {
       params: {
-        keywords: query.replace(" ", "_"),
-        in: "all",
+        keywords: formattedQuery,
+        in: "languages",
       },
     });
     return response;

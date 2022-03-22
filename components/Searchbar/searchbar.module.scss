@@ -5,6 +5,13 @@
   align-items: center;
   width: 100%;
   max-width: 500px;
+  position: relative;
+
+}
+
+.withSuggestions {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .search {
@@ -15,4 +22,32 @@
   width: 100%;
   padding-left: 1em;
   background: none;
+
+}
+
+.suggestions {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  top: 100%;
+  left: 0;
+  z-index: 20;
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+  list-style: none;
+
+  .suggestion:last-child {
+    border-bottom-left-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+  }
+}
+
+.suggestion {
+  padding: 0.25em 3em;
+  margin: 0 0.1em;
+
+  &.active {
+    background-color: var(--hover);
+  }
 }
