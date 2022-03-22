@@ -7,7 +7,7 @@
   max-width: 100%;
 
   &:hover {
-    background-color: #fff;
+    background-color: var(--hover);
     border-radius: 4px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
@@ -47,12 +47,12 @@
 
     & p:nth-child(1) {
       font-weight: bolder;
-      color: $primary;
     }
 
     i {
       font-size: 0.8rem;
-      color: #333;
+      color: inherit;
+      opacity: 0.9;
       text-align: right;
     }
 
@@ -62,7 +62,7 @@
     position: absolute;
     top: auto;
     right: 0;
-    bottom: -100%;
+    bottom: -150%;
   }
 
   .contentStyle {
