@@ -15,8 +15,6 @@ const PostDetailPage = ({ id, data }) => {
     error
   } = useSWR(`/posts/${id}/comments`, APIManager.fetcher);
 
-  console.log(comments);
-
   let commentsSection = <Loader />;
 
   if (error) commentsSection = <p>Erreur de chargement des commentaires.</p>;

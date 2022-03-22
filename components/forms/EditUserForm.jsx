@@ -5,11 +5,13 @@ import {
   input,
   btn,
   deleteAccount,
+  favoriteTheme,
 } from "./form.module.scss";
 import APIManager from "pages/api/axios";
 import { useRouter } from "next/router";
 import { useAtom } from "jotai";
 import { userAtom } from "store";
+import ThemeSelect from "components/ThemeSelect";
 
 const EditUserForm = ({user}) => {
   const [_, setUser] = useAtom(userAtom);
@@ -111,14 +113,15 @@ const EditUserForm = ({user}) => {
           <label htmlFor="personal-input">Autre lien</label>
         </div>
 
-        <p> Thème favori à venir </p>
-
         <input
           className={`${btn} bg-primary txt-btn`}
           type="submit"
           role="button"
           value="éditer"
         />
+
+        <p className={favoriteTheme}>Thème favori</p>
+        <ThemeSelect />
       </form>
 
       <p className={deleteAccount} onClick={() => handleDeleteAccount()}>Supprimer mon compte</p>

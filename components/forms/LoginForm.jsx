@@ -60,16 +60,14 @@ const LoginForm = () => {
 
     try {
       const response = await APIManager.login(data);
-      console.log(response.data);
       setSuccess(true);
       setUser(response.data);
       router.push("/");
     } catch (err) {
-      console.log(err.response);
       if (!err?.response) {
         setErrMsg("Oups ! Pas de réponse du serveur...");
       } else {
-        setErrMsg(err.response.data.message);
+        setErrMsg(err.response.data);
       }
       errors.current.focus();
     }
