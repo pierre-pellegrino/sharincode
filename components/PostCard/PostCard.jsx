@@ -45,6 +45,7 @@ const PostCard = ({ post, detail, theme, page }) => {
   const lightReacts = reactions.filter(react => react.reaction_id === 1);
   const loveReacts = reactions.filter(react => react.reaction_id === 2);
   const checkReacts = reactions.filter(react => react.reaction_id === 3);
+  const snippet_list = post.snippets
 
   const [displayActionsMenu, setDisplayActionsMenu] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
@@ -115,14 +116,20 @@ const PostCard = ({ post, detail, theme, page }) => {
           <a>{description}</a>
         </div>
       </Link>
-      <div className={snippetStyle}>
-        <p className={languageStyle}>{language}</p>
-        <SnippetHighlighter
-          snippet={snippet}
-          language={language}
-          theme={theme}
-        />
-      </div>
+
+      {
+        snippet_list.map((snippet) => (
+          <div key={snippet.id} className={snippetStyle}>
+            <p className={languageStyle}>{snippet.language}</p>
+            <SnippetHighlighter
+              snippet={snippet.content}
+              language={snippet.language}
+              theme={theme}
+            />
+          </div>
+        ))
+      }
+
       <div className={bottom}>
         <div className={reactsWrapper}>
           <div className={reacts}>
