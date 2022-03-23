@@ -6,6 +6,7 @@ import {
   profileIconText, 
   profilePage,
   profileAsVisitor,
+  showOnHover,
 } from './profile_icon.module.scss';
 import Link from 'next/link';
 import {useAtom} from "jotai";
