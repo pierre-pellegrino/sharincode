@@ -9,10 +9,12 @@ import {
   btn,
 } from "components/forms/form.module.scss";
 import APIManager from "pages/api/axios";
+import { useSWRConfig } from "swr";
 
-const EditAvatarModal = () => {
+const EditAvatarModal = ({closeModal}) => {
   const [file, setFile] = useState([]);
   const avatar = useRef();
+  const { mutate } = useSWRConfig();
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -29,10 +31,12 @@ const EditAvatarModal = () => {
 
     try {
       const response = await APIManager.updateProfile(data);
-      console.log(data);
+      mutate(`profiles/${id}`);
     } catch (error) {
-      console.warn(error);
+      console.log(error);
     }
+
+    closeModal();
   };
 
   return (

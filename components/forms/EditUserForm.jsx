@@ -39,6 +39,10 @@ const EditUserForm = ({ user, mutate, userAvatar }) => {
     }
   };
 
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  }
+
   const router = useRouter();
 
   useEffect(() => {
@@ -103,9 +107,9 @@ const EditUserForm = ({ user, mutate, userAvatar }) => {
           height={128}
           width={128}
         />
-        <p onClick={() => setModalOpen(true)}>Changer mon avatar</p>
+        <p onClick={() => setModalOpen(true)}>Modifier mon avatar</p>
       </div>
-      {modalOpen && <EditAvatarModal />}
+      {modalOpen && <EditAvatarModal closeModal={handleCloseModal}/>}
       <form className={`${form} links-form`} onSubmit={handleUpdate}>
         {success && <p>Modifications enregistrées !</p>}
 
