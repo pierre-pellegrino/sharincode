@@ -28,9 +28,9 @@ const LoggedInNav = () => {
   const middleBreakpoint = useMediaQuery({ query: "(max-width: 1000px)" });
 
   const handleDisconnect = () => {
+    router.push("/");
     Cookies.remove("token");
     setUser(null);
-    router.push("/");
   };
 
   return (
