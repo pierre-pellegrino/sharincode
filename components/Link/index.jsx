@@ -12,7 +12,7 @@ const Link = ({
   const router = useRouter();
 
   let currentClassName = `${className} ${inactiveClassName}`;
-  const isActive = router.pathname === href;
+  const isActive = router.asPath === href;
 
   if (isActive) {
     currentClassName = `${className} ${activeClassName}`;

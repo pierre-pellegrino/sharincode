@@ -13,7 +13,7 @@ import { useAtom } from "jotai";
 import { userAtom } from "store";
 import ThemeSelect from "components/ThemeSelect";
 
-const EditUserForm = ({user}) => {
+const EditUserForm = ({ user, mutate }) => {
   const [_, setUser] = useAtom(userAtom);
 
   const [errMsg, setErrMsg] = useState("");
@@ -22,19 +22,23 @@ const EditUserForm = ({user}) => {
   const [github, setGithub] = useState(user?.github_url ?? "");
   const [personal, setPersonal] = useState(user?.personal_url ?? "");
 
+  const [btnValue, setBtnValue] = useState("Editer");
+
   const handleDeleteAccount = () => {
     if (confirm("Êtes-vous sûr ?\nCette action est irréversible.")) {
       APIManager.deleteUser(user.id);
       setUser(null);
 
-      router.push('/');
+      router.push("/");
     }
-  }
+  };
 
   const router = useRouter();
 
   const handleUpdate = async (e) => {
     e.preventDefault();
+
+    setBtnValue("Edition en cours...");
 
     const data = {
       user: {
@@ -42,40 +46,33 @@ const EditUserForm = ({user}) => {
         description: description,
         github_url: github,
         personal_url: personal,
-        favorite_theme: ""
+        favorite_theme: "",
       },
     };
 
     try {
-      const response = await APIManager.updateProfile(user.id, data);
-      console.log(response.data);
+      await APIManager.updateProfile(user.id, data);
+      await mutate();
       setSuccess(true);
-      router.push(`/profile/${user.id}`);
+      setBtnValue("Editer");
     } catch (err) {
-      console.log(err.response);
+      setBtnValue("Editer");
+      
       if (!err?.response) {
         setErrMsg("Oups ! Pas de réponse du serveur...");
       } else {
         setErrMsg(err.response.data.message);
       }
     }
+
   };
 
   return (
     <>
       <form className={form} onSubmit={handleUpdate}>
+        {success && <p>Modifications enregistrées !</p>}
 
-        {success && (
-          <p>
-            Modifications enregistrées !
-          </p>
-        )}
-
-        <p
-          aria-live="assertive"
-        >
-          {errMsg}
-        </p>
+        <p aria-live="assertive">{errMsg}</p>
 
         <div className={inputWrapper}>
           <input
@@ -117,14 +114,16 @@ const EditUserForm = ({user}) => {
           className={`${btn} bg-primary txt-btn`}
           type="submit"
           role="button"
-          value="éditer"
+          value={btnValue}
         />
 
         <p className={favoriteTheme}>Thème favori</p>
         <ThemeSelect />
       </form>
 
-      <p className={deleteAccount} onClick={() => handleDeleteAccount()}>Supprimer mon compte</p>
+      <p className={deleteAccount} onClick={() => handleDeleteAccount()}>
+        Supprimer mon compte
+      </p>
     </>
   );
 };

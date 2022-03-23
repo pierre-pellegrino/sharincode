@@ -19,11 +19,9 @@ const NewPostModal = (props) => {
 
   useEffect(() => {
     if (setButtonDisabled) setButtonDisabled(true);
-    // document.body.style.overflow = "hidden";
   }, [setButtonDisabled]);
 
   const handleClose = () => {
-    // document.body.style.overflow = "auto";
     setShowNewPostModal(false);
     if (closeModal) closeModal();
     if (setButtonDisabled) setButtonDisabled(false);
@@ -40,6 +38,8 @@ const NewPostModal = (props) => {
           editSnippet={snippet}
           id={id}
           post={post}
+          closeModal={closeModal}
+          setButtonDisabled={setButtonDisabled}
         />
       </div>
     </>

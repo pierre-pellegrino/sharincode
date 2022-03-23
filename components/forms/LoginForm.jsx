@@ -36,6 +36,8 @@ const LoginForm = () => {
 
   const canSave = [email, pwd].every(Boolean);
 
+  const [btnValue, setBtnValue] = useState("Me connecter");
+
   const [_, setUser] = useAtom(userAtom);
 
   useEffect(() => {
@@ -48,8 +50,10 @@ const LoginForm = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
+    
     if (!canSave) return setErrMsg("Un (ou plusieurs) champs sont invalides !");
+  
+    setBtnValue("Connexion en cours...")
 
     const data = {
       user: {
@@ -64,6 +68,8 @@ const LoginForm = () => {
       setUser(response.data);
       router.push("/");
     } catch (err) {
+      setBtnValue("Me connecter");
+
       if (!err?.response) {
         setErrMsg("Oups ! Pas de réponse du serveur...");
       } else {
@@ -137,7 +143,7 @@ const LoginForm = () => {
         className={`${btn} bg-primary txt-btn`}
         type="submit"
         role="button"
-        value="Me connecter"
+        value={btnValue}
         disabled={!canSave}
       />
       <div className={formLink}>
