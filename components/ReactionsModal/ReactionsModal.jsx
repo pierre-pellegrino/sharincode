@@ -3,6 +3,8 @@ import {
   btn,
   openReacts,
   reactsModal,
+  singleReactWrapper,
+  singleReactInfo
 } from "components/PostCard/post_card.module.scss";
 import { ApprovalIcon, LikeIcon, IdeaIcon } from "components/icons";
 import APIManager from "pages/api/axios";
@@ -10,7 +12,7 @@ import {useSWRConfig} from "swr";
 import {useAtom} from "jotai";
 import {userAtom} from "store";
 
-const ReactionsModal = ({postId, reactions}) => {
+const ReactionsModal = ({postId, reactions, page=1}) => {
   const [currentUser] = useAtom(userAtom);
   const currentUserId = currentUser?.user.id ?? null;
   const currentUserReact = reactions.filter(react => react.user_id === currentUserId);
@@ -47,14 +49,23 @@ const ReactionsModal = ({postId, reactions}) => {
     <div className={`${btn} ${openReacts}`}>
       <p>Réagir</p>
       <div className={reactsModal}>
-        <div onClick={() => handleAddReaction(1)}>
+        <div onClick={() => handleAddReaction(1)} className={singleReactWrapper}>
           <IdeaIcon />
+          <p className={`${singleReactInfo} bg-global-secondary`}>
+            Bonne idée !
+          </p>
         </div>
-        <div onClick={() => handleAddReaction(2)}>
+        <div onClick={() => handleAddReaction(2)} className={singleReactWrapper}>
           <LikeIcon />
+          <p className={`${singleReactInfo} bg-global-secondary`}>
+            J&apos;aime !
+          </p>
         </div>
-        <div onClick={() => handleAddReaction(3)}>
+        <div onClick={() => handleAddReaction(3)} className={singleReactWrapper}>
           <ApprovalIcon />
+          <p className={`${singleReactInfo} bg-global-secondary`}>
+            Je valide !
+          </p>
         </div>
       </div>
     </div>
