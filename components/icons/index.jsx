@@ -301,3 +301,35 @@ export const EyeOffIcon = () => (
     <path d="M165.78,233.66a2,2,0,0,0-3.38,1,96,96,0,0,0,115,115,2,2,0,0,0,1-3.38Z" />
   </svg>
 );
+
+export const SearchIcon = () => (
+  <label htmlFor="searchBar">
+    <svg
+      aria-label="search-icon"
+      height="16"
+      role="img"
+      viewBox="0 0 24 24"
+      width="16"
+    >
+      <path
+        d="M19 10.5A8.5 8.5 0 1110.5 2a8.5 8.5 0 018.5 8.5z"
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+      ></path>
+      <line
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        x1="16.511"
+        x2="22"
+        y1="16.511"
+        y2="22"
+      ></line>
+    </svg>
+  </label>
+);

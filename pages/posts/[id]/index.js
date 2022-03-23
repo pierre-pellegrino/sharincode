@@ -1,62 +1,59 @@
-import React from 'react';
-import APIManager from 'pages/api/axios';
-import PostCard from 'components/PostCard/PostCard';
+import React from "react";
+import APIManager from "pages/api/axios";
+import PostCard from "components/PostCard/PostCard";
 import styles from "styles/Home.module.scss";
 import Head from "next/head";
-import CommentsSection from 'components/CommentsSection/CommentsSection';
-import useSWR from 'swr';
-import Loader from 'components/Loader';
+import CommentsSection from "components/CommentsSection/CommentsSection";
+import useSWR from "swr";
+import Loader from "components/Loader";
+import { useRouter } from "next/router";
 
-const PostDetailPage = ({ id, data }) => {
-  const { post } = data;
+const PostDetailPage = () => {
+  const router = useRouter();
+  const { id } = router.query;
 
-  const {
-    data: comments,
-    error
-  } = useSWR(`/posts/${id}/comments`, APIManager.fetcher);
+  const { data: post, error: postError } = useSWR(
+    `/posts/${id}`,
+    APIManager.fetcher
+  );
 
-  let commentsSection = <Loader />;
+  const { data: comments, error: commentsError } = useSWR(
+    `/posts/${id}/comments`,
+    APIManager.fetcher
+  );
 
-  if (error) commentsSection = <p>Erreur de chargement des commentaires.</p>;
+  let postCard = <Loader />;
+
+  if (postError) postCard = <p>Erreur de chargement du post.</p>;
+
+  let commentsSection = <div></div>;
+
+  if (commentsError)
+    commentsSection = <p>Erreur de chargement des commentaires.</p>;
+
+  if (post) {
+    commentsSection = <Loader />;
+
+    postCard = <PostCard post={post.post} detail={true} />;
+  }
 
   if (comments) {
-    commentsSection = (
-      <CommentsSection
-        comments={comments.comments}
-        id={post.id}
-      />
-    );
+    commentsSection = <CommentsSection comments={comments.comments} id={id} />;
   }
 
   return (
     <main className={styles.main}>
       <Head>
-        <title>{post.user.username ?? "User"}&apos;s snippet | SnipShare</title>
+        <title>
+          {post?.user?.username ?? "User"}&apos;s snippet | SnipShare
+        </title>
       </Head>
 
-      <PostCard
-        post={post}
-        key={post.id}
-        detail={true}
-      />
+      {postCard}
 
       {commentsSection}
     </main>
   );
 };
-
-export const getServerSideProps = async (context) => {
-  const { id } = context.params;
-
-  const response = await APIManager.getPost(id);
-  const data = await response.data;
-
-  return {
-    props: {
-      id,
-      data
-    }
-  }
-}
 
 export default PostDetailPage;

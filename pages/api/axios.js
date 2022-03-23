@@ -1,8 +1,9 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-// const baseurl = "https://snipshare-api-staging.herokuapp.com";
-const baseurl = "https://snipshare-api.herokuapp.com";
+
+const baseurl = "https://snipshare-api-staging.herokuapp.com";
+// const baseurl = 'https://snipshare-api.herokuapp.com'
 // const baseurl = 'https://staging-xs3.herokuapp.com'
 
 const APIRequest = axios.create({ baseURL: baseurl });
@@ -57,7 +58,8 @@ export default class APIManager {
   }
 
   static async deleteUser(id) {
-    const endpoint = `/profiles/${id}`;
+    // const endpoint = `/profiles/${id}`;
+    const endpoint = `/users`;
     const response = await APIRequest.delete(endpoint);
     return response;
   }
@@ -109,15 +111,38 @@ export default class APIManager {
     const response = await APIRequest.delete(endpoint);
     return response;
   }
+  static async search({ language }) {
+    const endpoint = "/searches";
+    const formattedQuery = language.replace(" ", "_");
+    const response = await APIRequest.get(endpoint, {
+      params: {
+        keywords: formattedQuery,
+        in: "languages",
+      },
+    });
+
+    return response;
+  }
+
+  static async deleteReaction(postId) {
+    const endpoint = `/posts/${postId}/post_reactions`;
+    const response = await APIRequest.delete(endpoint);
+    return response;
+  }
+
+  static async addReaction(postId, data) {
+    const endpoint = `/posts/${postId}/post_reactions`;
+    const response = await APIRequest.post(endpoint, data);
+    return response;
+  }
 
   static async logFromGithub(code) {
     const endpoint = "/auth";
     const response = await APIRequest.get(endpoint, {
       params: {
         code,
-      },
-    });
-    return response;
+      }
+    })
   }
 
   static async fetcher(url) {
