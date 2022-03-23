@@ -22,18 +22,23 @@ export default function Home() {
     threshold: 1
   }
 
+  const observerCallback = (entries) => {
+    console.log("yo");
+    const [entry] = entries;
+    setIsVisible(entry.isIntersecting);
+  }
+
   useEffect(() => {
-    const observer = new IntersectionObserver(() => {
-      console.log("yo");
-      setIsVisible(true);
-    }, observerOptions);
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
 
     if (bottomRef.current) observer.observe(bottomRef.current);
+
+    isVisible && observer.unobserve(bottomRef.current);
 
     return () => {
       if (bottomRef.current) observer.unobserve(bottomRef.current);
     }
-  }, [bottomRef, observerOptions])
+  }, [bottomRef, observerOptions, isVisible])
 
   let content = <Loader />;
 
