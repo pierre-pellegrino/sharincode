@@ -11,13 +11,19 @@ import { preferedThemeAtom } from "store";
 import Searchbar from "components/Searchbar";
 
 const Layout = ({ children }) => {
-  const [_, setUser] = useAtom(userAtom);
-  const [preferedTheme] = useAtom(preferedThemeAtom);
+  const [user, setUser] = useAtom(userAtom);
+  const [preferedTheme, setPreferedTheme] = useAtom(preferedThemeAtom);
 
   useEffect(() => {
     const getUser = async () => {
       try {
         const response = await APIManager.loginWithToken();
+
+        const favoriteTheme = response.data.user.favorite_theme;
+
+        if (favoriteTheme && THEMES_HASH[favoriteTheme]) {
+          setPreferedTheme(favoriteTheme);
+        }
         setUser(response.data);
       } catch (e) {
         console.error(e.response);
@@ -25,8 +31,10 @@ const Layout = ({ children }) => {
       }
     };
 
+    console.log("puet poeut")
+
     if (Cookies.get("token")) getUser();
-  }, [setUser]);
+  }, [setPreferedTheme, setUser, user?.user?.favorite_theme]);
 
   return (
     <div className={`${container} bg-global txt-global`}>
