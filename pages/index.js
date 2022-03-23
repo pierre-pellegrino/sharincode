@@ -19,16 +19,16 @@ export default function Home() {
   if (data) {
     content = (
       <>
-        <button
+        {/* <button
           className={`${styles.btn} bg-primary txt-btn`}
           onClick={() => mutate()}
           disabled={isValidating}
         >
           Rafraichir
-        </button>
+        </button> */}
         
         {data.posts.map((post) => (
-          <PostCard post={post.post} key={post.post.id} />
+          <PostCard post={post.post} key={post.post.id} page={page} />
         ))}
       </>
     );
@@ -42,7 +42,6 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h1>Accueil</h1>
       {content}
     </section>
   );
