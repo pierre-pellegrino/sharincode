@@ -28,7 +28,7 @@ class MyDocument extends Document {
           <meta name="msapplication-TileColor" content="#2b5797" />
           <meta name="theme-color" content="#ffffff" />
           <link
-            href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;700&family=Work+Sans:ital,wght@0,300;0,400;0,700;1,400&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Work+Sans:ital,wght@0,300;0,400;0,700;1,400&display=swap"
             rel="stylesheet"
           />
         </Head>
