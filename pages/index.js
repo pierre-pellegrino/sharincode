@@ -57,7 +57,7 @@ export default function Home() {
           return <PostCard post={post.post} key={post.post.id} />   
         })}
 
-        <div style={{backgroundColor: "red", height: "5px", width: "100%"}} ref={bottomRef}></div>
+        <div ref={bottomRef}></div>
         {isVisible && <FetchPostsPage page={page+1} />}
       </>
     );

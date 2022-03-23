@@ -1,6 +1,4 @@
-import Head from "next/head";
 import PostCard from "components/PostCard/PostCard";
-import styles from "styles/Home.module.scss";
 import APIManager from "pages/api/axios";
 import useSWR from "swr";
 import Loader from "/components/Loader";
@@ -8,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 
 const FetchPostsPage = ({page}) => {
   const [isVisible, setIsVisible] = useState(false);
-  const { data, error, isValidating, mutate } = useSWR(
+  const { data, error } = useSWR(
     `/posts?page=${page}`,
     APIManager.fetcher
   );
@@ -40,21 +38,23 @@ const FetchPostsPage = ({page}) => {
     if (error) content = <div>Oups ! Il y a eu un problème...</div>;
   
     if (data) {
-      content = (
-        <>          
-          {data.posts.map((post) => (
-            <PostCard post={post.post} key={post.post.id} />
-          ))}
-  
-          <div style={{backgroundColor: "red", height: "5px", width: "100%"}} ref={bottomRef}></div>
-          {isVisible && <FetchPostsPage page={page+1} />}
-        </>
-      );
+      if (data.posts.length == 0) content = "";
+      else {
+        content = (
+          <>          
+            {data.posts.map((post) => (
+              <PostCard post={post.post} key={post.post.id} />
+            ))}
+    
+            <div ref={bottomRef}></div>
+            {isVisible && <FetchPostsPage page={page+1} />}
+          </>
+        );
+      }
     }
   
     return (
       <>
-        <p> héhéhéhé </p>
         {content}
       </>
     );
