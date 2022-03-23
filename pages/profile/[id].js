@@ -46,7 +46,7 @@ const ProfilePage = () => {
             </a>
           </p>
         </div>
-        <ProfileTabMenu user={data.user} isCurrentUser={isCurrentUser} currentUser={userData && userData.user} mutate={mutate} />
+        <ProfileTabMenu user={data.user} posts={data.posts} isCurrentUser={isCurrentUser} currentUser={userData && userData.user} mutate={mutate} />
       </>
     );
   }

@@ -9,9 +9,11 @@ import {
   active,
   profileTabContent,
 } from "./profile_tab.module.scss";
+import PostCard from "components/PostCard/PostCard";
 
-const ProfileTabMenu = ({user, currentUser, isCurrentUser, mutate}) => {
+const ProfileTabMenu = ({user, currentUser, isCurrentUser, mutate, posts}) => {
   const [activeTab, setActiveTab] = useState(1);
+  console.log(posts)
 
   return (
     <>
@@ -31,7 +33,13 @@ const ProfileTabMenu = ({user, currentUser, isCurrentUser, mutate}) => {
 
       <div className={profileTabContent}>
         {activeTab === 1 && (
-          <p> Aucun snippet créé ! </p>
+          posts.length === 0 ?
+           <p> {user?.username ?? "Cet utilisateur"} n'a créé aucun snippet ! </p>
+           :
+           posts.map(post => {
+            // return <PostCard post={post} key={post.id} />  
+            console.log(post)
+          })
         )}  
 
         {activeTab === 2 && (
