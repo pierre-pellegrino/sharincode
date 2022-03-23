@@ -72,12 +72,10 @@ const EditUserForm = ({ user, mutate, userAvatar }) => {
     setBtnValue("Edition en cours...");
 
     const data = {
-      user: {
         username: user?.username,
         description: description,
         github_url: github,
         personal_url: personal
-      },
     };
 
     try {
