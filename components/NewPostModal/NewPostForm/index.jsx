@@ -93,6 +93,7 @@ const NewPostForm = ({
       
       const response = await APIManager.editPost(post.id, data);
       
+      await mutate(`/posts/${post.id}`);
       await mutate("/posts");
       
       closeModal();

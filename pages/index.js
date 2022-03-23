@@ -8,8 +8,8 @@ import Loader from "../components/Loader";
 export default function Home() {
   const page = 1;
   const { data, error, isValidating, mutate } = useSWR(
-    `/posts?page=${page}`,
-    APIManager.fetcher
+    "/posts",
+    () => APIManager.fetcher(`/posts?page=${page}`),
   );
 
   let content = <Loader />;

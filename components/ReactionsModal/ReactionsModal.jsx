@@ -39,7 +39,8 @@ const ReactionsModal = ({postId, reactions}) => {
       console.log(response.data);
     }
 
-    mutate("/posts?page=1");
+    mutate("/posts");
+    mutate(`/posts/${postId}`);
   }
 
   return (
