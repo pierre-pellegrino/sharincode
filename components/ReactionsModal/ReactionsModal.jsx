@@ -57,7 +57,7 @@ const ReactionsModal = ({postId, reactions, page=1}) => {
         <div onClick={() => handleAddReaction(2)} className={singleReactWrapper}>
           <LikeIcon />
           <p className={`${singleReactInfo} bg-global-secondary`}>
-            J'aime !
+            J&apos;aime !
           </p>
         </div>
         <div onClick={() => handleAddReaction(3)} className={singleReactWrapper}>
