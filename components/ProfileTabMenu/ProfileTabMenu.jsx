@@ -13,13 +13,11 @@ import PostCard from "components/PostCard/PostCard";
 
 const ProfileTabMenu = ({user, currentUser, isCurrentUser, mutate, posts}) => {
   const [activeTab, setActiveTab] = useState(1);
-  console.log(posts)
-
   return (
     <>
       <div className={profileTabMenu}>
         <div className={`${ownSnippetsTab}`}>
-          <h3 className={`${tab} ${activeTab === 1 && active}`} onClick={(e) => setActiveTab(1)}>Snippets créés</h3>
+          <h3 className={`${tab} ${activeTab === 1 && active}`} onClick={(e) => setActiveTab(1)}>Snippets créés ({posts.length})</h3>
         </div>
         <div className={`${favSnippetsTab}`}>
           <h3 className={`${tab} ${activeTab === 2 && active}`} onClick={(e) => setActiveTab(2)}>Snippets favoris</h3>
@@ -37,8 +35,7 @@ const ProfileTabMenu = ({user, currentUser, isCurrentUser, mutate, posts}) => {
            <p> {user?.username ?? "Cet utilisateur"} n'a créé aucun snippet ! </p>
            :
            posts.map(post => {
-            // return <PostCard post={post} key={post.id} />  
-            console.log(post)
+            return <PostCard post={post.post} key={post.id} />  
           })
         )}  
 
