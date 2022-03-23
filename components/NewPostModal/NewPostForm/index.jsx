@@ -1,7 +1,11 @@
 import EditorContainer from "components/EditorContainer";
 import { LANGUAGES } from "lib/constants/languages";
 import { useRef, useState } from "react";
-import { form, inputWrapper } from "../new_post_modal.module.scss";
+import {
+  form,
+  inputWrapper,
+  descriptionEditor,
+} from "../new_post_modal.module.scss";
 import { btn } from "components/forms/form.module.scss";
 import { useEffect } from "react";
 import APIManager from "pages/api/axios";
@@ -9,6 +13,9 @@ import { useRouter } from "next/router";
 import { useAtom } from "jotai";
 import { showNewPostModalAtom } from "store";
 import { useSWRConfig } from "swr";
+import { EditorState } from "draft-js";
+import { Editor as DescriptionEditor } from "draft-js";
+import { ContentState } from "draft-js";
 
 const NewPostForm = ({
   editDescription,
@@ -22,7 +29,16 @@ const NewPostForm = ({
   const router = useRouter();
   const [_, setShowNewPostModalAtom] = useAtom(showNewPostModalAtom);
 
-  const [description, setDescription] = useState(editDescription ?? "");
+  let descriptionContent;
+
+  if (editDescription)
+    descriptionContent = ContentState.createFromText(editDescription);
+
+  const [description, setDescription] = useState(
+    descriptionContent
+      ? EditorState.createWithContent(descriptionContent)
+      : EditorState.createEmpty()
+  );
   const [snippet, setSnippet] = useState(editSnippet ?? "");
   const [selectedLanguage, setSelectedLanguage] = useState(() => {
     if (!editLanguage) return `${LANGUAGES[0].name} ${LANGUAGES[0].mode}`;
@@ -38,10 +54,6 @@ const NewPostForm = ({
   );
 
   const { mutate } = useSWRConfig();
-
-  useEffect(() => {
-    descriptionRef.current.focus();
-  }, []);
 
   const canSave = [
     snippet,
@@ -59,7 +71,7 @@ const NewPostForm = ({
 
       if (!editSnippet) {
         const data = {
-          description: description,
+          description: description.getCurrentContent().getPlainText(),
           snippets: [
             {
               content: snippet,
@@ -73,15 +85,15 @@ const NewPostForm = ({
         setShowNewPostModalAtom(false);
 
         await mutate("/posts");
-        
+
         router.push(`/posts/${response.data.post.id}`);
-        
+
         return;
       }
-      
+
       const data = {
         ...post,
-        description,
+        description: description.getCurrentContent().getPlainText(),
         snippets: [
           {
             ...post.snippets[0],
@@ -90,12 +102,11 @@ const NewPostForm = ({
           },
         ],
       };
-      
+
       const response = await APIManager.editPost(post.id, data);
-      
-      await mutate(`/posts/${post.id}`);
+
       await mutate("/posts");
-      
+
       closeModal();
       setButtonDisabled(false);
 
@@ -112,14 +123,12 @@ const NewPostForm = ({
     <form className={form} onSubmit={handleSubmit}>
       <div className={inputWrapper}>
         <label htmlFor="description">Description</label>
-        <textarea
-          name="description"
-          id="description"
-          ref={descriptionRef}
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          required
-        />
+        <div className={descriptionEditor}>
+          <DescriptionEditor
+            editorState={description}
+            onChange={setDescription}
+          />
+        </div>
       </div>
       <div className={inputWrapper}>
         <label htmlFor="language">Langage</label>

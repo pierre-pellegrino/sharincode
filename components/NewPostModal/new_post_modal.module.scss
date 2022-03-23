@@ -45,7 +45,8 @@
 
   input,
   textarea,
-  select {
+  select,
+  .descriptionEditor {
     width: 100%;
     background-color: var(--hover);
     border: var(--border);
@@ -55,9 +56,10 @@
     padding: 0.8em 1em;
   }
 
-  textarea {
+  .descriptionEditor {
     height: 10vh;
     resize: none;
     padding: 1rem;
+    text-align: left;
   }
 }
