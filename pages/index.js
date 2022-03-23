@@ -4,13 +4,36 @@ import styles from "styles/Home.module.scss";
 import APIManager from "pages/api/axios";
 import useSWR from "swr";
 import Loader from "../components/Loader";
+import { useEffect, useRef, useState } from "react";
+import FetchPostsPage from 'components/FetchPostsPage/FetchPostsPage';
 
 export default function Home() {
+  const [isVisible, setIsVisible] = useState(false);
+  const fetchedPosts = 0;
   const page = 1;
   const { data, error, isValidating, mutate } = useSWR(
     `/posts?page=${page}`,
     APIManager.fetcher
   );
+
+  const bottomRef = useRef(null);
+  const observerOptions = {
+    rootMargin: '0px',
+    threshold: 1
+  }
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(() => {
+      console.log("yo");
+      setIsVisible(true);
+    }, observerOptions);
+
+    if (bottomRef.current) observer.observe(bottomRef.current);
+
+    return () => {
+      if (bottomRef.current) observer.unobserve(bottomRef.current);
+    }
+  }, [bottomRef, observerOptions])
 
   let content = <Loader />;
 
@@ -27,9 +50,14 @@ export default function Home() {
           Rafraichir
         </button>
         
-        {data.posts.map((post) => (
-          <PostCard post={post.post} key={post.post.id} />
-        ))}
+        {data.posts.map((post) => {
+          fetchedPosts += 1;
+          return <PostCard post={post.post} key={post.post.id} />   
+        })}
+
+        {fetchedPosts > 8 && <div style={{backgroundColor: "red", height: "5px", width: "100%"}}ref={bottomRef}></div>}
+
+        {isVisible && <FetchPostsPage page={page+1} />}
       </>
     );
   }
