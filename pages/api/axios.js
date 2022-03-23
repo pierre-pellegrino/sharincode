@@ -63,7 +63,7 @@ export default class APIManager {
     return response;
   }
 
-  static async getPosts(page=1) {
+  static async getPosts(page = 1) {
     const endpoint = `/posts?page=${page}`;
     const response = await APIRequest.get(endpoint);
     return response;
@@ -76,7 +76,7 @@ export default class APIManager {
   }
 
   static async createPost(data) {
-    const endpoint = '/posts';
+    const endpoint = "/posts";
     const response = await APIRequest.post(endpoint, data);
     return response;
   }
@@ -108,6 +108,19 @@ export default class APIManager {
   static async deleteComment(postId, commentId) {
     const endpoint = `/posts/${postId}/comments/${commentId}`;
     const response = await APIRequest.delete(endpoint);
+    return response;
+  }
+
+  static async search({ language }) {
+    const endpoint = "/searches";
+    const formattedQuery = language.replace(" ", "_");
+    const response = await APIRequest.get(endpoint, {
+      params: {
+        keywords: formattedQuery,
+        in: "languages",
+      },
+    });
+
     return response;
   }
 

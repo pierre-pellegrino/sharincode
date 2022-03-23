@@ -19,6 +19,7 @@ import {
   comment,
   actionsMenu,
   topRight,
+  language as languageStyle,
   menuDisabled,
 } from "./post_card.module.scss";
 import { formatDistanceToNow } from "date-fns";
@@ -60,7 +61,11 @@ const PostCard = ({ post, detail, theme }) => {
   }, [displayActionsMenu]);
 
   return (
-    <div className={`${postCardWrapper} ${detail && postCardDetailPage} bg-global-secondary`}>
+    <div
+      className={`${postCardWrapper} ${
+        detail && postCardDetailPage
+      } bg-global-secondary`}
+    >
       <div className={top}>
         <ProfileIcon user={author} />
         <div className={topRight}>
@@ -73,9 +78,7 @@ const PostCard = ({ post, detail, theme }) => {
           {user &&
             user.user.id === post.user.user_id &&
             (buttonDisabled ? (
-              <div
-                className={`${actionsMenu} ${menuDisabled}`}
-              >
+              <div className={`${actionsMenu} ${menuDisabled}`}>
                 <ThreeDotsIcon />
                 <PostActionsModal
                   opened={displayActionsMenu}
@@ -113,6 +116,7 @@ const PostCard = ({ post, detail, theme }) => {
         </div>
       </Link>
       <div className={snippetStyle}>
+        <p className={languageStyle}>{language}</p>
         <SnippetHighlighter
           snippet={snippet}
           language={language}
@@ -145,7 +149,7 @@ const PostCard = ({ post, detail, theme }) => {
           {isConnected && <ReactionsModal postId={id} reactions={reactions}/>}
           <Link href={`/posts/${id}`}>
             <a className={btn}>
-              <p className={{comment}}>Commenter</p>
+              <p className={{ comment }}>Commenter</p>
             </a>
           </Link>
           <p className={btn}>Partager</p>

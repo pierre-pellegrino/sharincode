@@ -12,6 +12,7 @@ import { useRouter } from "next/router";
 import { useAtom } from "jotai";
 import { userAtom } from "store";
 import ThemeSelect from "components/ThemeSelect";
+import { preferedThemeAtom } from "store";
 
 const EditUserForm = ({ user, mutate }) => {
   const [_, setUser] = useAtom(userAtom);
@@ -23,17 +24,31 @@ const EditUserForm = ({ user, mutate }) => {
   const [personal, setPersonal] = useState(user?.personal_url ?? "");
 
   const [btnValue, setBtnValue] = useState("Editer");
+  const [preferedTheme, setPreferedTheme] = useAtom(preferedThemeAtom);
 
   const handleDeleteAccount = () => {
     if (confirm("Êtes-vous sûr ?\nCette action est irréversible.")) {
       APIManager.deleteUser(user.id);
       setUser(null);
-
       router.push("/");
     }
   };
 
   const router = useRouter();
+
+  useEffect(() => {
+    if (user.favorite_theme !== preferedTheme) {
+      try {
+        APIManager.updateProfile(user.id, {
+          user: {
+            favorite_theme: preferedTheme,
+          }
+        });
+      } catch (err) {
+        console.error(err.response);
+      }
+    }
+  })
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -45,13 +60,12 @@ const EditUserForm = ({ user, mutate }) => {
         username: user?.username,
         description: description,
         github_url: github,
-        personal_url: personal,
-        favorite_theme: "",
+        personal_url: personal
       },
     };
 
     try {
-      await APIManager.updateProfile(user.id, data);
+      const response = await APIManager.updateProfile(user.id, data);
       await mutate();
       setSuccess(true);
       setBtnValue("Editer");

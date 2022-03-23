@@ -12,32 +12,27 @@ const Header = () => {
   return (
     <header className={`${header} bg-global-secondary`}>
       <nav>
-        <Link href="#main">
-          <a className={skipLink}>
-            Accéder au contenu principal
-          </a>
-        </Link> 
+        <a href="#main" className={skipLink}>
+          Accéder au contenu principal
+        </a>
         <ul className={navItems} role="navigation">
           <li>
             <Link href="/">
-              <a className={logo} aria-label="SnipShare : Accéder à la page d'accueil.">
+              <a
+                className={logo}
+                aria-label="SnipShare : Accéder à la page d'accueil."
+              >
                 <LogoLeftSide />
                 <span className={text}>SnipShare</span>
                 <LogoRightSide />
               </a>
             </Link>
           </li>
-          <li>
-            {
-              isConnected
-              ? <LoggedInNav />
-              : <LoggedOutNav />
-            }
-          </li>
+          <li>{isConnected ? <LoggedInNav /> : <LoggedOutNav />}</li>
         </ul>
       </nav>
     </header>
   );
-}
+};
 
 export default Header;
