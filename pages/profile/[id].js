@@ -58,13 +58,13 @@ const ProfilePage = () => {
   }
 
   return (
-    <div className={styles.container}>
+    <>
       <Head>
         <title>SnipShare</title>
       </Head>
 
       <main className={styles.main}>{content}</main>
-    </div>
+    </>
   );
 };
 
