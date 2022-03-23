@@ -45,16 +45,16 @@ export default function Home() {
   if (data) {
     content = (
       <>
-        <button
+        {/* <button
           className={`${styles.btn} bg-primary txt-btn`}
           onClick={() => mutate()}
           disabled={isValidating}
         >
           Rafraichir
-        </button>
+        </button> */}
         
         {data.posts.map((post) => {
-          return <PostCard post={post.post} key={post.post.id} />   
+          return <PostCard post={post.post} key={post.post.id} page={page} />   
         })}
 
         <div ref={bottomRef}></div>
@@ -71,7 +71,6 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <h1>Accueil</h1>
       {content}
     </section>
   );

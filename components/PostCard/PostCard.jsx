@@ -30,7 +30,7 @@ import { userAtom, isConnectedAtom } from "store";
 import { useAtom } from "jotai";
 import ReactionsModal from "components/ReactionsModal/ReactionsModal";
 
-const PostCard = ({ post, detail, theme }) => {
+const PostCard = ({ post, detail, theme, page }) => {
   const [user] = useAtom(userAtom);
   const [isConnected] = useAtom(isConnectedAtom);
 
@@ -146,7 +146,7 @@ const PostCard = ({ post, detail, theme }) => {
           </Link>
         </div>
         <div className={btnsWrapper}>
-          {isConnected && <ReactionsModal postId={id} reactions={reactions}/>}
+          {isConnected && <ReactionsModal postId={id} reactions={reactions} page={page}/>}
           <Link href={`/posts/${id}`}>
             <a className={btn}>
               <p className={{ comment }}>Commenter</p>
