@@ -31,6 +31,10 @@
   -moz-border-radius: 6px;
   -ms-border-radius: 6px;
   -o-border-radius: 6px;
+
+  p {
+    margin-bottom: 0.75rem;
+  }
 }
 
 @media screen and (max-width: 955px) {
