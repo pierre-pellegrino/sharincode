@@ -5,6 +5,7 @@ import { useCallback, useEffect } from "react";
 import APIManager from "./api/axios";
 import { useAtom } from "jotai";
 import { userAtom } from "store";
+import { loader } from "styles/Home.module.scss";
 
 const GhRedirect = () => {
   const router = useRouter();
@@ -30,12 +31,14 @@ const GhRedirect = () => {
   }, [getUserFromGithub, router]);
 
   return (
-    <div className={main}>
+    <div className={main} style={{ textAlign: "center" }}>
       Patience...
       <br />
       Vous allez être redirigé
       <br />
-      <Loader />
+      <div className={loader}>
+        <Loader />
+      </div>
     </div>
   );
 };
