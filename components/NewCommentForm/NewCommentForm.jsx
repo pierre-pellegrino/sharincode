@@ -20,8 +20,7 @@ const NewCommentForm = ({currentUser, id}) => {
       content: description
     }
 
-    const response = await APIManager.createComment(id, data);
-    console.log(response.data);
+    await APIManager.createComment(id, data);
     setDescription("");
     await mutate(`/posts/${id}/comments`);
   }

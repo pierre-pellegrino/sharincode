@@ -7,6 +7,7 @@
 
 .main {
   margin-left: 18rem;
+  padding-top: 1rem;
 
   @include mixins.middleBreakpoint() {
     margin-left: 5rem;
