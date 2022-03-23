@@ -10,7 +10,7 @@ import {
   profileTabContent,
 } from "./profile_tab.module.scss";
 
-const ProfileTabMenu = ({user, currentUser, isCurrentUser, mutate}) => {
+const ProfileTabMenu = ({user, currentUser, userAvatar, isCurrentUser, mutate}) => {
   const [activeTab, setActiveTab] = useState(1);
 
   return (
@@ -38,7 +38,7 @@ const ProfileTabMenu = ({user, currentUser, isCurrentUser, mutate}) => {
           <p> Aucun snippet favori ! </p>
         )}  
 
-        {activeTab === 3 && <EditUserForm user={currentUser} mutate={mutate} />}
+        {activeTab === 3 && <EditUserForm user={currentUser} mutate={mutate} userAvatar={userAvatar} />}
       </div>
     </>
   );

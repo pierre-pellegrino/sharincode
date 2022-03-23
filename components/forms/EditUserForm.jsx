@@ -6,6 +6,8 @@ import {
   btn,
   deleteAccount,
   favoriteTheme,
+  userPictureWrapper,
+  userPicture,
 } from "./form.module.scss";
 import APIManager from "pages/api/axios";
 import { useRouter } from "next/router";
@@ -13,8 +15,10 @@ import { useAtom } from "jotai";
 import { userAtom } from "store";
 import ThemeSelect from "components/ThemeSelect";
 import { preferedThemeAtom } from "store";
+import Image from 'next/image';
+import EditAvatarModal from "../EditAvatarModal/EditAvatarModal";
 
-const EditUserForm = ({ user, mutate }) => {
+const EditUserForm = ({ user, mutate, userAvatar }) => {
   const [_, setUser] = useAtom(userAtom);
 
   const [errMsg, setErrMsg] = useState("");
@@ -25,6 +29,7 @@ const EditUserForm = ({ user, mutate }) => {
 
   const [btnValue, setBtnValue] = useState("Editer");
   const [preferedTheme] = useAtom(preferedThemeAtom);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const handleDeleteAccount = () => {
     if (confirm("Êtes-vous sûr ?\nCette action est irréversible.")) {
@@ -49,6 +54,13 @@ const EditUserForm = ({ user, mutate }) => {
       }
     }
   })
+
+  // useEffect(() => {
+  //   if (!modalOpen) return;
+  //   const handleClick = () => setModalOpen(false);
+  //   window.addEventListener("click", handleClick);
+  //   return () => window.removeEventListener("click", handleClick);
+  // }, [modalOpen]);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -83,7 +95,18 @@ const EditUserForm = ({ user, mutate }) => {
 
   return (
     <>
-      <form className={form} onSubmit={handleUpdate}>
+      <div className={userPictureWrapper}>
+        <Image
+          className={userPicture} 
+          src={ userAvatar || "/profile.jpeg"}
+          alt="Profile Picture"
+          height={128}
+          width={128}
+        />
+        <p onClick={() => setModalOpen(true)}>Changer mon avatar</p>
+      </div>
+      {modalOpen && <EditAvatarModal />}
+      <form className={`${form} links-form`} onSubmit={handleUpdate}>
         {success && <p>Modifications enregistrées !</p>}
 
         <p aria-live="assertive">{errMsg}</p>
