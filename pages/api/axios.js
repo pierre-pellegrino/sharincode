@@ -39,8 +39,8 @@ export default class APIManager {
     return response;
   }
 
-  static async loginWithToken() {
-    const endpoint = "/profiles";
+  static async getMyProfile() {
+    const endpoint = "/profile";
     const response = await APIRequest.get(endpoint);
     return response;
   }
@@ -51,15 +51,14 @@ export default class APIManager {
     return response;
   }
 
-  static async updateProfile(id, data) {
-    const endpoint = `/profiles/${id}`;
+  static async updateProfile(data) {
+    const endpoint = "/profile";
     const response = await APIRequest.patch(endpoint, data);
     return response;
   }
 
-  static async deleteUser(id) {
-    // const endpoint = `/profiles/${id}`;
-    const endpoint = `/users`;
+  static async deleteUser() {
+    const endpoint = "/profile";
     const response = await APIRequest.delete(endpoint);
     return response;
   }

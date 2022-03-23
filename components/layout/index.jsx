@@ -17,21 +17,20 @@ const Layout = ({ children }) => {
   useEffect(() => {
     const getUser = async () => {
       try {
-        const response = await APIManager.loginWithToken();
+        const response = await APIManager.getMyProfile();
 
         const favoriteTheme = response.data.user.favorite_theme;
 
         if (favoriteTheme && THEMES_HASH[favoriteTheme]) {
           setPreferedTheme(favoriteTheme);
         }
+
         setUser(response.data);
       } catch (e) {
         console.error(e.response);
         Cookies.remove("token");
       }
     };
-
-    console.log("puet poeut")
 
     if (Cookies.get("token")) getUser();
   }, [setPreferedTheme, setUser, user?.user?.favorite_theme]);
