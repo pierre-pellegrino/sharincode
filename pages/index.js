@@ -11,8 +11,8 @@ export default function Home() {
   const [isVisible, setIsVisible] = useState(false);
   const page = 1;
   const { data, error, isValidating, mutate } = useSWR(
-    `/posts?page=${page}`,
-    APIManager.fetcher
+    "/posts",
+    () => APIManager.fetcher(`/posts?page=${page}`),
   );
 
   const bottomRef = useRef(null);
