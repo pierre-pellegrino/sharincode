@@ -63,6 +63,8 @@ const LoginForm = () => {
 
   const [_, setUser] = useAtom(userAtom);
 
+  const github_url = 'https://github.com/login/oauth/authorize?client_id=33b913b565563d4f87c2&scope=user'
+
   useEffect(() => {
     usernameRef.current.focus();
   }, []);
@@ -316,7 +318,7 @@ const LoginForm = () => {
           <a className="txt-primary"> Me connecter</a>
         </Link>
       </div>
-      <a href={'https://github.com/login/oauth/authorize?client_id=33b913b565563d4f87c2&scope=user'}>Me connecter avec github</a>
+      <a href={github_url}>Me connecter avec github</a>
     </form>
   );
 };
