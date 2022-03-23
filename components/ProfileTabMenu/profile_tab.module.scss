@@ -58,6 +58,10 @@
 
 .profileTabContent {
   margin-top: 1.5rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 @media screen and (max-width: 510px) {

@@ -45,6 +45,7 @@ const PostCard = ({ post, detail, theme, page }) => {
   const lightReacts = reactions.filter(react => react.reaction_id === 1);
   const loveReacts = reactions.filter(react => react.reaction_id === 2);
   const checkReacts = reactions.filter(react => react.reaction_id === 3);
+  const currentUserReact = reactions.filter(react => react.user_id === user?.user.id)[0]?.reaction_id || 0;
 
   const [displayActionsMenu, setDisplayActionsMenu] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
@@ -127,15 +128,15 @@ const PostCard = ({ post, detail, theme, page }) => {
         <div className={reactsWrapper}>
           <div className={reacts}>
             <div className={reactItem}>
-              <p>{lightReacts.length}</p>
+              <p className={currentUserReact === 1 ? "txt-primary" : ""}>{lightReacts.length}</p>
               <IdeaIcon />
             </div>
             <div className={reactItem}>
-              <p>{loveReacts.length}</p>
+              <p className={currentUserReact === 2 ? "txt-primary" : ""}>{loveReacts.length}</p>
               <LikeIcon />
             </div>
             <div className={reactItem}>
-              <p>{checkReacts.length}</p>
+              <p className={currentUserReact === 3 ? "txt-primary" : ""}>{checkReacts.length}</p>
               <ApprovalIcon />
             </div>
           </div>

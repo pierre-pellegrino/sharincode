@@ -29,7 +29,6 @@ const ReactionsModal = ({postId, reactions, page=1}) => {
 
     if (currentUserReact && currentUserReact.length > 0) {
       const deleteReactResponse = await APIManager.deleteReaction(postId);
-      console.log(deleteReactResponse);
     }
 
     const data = {
@@ -38,7 +37,6 @@ const ReactionsModal = ({postId, reactions, page=1}) => {
 
     if (!currentUserReact || currentUserReact[0]?.reaction_id !== reactIndex) {
       const response = await APIManager.addReaction(postId, data);
-      console.log(response.data);
     }
 
     mutate("/posts");
