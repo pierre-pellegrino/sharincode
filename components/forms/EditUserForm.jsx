@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   form,
   inputWrapper,
@@ -24,11 +24,11 @@ const EditUserForm = ({ user, mutate }) => {
   const [personal, setPersonal] = useState(user?.personal_url ?? "");
 
   const [btnValue, setBtnValue] = useState("Editer");
-  const [preferedTheme, setPreferedTheme] = useAtom(preferedThemeAtom);
+  const [preferedTheme] = useAtom(preferedThemeAtom);
 
   const handleDeleteAccount = () => {
     if (confirm("Êtes-vous sûr ?\nCette action est irréversible.")) {
-      APIManager.deleteUser(user.id);
+      APIManager.deleteUser();
       setUser(null);
       router.push("/");
     }
@@ -37,9 +37,9 @@ const EditUserForm = ({ user, mutate }) => {
   const router = useRouter();
 
   useEffect(() => {
-    if (user.favorite_theme !== preferedTheme) {
+    if (user && user.favorite_theme !== preferedTheme) {
       try {
-        APIManager.updateProfile(user.id, {
+        APIManager.updateProfile({
           user: {
             favorite_theme: preferedTheme,
           }
@@ -65,7 +65,7 @@ const EditUserForm = ({ user, mutate }) => {
     };
 
     try {
-      const response = await APIManager.updateProfile(user.id, data);
+      const response = await APIManager.updateProfile(data);
       await mutate();
       setSuccess(true);
       setBtnValue("Editer");
