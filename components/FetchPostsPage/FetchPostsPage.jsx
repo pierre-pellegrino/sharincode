@@ -7,25 +7,33 @@ import Loader from "/components/Loader";
 import { useEffect, useRef, useState } from "react";
 
 const FetchPostsPage = ({page}) => {
-    const { data, error, isValidating, mutate } = useSWR(
-      `/posts?page=${page}`,
-      APIManager.fetcher
-    );
-  
-    const bottomRef = useRef(null);
-    const observerOptions = {
-      rootMargin: '0px',
-      threshold: 1
+  const [isVisible, setIsVisible] = useState(false);
+  const { data, error, isValidating, mutate } = useSWR(
+    `/posts?page=${page}`,
+    APIManager.fetcher
+  );
+
+  const bottomRef = useRef(null);
+  const observerOptions = {
+    rootMargin: '0px',
+    threshold: 1
+  }
+
+  const observerCallback = (entries) => {
+    const [entry] = entries;
+    setIsVisible(entry.isIntersecting);
+  }
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    if (bottomRef.current) observer.observe(bottomRef.current);
+    isVisible && observer.unobserve(bottomRef.current);
+
+    return () => {
+      if (bottomRef.current) observer.unobserve(bottomRef.current);
     }
-  
-    useEffect(() => {
-      const observer = new IntersectionObserver(() => console.log("yo page 2"), observerOptions);
-      if (bottomRef.current) observer.observe(bottomRef.current);
-  
-      return () => {
-        if (bottomRef.current) observer.unobserve(bottomRef.current);
-      }
-    }, [bottomRef, observerOptions])
+  }, [bottomRef, observerOptions, isVisible])
   
     let content = <Loader />;
   
@@ -33,20 +41,13 @@ const FetchPostsPage = ({page}) => {
   
     if (data) {
       content = (
-        <>
-          <button
-            className={`${styles.btn} bg-primary txt-btn`}
-            onClick={() => mutate()}
-            disabled={isValidating}
-          >
-            Rafraichir
-          </button>
-          
+        <>          
           {data.posts.map((post) => (
             <PostCard post={post.post} key={post.post.id} />
           ))}
   
-          <div ref={bottomRef}></div>
+          <div style={{backgroundColor: "red", height: "5px", width: "100%"}} ref={bottomRef}></div>
+          {isVisible && <FetchPostsPage page={page+1} />}
         </>
       );
     }

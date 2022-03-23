@@ -9,7 +9,6 @@ import FetchPostsPage from 'components/FetchPostsPage/FetchPostsPage';
 
 export default function Home() {
   const [isVisible, setIsVisible] = useState(false);
-  const fetchedPosts = 0;
   const page = 1;
   const { data, error, isValidating, mutate } = useSWR(
     `/posts?page=${page}`,
@@ -23,7 +22,6 @@ export default function Home() {
   }
 
   const observerCallback = (entries) => {
-    console.log("yo");
     const [entry] = entries;
     setIsVisible(entry.isIntersecting);
   }
@@ -56,12 +54,10 @@ export default function Home() {
         </button>
         
         {data.posts.map((post) => {
-          fetchedPosts += 1;
           return <PostCard post={post.post} key={post.post.id} />   
         })}
 
-        {fetchedPosts > 8 && <div style={{backgroundColor: "red", height: "5px", width: "100%"}}ref={bottomRef}></div>}
-
+        <div style={{backgroundColor: "red", height: "5px", width: "100%"}} ref={bottomRef}></div>
         {isVisible && <FetchPostsPage page={page+1} />}
       </>
     );
