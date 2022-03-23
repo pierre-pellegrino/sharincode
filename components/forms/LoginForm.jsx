@@ -40,7 +40,7 @@ const LoginForm = () => {
 
   const [_, setUser] = useAtom(userAtom);
 
-  const github_url = 'https://github.com/login/oauth/authorize?client_id=33b913b565563d4f87c2&scope=user'
+  const github_url = 'https://github.com/login/oauth/authorize?client_id=33b913b565563d4f87c2&scope=user:email'
 
   useEffect(() => {
     emailRef.current.focus();

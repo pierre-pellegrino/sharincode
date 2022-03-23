@@ -143,6 +143,8 @@ export default class APIManager {
         code,
       }
     })
+    Cookies.set("token", response.headers.authorization);
+    return response;
   }
 
   static async fetcher(url) {
