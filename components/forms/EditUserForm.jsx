@@ -97,7 +97,7 @@ const EditUserForm = ({ user, mutate, userAvatar }) => {
 
   return (
     <>
-      <div className={userPictureWrapper}>
+      <div className={userPictureWrapper} onClick={() => setModalOpen(true)}>
         <Image
           className={userPicture} 
           src={ userAvatar || "/profile.jpeg"}
@@ -105,7 +105,7 @@ const EditUserForm = ({ user, mutate, userAvatar }) => {
           height={128}
           width={128}
         />
-        <p onClick={() => setModalOpen(true)}>Modifier mon avatar</p>
+        <p>Modifier mon avatar</p>
       </div>
       {modalOpen && <EditAvatarModal closeModal={handleCloseModal}/>}
       <form className={`${form} links-form`} onSubmit={handleUpdate}>

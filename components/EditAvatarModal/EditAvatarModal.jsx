@@ -15,6 +15,7 @@ const EditAvatarModal = ({closeModal}) => {
   const [file, setFile] = useState([]);
   const avatar = useRef();
   const { mutate } = useSWRConfig();
+  const [loadingText, setLoadingText] = useState(false);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -30,13 +31,16 @@ const EditAvatarModal = ({closeModal}) => {
     });
 
     try {
+      setLoadingText(true);
       const response = await APIManager.updateProfile(data);
+
       mutate(`profiles/${id}`);
     } catch (error) {
       console.log(error);
     }
 
     closeModal();
+    setLoadingText(false);
   };
 
   return (
@@ -56,7 +60,7 @@ const EditAvatarModal = ({closeModal}) => {
               type="submit"
               className={`${btn} bg-primary txt-btn`}
               role="button"
-              value="Valider"
+              value={loadingText ? "Chargement..." : "Valider"}
               disabled={file?.length < 1}
             />
         </form>
