@@ -35,7 +35,7 @@ const ProfileTabMenu = ({user, currentUser, isCurrentUser, mutate, posts}) => {
            <p> {user?.username ?? "Cet utilisateur"} n&apos;a créé aucun snippet ! </p>
            :
            posts.map(post => {
-            return <PostCard post={post.post} key={post.id} />  
+            return <PostCard post={post.post} key={post.post.id} />  
           })
         )}  
 
