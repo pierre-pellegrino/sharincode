@@ -28,7 +28,7 @@ export default function Home() {
         </button>
         
         {data.posts.map((post) => (
-          <PostCard post={post.post} key={post.post.id} />
+          <PostCard post={post.post} key={post.post.id} page={page} />
         ))}
       </>
     );
