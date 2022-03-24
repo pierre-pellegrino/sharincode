@@ -10,6 +10,7 @@ import {
   showPwdIcon,
   showPwdIconLogin,
   formLink,
+  github,
 } from "./form.module.scss";
 import APIManager from "pages/api/axios";
 import { useRouter } from "next/router";
@@ -19,6 +20,7 @@ import { useAtom } from "jotai";
 import { EyeOffIcon } from "components/icons";
 import { EyeIcon } from "components/icons";
 import Link from "next/link";
+import { GithubIcon } from "components/icons";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -154,7 +156,10 @@ const LoginForm = () => {
           <a className="txt-primary"> M&apos;inscrire</a>
         </Link>
       </div>
-      <a href={github_url}>Me connecter avec github</a>
+      <a href={github_url} className={`${btn} ${github} bg-primary txt-btn`}>
+        <GithubIcon />
+        Connexion avec github
+      </a>
     </form>
   );
 };
