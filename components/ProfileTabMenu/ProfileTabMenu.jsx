@@ -66,13 +66,14 @@ const ProfileTabMenu = ({
             })
           ))}
 
-        {activeTab === 2 && favoritePosts.length === 0 ? (
-          <p> Aucun snippet favori ! </p>
-        ) : (
-          favoritePosts.map((post) => (
-            <PostCard post={post.post} mutate={mutate} key={post.post.id} />
-          ))
-        )}
+        {activeTab === 2 &&
+          (favoritePosts.length === 0 ? (
+            <p> Aucun snippet favori ! </p>
+          ) : (
+            favoritePosts.map((post) => (
+              <PostCard post={post.post} mutate={mutate} key={post.post.id} />
+            ))
+          ))}
         {activeTab === 3 && (
           <EditUserForm
             user={currentUser}
