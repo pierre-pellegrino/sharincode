@@ -110,7 +110,7 @@ const EditUserForm = ({ user, mutate, userAvatar, userId }) => {
       )}
       <form className={`${form} links-form`} onSubmit={handleUpdate}>
         {success && <p>Modifications enregistrées !</p>}
-        {errMsg && <p>Ce nom d'utilisateur est déjà pris.</p>}
+        {errMsg && <p>Ce nom d&apos;utilisateur est déjà pris.</p>}
 
         <p aria-live="assertive">{errMsg}</p>
 
@@ -123,7 +123,7 @@ const EditUserForm = ({ user, mutate, userAvatar, userId }) => {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
-          <label htmlFor="username-input">Nom d'utilisateur</label>
+          <label htmlFor="username-input">Nom d&apos;utilisateur</label>
         </div>
 
         <div className={inputWrapper}>

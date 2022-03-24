@@ -150,16 +150,16 @@ const LoginForm = () => {
         value={btnValue}
         disabled={!canSave}
       />
+      <a href={github_url} className={`${btn} ${github} bg-primary txt-btn`}>
+        <GithubIcon />
+        Connexion avec github
+      </a>
       <div className={formLink}>
         <span>Pas encore de compte ?</span>
         <Link href="/register">
           <a className="txt-primary"> M&apos;inscrire</a>
         </Link>
       </div>
-      <a href={github_url} className={`${btn} ${github} bg-primary txt-btn`}>
-        <GithubIcon />
-        Connexion avec github
-      </a>
     </form>
   );
 };
