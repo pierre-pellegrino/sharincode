@@ -116,7 +116,6 @@ const PostCard = ({ post, detail, theme, page }) => {
       </div>
       <FormattedDescription description={description} />
       <div className={snippetStyle}>
-        <p className={languageStyle}>{language}</p>
         {
           snippet_list.map((snippet) => (
             <div key={snippet.id} className={snippetStyle}>
