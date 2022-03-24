@@ -1,6 +1,12 @@
 const SetTheme = ({ highlights }) => (
   <style jsx global>
     {`
+      *,
+      *::before,
+      *::after {
+        ${highlights.matrix ? "font-family: monospace" : ""}
+      }
+
       // SCROLLBARS
 
       :root {
@@ -40,7 +46,7 @@ const SetTheme = ({ highlights }) => (
 
         --border: ${highlights.border ?? "none"};
 
-        background-color: hsl(${highlights.background2});
+        background-color: ${highlights.background2 ? "hsl(" + highlights.background2 + ")" : highlights.background};
         box-shadow: var(--shadow-medium);
       }
 
