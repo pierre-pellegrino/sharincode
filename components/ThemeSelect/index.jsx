@@ -2,12 +2,15 @@ import { useAtom } from "jotai";
 import { THEMES } from "lib/constants/themes";
 import React from "react";
 import { preferedThemeAtom } from "store";
+import {inputWrapper} from "components/NewPostModal/new_post_modal.module.scss";
 
 const ThemeSelect = () => {
   const [preferedTheme, setPreferedTheme] = useAtom(preferedThemeAtom);
 
   return (
+    <div className={inputWrapper}>
     <select
+      style={{borderRadius: "4px"}}
       className="bg-global"
       value={preferedTheme}
       onChange={(e) => setPreferedTheme(e.target.value)}
@@ -18,6 +21,7 @@ const ThemeSelect = () => {
         </option>
       ))}
     </select>
+    </div>
   );
 };
 
