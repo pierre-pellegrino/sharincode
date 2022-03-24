@@ -29,6 +29,7 @@ import PostActionsModal from "components/PostActionsModal";
 import { userAtom, isConnectedAtom } from "store";
 import { useAtom } from "jotai";
 import ReactionsModal from "components/ReactionsModal/ReactionsModal";
+import FormattedDescription from "./FormattedDescription";
 
 const PostCard = ({ post, detail, theme, page }) => {
   const [user] = useAtom(userAtom);
@@ -111,11 +112,12 @@ const PostCard = ({ post, detail, theme, page }) => {
             ))}
         </div>
       </div>
-      <Link href={`/posts/${id}`} passHref>
+      {/* <Link href={`/posts/${id}`} passHref>
         <div className={descriptionStyle}>
           <a>{description}</a>
         </div>
-      </Link>
+      </Link> */}
+      <FormattedDescription description={description} />
       <div className={snippetStyle}>
         <p className={languageStyle}>{language}</p>
         <SnippetHighlighter
