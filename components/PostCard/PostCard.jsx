@@ -156,7 +156,7 @@ const PostCard = ({ post, detail, theme, page }) => {
               <p className={{ comment }}>Commenter</p>
             </a>
           </Link>
-          <ShareModal />
+          <ShareModal language={language} author={author} id={id}/>
         </div>
       </div>
     </div>
