@@ -37,7 +37,7 @@ const NewPostForm = ({
   const [selectedLanguages, setSelectedLanguages] = useState(() => {
     if (!editSnippet) return [`${LANGUAGES[0].name} ${LANGUAGES[0].mode}`];
 
-    const array = []
+    const languages = []
     editSnippet.forEach((snippet) => {
       const languageObj = LANGUAGES.filter(
         (lang) => lang.name === snippet.language
@@ -45,19 +45,19 @@ const NewPostForm = ({
 
       array.push(`${languageObj.name} ${languageObj.mode}`) ;
     })
-    return array
+    return languages
   });
 
   const [snippets, setSnippets] = useState(() => {
     if (!editSnippet) return [''];
 
-    const array = []
+    const snippets = []
 
     editSnippet.forEach((snippet) => {
       array.push(snippet.content)
     })
 
-    return array
+    return snippets
   })
 
   const [description, setDescription] = useState(
@@ -153,7 +153,8 @@ const NewPostForm = ({
     }
   };
 
-  const handleSetSnippetCount = () => {
+  const handleSetSnippetCount = (e) => {
+    e.preventDefault();
     setSnippetCounter([...snippetCounter, ''])
     setSelectedLanguages([...selectedLanguages, `${LANGUAGES[0].name} ${LANGUAGES[0].mode}`])
   }

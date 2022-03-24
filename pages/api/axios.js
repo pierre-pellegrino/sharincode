@@ -76,6 +76,7 @@ export default class APIManager {
   }
 
   static async createPost(data) {
+    console.log(data)
     const endpoint = "/posts";
     const response = await APIRequest.post(endpoint, data);
     return response;
