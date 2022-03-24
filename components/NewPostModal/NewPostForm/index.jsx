@@ -79,15 +79,19 @@ const NewPostForm = ({
         description.getCurrentContent().getPlainText()
       ).map((tag) => tag.hashtag);
 
+      const formattedSnippets = []
+
+      snippets.forEach((snippet, index) => {
+        formattedSnippets.push({
+          content: snippet,
+          language: selectedLanguages[index].split(" ").slice(0, -1).join(" "),
+        })
+      })
+
       if (!editSnippet) {
         const data = {
           description: description.getCurrentContent().getPlainText(),
-          snippets: [
-            {
-              content: snippets[0],
-              language: selectedLanguage[0].split(" ").slice(0, -1).join(" "),
-            },
-          ],
+          snippets: formattedSnippets,
           tags,
         };
 
