@@ -153,10 +153,11 @@ export default class APIManager {
     return response;
   }
 
-  // static async removeFavorite(postId) {
-  //   const endpoint = "/favorite_posts"
-  //   const response = await APIRequest.delete()
-  // }
+  static async removeFavorite(postId) {
+    const endpoint = `/favorite_posts/${postId}`
+    const response = await APIRequest.delete(endpoint);
+    return response;
+  }
 
   static async fetcher(url) {
     const response = await APIRequest.get(url);

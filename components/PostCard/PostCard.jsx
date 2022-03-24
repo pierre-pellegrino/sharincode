@@ -38,9 +38,10 @@ import ReactionsModal from "components/ReactionsModal/ReactionsModal";
 import ShareModal from "components/ShareModal/ShareModal";
 import FormattedDescription from "./FormattedDescription";
 import APIManager from "pages/api/axios";
+import { useSWRConfig } from "swr";
 
 const PostCard = ({ post, detail, theme, page }) => {
-  const [user] = useAtom(userAtom);
+  const [user, setUser] = useAtom(userAtom);
   const [isConnected] = useAtom(isConnectedAtom);
 
   const language = post.snippets[0]?.language.replace(/^(\[")(.+)("])$/, "$2");
@@ -62,6 +63,10 @@ const PostCard = ({ post, detail, theme, page }) => {
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const nbOfComments = commentNb.reduce((acc, i) => (acc += 1), 0);
 
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const { mutate } = useSWRConfig();
+
   useEffect(() => {
     if (!displayActionsMenu) return;
 
@@ -72,15 +77,48 @@ const PostCard = ({ post, detail, theme, page }) => {
     return () => window.removeEventListener("click", handleClick);
   }, [displayActionsMenu]);
 
+  useEffect(() => {
+    if (!user) return;
+    if (user?.user?.id === post?.user?.user_id) return;
+
+    setIsFavorite(user.favorite_posts.find((fav) => fav.post.id === id) !== undefined)
+  }, [id, post?.user?.user_id, user]);
+
   const handleAddFavorite = async () => {
     try {
-      const response = await APIManager.addFavorite(id);
+      setIsFavorite(true);
+      await APIManager.addFavorite(id);
+      
+      const updatedUser = await APIManager.getMyProfile();
+
+      await mutate("/posts");
+      await mutate(`/posts/${id}`);
+      await mutate(`profiles/${user.user_id}`);
+      await setUser(updatedUser.data);
     } catch (err) {
       console.error(err);
     }
   };
 
-  const handleRemoveFavorite = () => {};
+  const handleRemoveFavorite = async () => {
+    try {
+      setIsFavorite(false);
+      const favoriteId = user.favorite_posts.find(
+        (fav) => fav.post.id === id
+      ).favorite_id;
+
+      await APIManager.removeFavorite(favoriteId);
+
+      const updatedUser = await APIManager.getMyProfile();
+
+      await mutate("/posts");
+      await mutate(`/posts/${id}`);
+      await mutate(`profiles/${user.user_id}`);
+      await setUser(updatedUser.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <div
@@ -110,13 +148,13 @@ const PostCard = ({ post, detail, theme, page }) => {
                   snippet={snippet}
                   post={post}
                   setButtonDisabled={setButtonDisabled}
-                  />
+                />
               </div>
             ) : (
               <div
-              role="button"
-              className={actionsMenu}
-              onClick={() => setDisplayActionsMenu(true)}
+                role="button"
+                className={actionsMenu}
+                onClick={() => setDisplayActionsMenu(true)}
               >
                 <ThreeDotsIcon />
                 <PostActionsModal
@@ -132,7 +170,7 @@ const PostCard = ({ post, detail, theme, page }) => {
             ))}
           {user &&
             user.user.id !== post.user.user_id &&
-            (user.favorite_posts.find((fav) => fav.post.id === id) ? (
+            (isFavorite ? (
               <button className={favorite} onClick={handleRemoveFavorite}>
                 <StarIcon />
               </button>
