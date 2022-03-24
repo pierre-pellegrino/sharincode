@@ -46,7 +46,7 @@ const SetTheme = ({ highlights }) => (
 
         --border: ${highlights.border ?? "none"};
 
-        background-color: ${highlights.background2 ? "hsl(" + highlights.background2 + ")" : highlights.background};
+        background-color: hsl(${highlights.background2});
         box-shadow: var(--shadow-medium);
       }
 
