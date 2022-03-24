@@ -15,7 +15,7 @@ import { useAtom } from "jotai";
 import { userAtom } from "store";
 import ThemeSelect from "components/ThemeSelect";
 import { preferedThemeAtom } from "store";
-import Image from 'next/image';
+import Image from "next/image";
 import EditAvatarModal from "../EditAvatarModal/EditAvatarModal";
 
 const EditUserForm = ({ user, mutate, userAvatar, userId }) => {
@@ -41,7 +41,7 @@ const EditUserForm = ({ user, mutate, userAvatar, userId }) => {
 
   const handleCloseModal = () => {
     setModalOpen(false);
-  }
+  };
 
   const router = useRouter();
 
@@ -49,15 +49,14 @@ const EditUserForm = ({ user, mutate, userAvatar, userId }) => {
     if (user && user.favorite_theme !== preferedTheme) {
       try {
         APIManager.updateProfile({
-          user: {
-            favorite_theme: preferedTheme,
-          }
+          ...user,
+          favorite_theme: preferedTheme,
         });
       } catch (err) {
         console.error(err.response);
       }
     }
-  })
+  }, [preferedTheme, user]);
 
   // useEffect(() => {
   //   if (!modalOpen) return;
@@ -72,10 +71,11 @@ const EditUserForm = ({ user, mutate, userAvatar, userId }) => {
     setBtnValue("Edition en cours...");
 
     const data = {
-        username: user?.username,
-        description: description,
-        github_url: github,
-        personal_url: personal
+      username: user?.username,
+      description: description,
+      github_url: github,
+      personal_url: personal,
+      favorite_theme: preferedTheme,
     };
 
     try {
@@ -85,29 +85,30 @@ const EditUserForm = ({ user, mutate, userAvatar, userId }) => {
       setBtnValue("Editer");
     } catch (err) {
       setBtnValue("Editer");
-      
+
       if (!err?.response) {
         setErrMsg("Oups ! Pas de réponse du serveur...");
       } else {
         setErrMsg(err.response.data.message);
       }
     }
-
   };
 
   return (
     <>
       <div className={userPictureWrapper} onClick={() => setModalOpen(true)}>
         <Image
-          className={userPicture} 
-          src={ userAvatar || "/profile.jpeg"}
+          className={userPicture}
+          src={userAvatar || "/profile.jpeg"}
           alt="Profile Picture"
           height={128}
           width={128}
         />
         <p>Modifier mon avatar</p>
       </div>
-      {modalOpen && <EditAvatarModal closeModal={handleCloseModal} userId={userId}/>}
+      {modalOpen && (
+        <EditAvatarModal closeModal={handleCloseModal} userId={userId} />
+      )}
       <form className={`${form} links-form`} onSubmit={handleUpdate}>
         {success && <p>Modifications enregistrées !</p>}
 

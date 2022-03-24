@@ -7,6 +7,7 @@ import CommentsSection from "components/CommentsSection/CommentsSection";
 import useSWR from "swr";
 import Loader from "components/Loader";
 import { useRouter } from "next/router";
+import { getAbsoluteURL } from "lib/getAbsoluteURL";
 
 const PostDetailPage = () => {
   const router = useRouter();
@@ -47,6 +48,22 @@ const PostDetailPage = () => {
         <title>
           {post?.user?.username ?? "User"}&apos;s snippet | Snipshare
         </title>
+        <meta name="title" content={`${post?.user?.username ?? "User"}'s snippet | Snipshare`} />
+
+          <meta property="og:url" content={getAbsoluteURL(router.asPath)} />
+          <meta
+            property="og:title"
+            content={`${post?.user?.username ?? "User"}'s snippet | Snipshare`}
+          />
+
+          <meta
+            property="twitter:url"
+            content={getAbsoluteURL(router.asPath)}
+          />
+          <meta
+            property="twitter:title"
+            content={`${post?.user?.username ?? "User"}'s snippet | Snipshare`}
+          />
       </Head>
 
       {postCard}

@@ -13,6 +13,31 @@ const MyApp = ({ Component, pageProps }) => {
           name="viewport"
           content="width=device-width, initial-scale=1, minimum-scale=1"
         />
+
+        <meta
+          name="description"
+          content="Le réseau social de partage de snippets"
+        />
+
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:description"
+          content="Le réseau social de partage de snippets"
+        />
+        <meta
+          property="og:image"
+          content="https://raw.githubusercontent.com/Beygs/Beygs/main/assets/snipshare.png?raw=true"
+        />
+
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta
+          property="twitter:description"
+          content="Le réseau social de partage de snippets"
+        />
+        <meta
+          property="twitter:image"
+          content="https://raw.githubusercontent.com/Beygs/Beygs/main/assets/snipshare.png?raw=true"
+        />
       </Head>
       <Provider>
         <SWRConfig value={{ provider: () => new Map() }}>

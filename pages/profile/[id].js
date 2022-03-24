@@ -10,6 +10,7 @@ import { useAtom } from "jotai";
 import { userAtom } from "store";
 import { profileInfos } from "./profile.module.scss";
 import { useRouter } from "next/router";
+import { getAbsoluteURL } from "lib/getAbsoluteURL";
 
 const ProfilePage = () => {
   const router = useRouter();
@@ -28,6 +29,22 @@ const ProfilePage = () => {
       <>
         <Head>
           <title>{data.user.username} | Snipshare</title>
+          <meta name="title" content={`${data.user.username} | Snipshare`} />
+
+          <meta property="og:url" content={getAbsoluteURL(router.asPath)} />
+          <meta
+            property="og:title"
+            content={`${data.user.username} | Snipshare`}
+          />
+
+          <meta
+            property="twitter:url"
+            content={getAbsoluteURL(router.asPath)}
+          />
+          <meta
+            property="twitter:title"
+            content={`${data.user.username} | Snipshare`}
+          />
         </Head>
         <ProfileIcon type="profile" user={profileData} />
         <div className={profileInfos}>
@@ -59,10 +76,6 @@ const ProfilePage = () => {
 
   return (
     <>
-      <Head>
-        <title>SnipShare</title>
-      </Head>
-
       <main className={styles.main}>{content}</main>
     </>
   );

@@ -30,8 +30,6 @@ const EditCommentForm = ({ commentId, postId, content, closeModal, setButtonDisa
     };
 
     const response = await APIManager.editComment(postId, commentId, data);
-    console.log(response.data);
-
     await mutate(`/posts/${postId}/comments`);
     closeModal();
     setButtonDisabled(false);
