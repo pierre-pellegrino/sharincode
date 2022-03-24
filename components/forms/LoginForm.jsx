@@ -10,6 +10,7 @@ import {
   showPwdIcon,
   showPwdIconLogin,
   formLink,
+  github,
 } from "./form.module.scss";
 import APIManager from "pages/api/axios";
 import { useRouter } from "next/router";
@@ -19,6 +20,7 @@ import { useAtom } from "jotai";
 import { EyeOffIcon } from "components/icons";
 import { EyeIcon } from "components/icons";
 import Link from "next/link";
+import { GithubIcon } from "components/icons";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -40,7 +42,8 @@ const LoginForm = () => {
 
   const [_, setUser] = useAtom(userAtom);
 
-  const github_url = 'https://github.com/login/oauth/authorize?client_id=33b913b565563d4f87c2&scope=user:email'
+  const github_url =
+    "https://github.com/login/oauth/authorize?client_id=33b913b565563d4f87c2&scope=user:email";
 
   useEffect(() => {
     emailRef.current.focus();
@@ -53,18 +56,17 @@ const LoginForm = () => {
   const handleForgottenPwd = async () => {
     try {
       const response = await APIManager.forgottenPassword();
+    } catch (err) {
+      setErrMsg("Oups ! Pas de réponse du serveur...");
     }
-    catch (err) {
-      setErrMsg("Oups ! Pas de réponse du serveur...")
-    }
-  }
+  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    
+
     if (!canSave) return setErrMsg("Un (ou plusieurs) champs sont invalides !");
-  
-    setBtnValue("Connexion en cours...")
+
+    setBtnValue("Connexion en cours...");
 
     const data = {
       user: {
@@ -157,6 +159,10 @@ const LoginForm = () => {
         value={btnValue}
         disabled={!canSave}
       />
+      <a href={github_url} className={`${btn} ${github} bg-primary txt-btn`}>
+        <GithubIcon />
+        Connexion avec github
+      </a>
       <div className={formLink}>
         <span>Pas encore de compte ?</span>
         <Link href="/register">
@@ -164,7 +170,7 @@ const LoginForm = () => {
         </Link>
       </div>
       <Link href="/forgotten-password">
-          <a>Mot de passe oublié ?</a>
+        <a>Mot de passe oublié ?</a>
       </Link>
       <a href={github_url}>Me connecter avec github</a>
     </form>

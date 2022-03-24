@@ -90,6 +90,17 @@
     opacity: 0.5;
     pointer-events: none;
   }
+
+  &.github {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    svg {
+      width: 24px;
+      margin-right: 0.5rem;
+    }
+  }
 }
 
 .errmsg {
@@ -217,7 +228,7 @@
 @media screen and (max-width: 375px) {
   .form {
     border: none;
-    padding: 0;
+    padding: 0 -2rem;
     background-color: inherit;
   }
 }
