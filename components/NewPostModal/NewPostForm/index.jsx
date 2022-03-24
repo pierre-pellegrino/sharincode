@@ -35,7 +35,7 @@ const NewPostForm = ({
 
 
   const [selectedLanguages, setSelectedLanguages] = useState(() => {
-    if (!editSnippet) return `${LANGUAGES[0].name} ${LANGUAGES[0].mode}`;
+    if (!editSnippet) return [`${LANGUAGES[0].name} ${LANGUAGES[0].mode}`];
 
     const array = []
     editSnippet.forEach((snippet) => {
@@ -91,19 +91,33 @@ const NewPostForm = ({
         description.getCurrentContent().getPlainText()
       ).map((tag) => tag.hashtag);
 
-      const formattedSnippets = []
+      const formatSnippets = () => {
+        const formattedSnippets = []
 
-      snippets.forEach((snippet, index) => {
-        formattedSnippets.push({
-          content: snippet,
-          language: selectedLanguages[index].split(" ").slice(0, -1).join(" "),
-        })
-      })
+        if (!editSnippet) {
+          snippets.forEach((snippet, index) => {
+            formattedSnippets.push({
+              content: snippet,
+              language: selectedLanguages[index].split(" ").slice(0, -1).join(" "),
+            })
+          })
+        } else {
+          snippets.forEach((snippet, index) => {
+            formattedSnippets.push({
+              id: editSnippet[index].id,
+              content: snippet,
+              language: selectedLanguages[index].split(" ").slice(0, -1).join(" "),
+            })
+          })
+        }
+
+        return formattedSnippets
+      }
 
       if (!editSnippet) {
         const data = {
           description: description.getCurrentContent().getPlainText(),
-          snippets: formattedSnippets,
+          snippets: formatSnippets(),
           tags,
         };
 
@@ -118,15 +132,8 @@ const NewPostForm = ({
       }
 
       const data = {
-        ...post,
         description: description.getCurrentContent().getPlainText(),
-        snippets: [
-          {
-            ...post.snippets[0],
-            content: snippets[0],
-            language: selectedLanguage[0].split(" ").slice(0, -1).join(" "),
-          },
-        ],
+        snippets: formatSnippets(),
         tags,
       };
 
