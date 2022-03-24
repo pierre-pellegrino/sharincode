@@ -18,7 +18,7 @@ import { preferedThemeAtom } from "store";
 import Image from 'next/image';
 import EditAvatarModal from "../EditAvatarModal/EditAvatarModal";
 
-const EditUserForm = ({ user, mutate, userAvatar }) => {
+const EditUserForm = ({ user, mutate, userAvatar, userId }) => {
   const [_, setUser] = useAtom(userAtom);
 
   const [errMsg, setErrMsg] = useState("");
@@ -107,7 +107,7 @@ const EditUserForm = ({ user, mutate, userAvatar }) => {
         />
         <p>Modifier mon avatar</p>
       </div>
-      {modalOpen && <EditAvatarModal closeModal={handleCloseModal}/>}
+      {modalOpen && <EditAvatarModal closeModal={handleCloseModal} userId={userId}/>}
       <form className={`${form} links-form`} onSubmit={handleUpdate}>
         {success && <p>Modifications enregistrées !</p>}
 

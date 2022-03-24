@@ -66,12 +66,12 @@ const ProfileTabMenu = ({
           ))}
 
         {activeTab === 2 && <p> Aucun snippet favori ! </p>}
-
         {activeTab === 3 && (
           <EditUserForm
             user={currentUser}
             mutate={mutate}
             userAvatar={userAvatar}
+            userId={user?.id}
           />
         )}
       </div>
