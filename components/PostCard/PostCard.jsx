@@ -40,7 +40,14 @@ import FormattedDescription from "./FormattedDescription";
 import APIManager from "pages/api/axios";
 import { useSWRConfig } from "swr";
 
-const PostCard = ({ post, detail, theme, page, mutate: mutateProfile }) => {
+const PostCard = ({
+  post,
+  detail,
+  theme,
+  page,
+  mutate: mutateProfile,
+  commentRef,
+}) => {
   const [user, setUser] = useAtom(userAtom);
   const [isConnected] = useAtom(isConnectedAtom);
 
@@ -229,8 +236,13 @@ const PostCard = ({ post, detail, theme, page, mutate: mutateProfile }) => {
               userId={author.user_id}
             />
           )}
-          <Link href={`/posts/${id}`}>
-            <a className={btn}>
+          <Link href={{ pathname: `/posts/${id}`, query: { comment: true } }}>
+            <a
+              className={btn}
+              onClick={() => {
+                if (commentRef?.current) commentRef.current.focus();
+              }}
+            >
               <p className={{ comment }}>Commenter</p>
             </a>
           </Link>
