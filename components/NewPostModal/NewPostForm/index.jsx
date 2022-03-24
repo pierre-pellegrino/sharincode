@@ -7,15 +7,19 @@ import {
   descriptionEditor,
 } from "../new_post_modal.module.scss";
 import { btn } from "components/forms/form.module.scss";
-import { useEffect } from "react";
 import APIManager from "pages/api/axios";
 import { useRouter } from "next/router";
 import { useAtom } from "jotai";
 import { showNewPostModalAtom } from "store";
 import { useSWRConfig } from "swr";
-import { EditorState } from "draft-js";
-import { Editor as DescriptionEditor } from "draft-js";
-import { ContentState } from "draft-js";
+import DescriptionEditor, {
+  createEditorStateWithText,
+} from "@draft-js-plugins/editor";
+import createHashtagPlugin, {
+  extractHashtagsWithIndices,
+} from "@draft-js-plugins/hashtag";
+import HashtagLink from "components/Hashtag";
+import { useEffect } from "react";
 
 const NewPostForm = ({
   editDescription,
@@ -29,15 +33,8 @@ const NewPostForm = ({
   const router = useRouter();
   const [_, setShowNewPostModalAtom] = useAtom(showNewPostModalAtom);
 
-  let descriptionContent;
-
-  if (editDescription)
-    descriptionContent = ContentState.createFromText(editDescription);
-
   const [description, setDescription] = useState(
-    descriptionContent
-      ? EditorState.createWithContent(descriptionContent)
-      : EditorState.createEmpty()
+    createEditorStateWithText(editDescription ?? "")
   );
   const [snippet, setSnippet] = useState(editSnippet ?? "");
   const [selectedLanguage, setSelectedLanguage] = useState(() => {
@@ -52,6 +49,8 @@ const NewPostForm = ({
   const [btnValue, setBtnValue] = useState(
     editSnippet ? "Editer mon snippet" : "Partager mon code au monde ! 🚀"
   );
+
+  const hashtagPlugin = createHashtagPlugin({ hashtagComponent: HashtagLink });
 
   const { mutate } = useSWRConfig();
 
@@ -69,6 +68,10 @@ const NewPostForm = ({
 
       setBtnValue(editSnippet ? "Edition en cours..." : "Création en cours...");
 
+      const tags = extractHashtagsWithIndices(
+        description.getCurrentContent().getPlainText()
+      ).map((tag) => tag.hashtag);
+
       if (!editSnippet) {
         const data = {
           description: description.getCurrentContent().getPlainText(),
@@ -78,7 +81,7 @@ const NewPostForm = ({
               language: selectedLanguage.split(" ").slice(0, -1).join(" "),
             },
           ],
-          tags: [],
+          tags,
         };
 
         const response = await APIManager.createPost(data);
@@ -101,6 +104,7 @@ const NewPostForm = ({
             language: selectedLanguage.split(" ").slice(0, -1).join(" "),
           },
         ],
+        tags,
       };
 
       const response = await APIManager.editPost(post.id, data);
@@ -127,6 +131,7 @@ const NewPostForm = ({
           <DescriptionEditor
             editorState={description}
             onChange={setDescription}
+            plugins={[hashtagPlugin]}
           />
         </div>
       </div>

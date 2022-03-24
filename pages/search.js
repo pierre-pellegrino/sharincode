@@ -13,7 +13,7 @@ const Search = () => {
 
   const searchQuery = async () => {
     try {
-      const response = await APIManager.search({ language: query["language"] });
+      const response = await APIManager.search({ q: query["q"] });
       setPosts(response.data.posts);
     } catch (err) {
       console.error(err.response);
@@ -33,7 +33,7 @@ const Search = () => {
 
   return (
     <div className={styles.main}>
-      Résultats de la recherche : {router.query["language"]}
+      Résultats de la recherche : {router.query["q"]}
       {content}
     </div>
   );
