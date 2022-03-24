@@ -10,6 +10,7 @@ import {
   profileTabContent,
 } from "./profile_tab.module.scss";
 import PostCard from "components/PostCard/PostCard";
+import EditUserImportantInfos from "../forms/EditUserImportantInfos";
 
 const ProfileTabMenu = ({
   user,
@@ -68,11 +69,14 @@ const ProfileTabMenu = ({
         {activeTab === 2 && <p> Aucun snippet favori ! </p>}
 
         {activeTab === 3 && (
+          <>
           <EditUserForm
             user={currentUser}
             mutate={mutate}
             userAvatar={userAvatar}
           />
+          <EditUserImportantInfos user={user} />
+          </>
         )}
       </div>
     </>
