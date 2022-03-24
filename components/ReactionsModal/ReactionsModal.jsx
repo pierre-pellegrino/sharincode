@@ -12,7 +12,7 @@ import {useSWRConfig} from "swr";
 import {useAtom} from "jotai";
 import {userAtom} from "store";
 
-const ReactionsModal = ({postId, reactions, page=1}) => {
+const ReactionsModal = ({postId, reactions, page=1, userId}) => {
   const [currentUser] = useAtom(userAtom);
   const currentUserId = currentUser?.user.id ?? null;
   const currentUserReact = reactions.filter(react => react.user_id === currentUserId);
@@ -44,6 +44,8 @@ const ReactionsModal = ({postId, reactions, page=1}) => {
       mutate(`/posts?page=${i}`);
     }
     mutate(`/posts/${postId}`);
+    console.log(userId)
+    mutate(`profiles/${userId}`);
   }
 
   return (
