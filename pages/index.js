@@ -44,15 +44,7 @@ export default function Home() {
 
   if (data) {
     content = (
-      <>
-        {/* <button
-          className={`${styles.btn} bg-primary txt-btn`}
-          onClick={() => mutate()}
-          disabled={isValidating}
-        >
-          Rafraichir
-        </button> */}
-        
+      <>        
         {data.posts.map((post) => {
           return <PostCard post={post.post} key={post.post.id} page={page} />   
         })}
@@ -67,7 +59,7 @@ export default function Home() {
     <section className={styles.main}>
       <Head>
         <title>Home | Snipshare</title>
-        <meta name="description" content="SnipShare" />
+        <meta name="description" content="Snipshare" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
