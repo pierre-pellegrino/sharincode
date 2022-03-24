@@ -34,7 +34,7 @@ const EmailForm = () => {
 
   return (
 <form className={`${form} bg-global-secondary`} onSubmit={handleLogin}>
-      <p> Merci de saisir l'adresse email liée à votre compte. </p>
+      <p> Merci de saisir l&apos;adresse email liée à votre compte. </p>
 
       {success && (
         <p>
