@@ -6,7 +6,7 @@ const Login = () => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Login | SnipShare</title>
+        <title>Login | Snipshare</title>
       </Head>
 
       <main className={styles.main}>

@@ -20,10 +20,10 @@ const Header = () => {
             <Link href="/">
               <a
                 className={logo}
-                aria-label="SnipShare : Accéder à la page d'accueil."
+                aria-label="Snipshare : Accéder à la page d'accueil."
               >
                 <LogoLeftSide />
-                <span className={text}>SnipShare</span>
+                <span className={text}>Snipshare</span>
                 <LogoRightSide />
               </a>
             </Link>

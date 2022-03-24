@@ -45,7 +45,7 @@ const PostDetailPage = () => {
     <main className={styles.main}>
       <Head>
         <title>
-          {post?.user?.username ?? "User"}&apos;s snippet | SnipShare
+          {post?.user?.username ?? "User"}&apos;s snippet | Snipshare
         </title>
       </Head>
 
