@@ -66,7 +66,7 @@ export default function Home() {
   return (
     <section className={styles.main}>
       <Head>
-        <title>Home | SnipShare</title>
+        <title>Home | Snipshare</title>
         <meta name="description" content="SnipShare" />
         <link rel="icon" href="/favicon.ico" />
       </Head>

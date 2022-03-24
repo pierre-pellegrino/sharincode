@@ -27,7 +27,7 @@ const ProfilePage = () => {
     content = (
       <>
         <Head>
-          <title>{data.user.username} | SnipShare</title>
+          <title>{data.user.username} | Snipshare</title>
         </Head>
         <ProfileIcon type="profile" user={profileData} />
         <div className={profileInfos}>

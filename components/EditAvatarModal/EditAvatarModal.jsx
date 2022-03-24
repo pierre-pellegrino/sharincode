@@ -41,7 +41,7 @@ const EditAvatarModal = ({closeModal, userId}) => {
     }
 
     router.reload(window.location.pathname);
-    // mutate(`profiles/${userId}`);
+    // mutate(`profiles/${userId}`); 
     closeModal();
     setLoadingText(false);
   };
