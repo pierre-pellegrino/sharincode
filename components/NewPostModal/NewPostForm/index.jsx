@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import { useAtom } from "jotai";
 import { showNewPostModalAtom } from "store";
 import { useSWRConfig } from "swr";
+import NewSnippetForm from "./NewSnippetForm";
 
 const NewPostForm = ({
   editDescription,
@@ -23,19 +24,22 @@ const NewPostForm = ({
   const [_, setShowNewPostModalAtom] = useAtom(showNewPostModalAtom);
 
   const [description, setDescription] = useState(editDescription ?? "");
-  const [snippet, setSnippet] = useState(editSnippet ?? "");
-  const [selectedLanguage, setSelectedLanguage] = useState(() => {
-    if (!editLanguage) return `${LANGUAGES[0].name} ${LANGUAGES[0].mode}`;
-
-    const languageObj = LANGUAGES.filter(
-      (lang) => lang.name === editLanguage
-    )[0];
-
-    return `${languageObj.name} ${languageObj.mode}`;
-  });
+  // const [snippet, setSnippet] = useState(editSnippet ?? "");
+  // const [selectedLanguage, setSelectedLanguage] = useState(() => {
+  //   if (!editLanguage) return `${LANGUAGES[0].name} ${LANGUAGES[0].mode}`;
+  //
+  //   const languageObj = LANGUAGES.filter(
+  //     (lang) => lang.name === editLanguage
+  //   )[0];
+  //
+  //   return `${languageObj.name} ${languageObj.mode}`;
+  // });
+  const [snippets, setSnippets] = useState([""])
+  const [selectedLanguages, setSelectedLanguages] = useState([`${LANGUAGES[0].name} ${LANGUAGES[0].mode}`])
   const [btnValue, setBtnValue] = useState(
     editSnippet ? "Editer mon snippet" : "Partager mon code au monde ! 🚀"
   );
+  const [snippetCounter, setSnippetCounter] = useState(["1"])
 
   const { mutate } = useSWRConfig();
 
@@ -44,9 +48,9 @@ const NewPostForm = ({
   }, []);
 
   const canSave = [
-    snippet,
+    snippets[0],
     description,
-    selectedLanguage.split(" ").slice(0, -1).join(" "),
+    selectedLanguages[0].split(" ").slice(0, -1).join(" "),
   ].every(Boolean);
 
   const handleSubmit = async (e) => {
@@ -62,8 +66,8 @@ const NewPostForm = ({
           description: description,
           snippets: [
             {
-              content: snippet,
-              language: selectedLanguage.split(" ").slice(0, -1).join(" "),
+              content: snippets[0],
+              language: selectedLanguage[0].split(" ").slice(0, -1).join(" "),
             },
           ],
           tags: [],
@@ -85,8 +89,8 @@ const NewPostForm = ({
         snippets: [
           {
             ...post.snippets[0],
-            content: snippet,
-            language: selectedLanguage.split(" ").slice(0, -1).join(" "),
+            content: snippets[0],
+            language: selectedLanguage[0].split(" ").slice(0, -1).join(" "),
           },
         ],
       };
@@ -108,8 +112,25 @@ const NewPostForm = ({
     }
   };
 
+  const handleSetSnippetCount = () => {
+    setSnippetCounter([...snippetCounter, '1'])
+    setSelectedLanguages([...selectedLanguages, `${LANGUAGES[0].name} ${LANGUAGES[0].mode}`])
+  }
+
+  const handleLanguageChange = (value, id) => {
+    const tmpArr = [...selectedLanguages]
+    tmpArr[id] = value
+    setSelectedLanguages(tmpArr)
+  }
+
+  const handleSnippetChange = (value, id) => {
+    const tmpArr = [...snippets]
+    tmpArr[id] = value
+    setSnippets(tmpArr)
+  }
+
   return (
-    <form className={form} onSubmit={handleSubmit}>
+    <form className={form} onSubmit={handleSubmit} style={{overflow: 'auto'}}>
       <div className={inputWrapper}>
         <label htmlFor="description">Description</label>
         <textarea
@@ -121,33 +142,19 @@ const NewPostForm = ({
           required
         />
       </div>
-      <div className={inputWrapper}>
-        <label htmlFor="language">Langage</label>
-        <select
-          name="language"
-          id="language"
-          value={selectedLanguage}
-          autoComplete="none"
-          onChange={(e) => setSelectedLanguage(e.target.value)}
-          required
-        >
-          {LANGUAGES.map((language) => (
-            <option
-              value={`${language.name} ${language.mode}`}
-              key={language.name}
-            >
-              {language.name}
-            </option>
-          ))}
-        </select>
-      </div>
-      <EditorContainer
-        language={selectedLanguage.split(" ").slice(-1)[0]}
-        theme="dracula"
-        value={snippet}
-        onChange={setSnippet}
-        required
-      />
+      {
+        snippetCounter.map((e, index) => (
+          <NewSnippetForm
+            selectedLanguages={selectedLanguages}
+            handleLanguageChange={handleLanguageChange}
+            snippets={snippets}
+            handleSnippetChange={handleSnippetChange}
+            key={index}
+            snippetNumber={index}
+          />
+        ))
+      }
+      <button className={`${btn} bg-primary txt-btn`} onClick={handleSetSnippetCount}>ajouter un snippet</button>
       <input
         type="submit"
         className={`${btn} bg-primary txt-btn`}
