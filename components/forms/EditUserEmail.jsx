@@ -1,5 +1,4 @@
 import {
-  USERNAME_REGEX,
   EMAIL_REGEX,
   PWD_REGEX,
 } from "lib/constants/validations";
@@ -14,39 +13,39 @@ import {
   offscreen,
   instructions,
   showPwdIcon,
-  pwdForm
+  pwdForm,
 } from "./form.module.scss";
 import cn from "classnames";
 import APIManager from "pages/api/axios";
 import { useRouter } from "next/router";
+import { InfoIcon } from "components/icons";
 import ValidationIcon from "components/ValidationIcon";
+import Link from "next/link";
 import { useAtom } from "jotai";
 import { userAtom } from "store";
 import { EyeIcon } from "components/icons";
 import { EyeOffIcon } from "components/icons";
 
-const EditUserImportantInfos = ({user}) => {
-  console.log(user)
+const EditUserEmail = () => {
   const router = useRouter();
 
   const errors = useRef();
+
+  const [email, setEmail] = useState("");
+  const [validEmail, setValidEmail] = useState(false);
+  const [emailFocus, setEmailFocus] = useState(false);
 
   const [pwd, setPwd] = useState("");
   const [validPwd, setValidPwd] = useState(false);
   const [pwdFocus, setPwdFocus] = useState(false);
   const [showPwd, setShowPwd] = useState(false);
 
-  const [pwdConfirm, setPwdConfirm] = useState("");
-  const [validPwdConfirm, setValidPwdConfirm] = useState(false);
-  const [pwdConfirmFocus, setPwdConfirmFocus] = useState(false);
-  const [showPwdConfirm, setShowPwdConfirm] = useState(false);
-
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
 
-  const [btnValue, setBtnValue] = useState("Éditer le mot de passe");
+  const [btnValue, setBtnValue] = useState("éditer mon adresse mail");
 
-  const canSave = [validPwd, validPwdConfirm].every(
+  const canSave = [validEmail, validPwd].every(
     Boolean
   );
 
@@ -54,42 +53,37 @@ const EditUserImportantInfos = ({user}) => {
 
   useEffect(() => {
     setErrMsg("");
-  }, [pwd, pwdConfirm]);
+  }, [email, pwd]);
 
+  useEffect(() => {
+    const result = EMAIL_REGEX.test(email);
+    setValidEmail(result);
+  }, [email]);
 
   useEffect(() => {
     const result = PWD_REGEX.test(pwd);
     setValidPwd(result);
   }, [pwd]);
 
-  useEffect(() => {
-    const result = PWD_REGEX.test(pwdConfirm);
-    setValidPwdConfirm(result);
-  }, [pwdConfirm]);
-
-  const handleEdit = async (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
 
     if (!canSave) return setErrMsg("Un (ou plusieurs) champs sont invalides !");
 
-    setBtnValue("Édition en cours...");
-
     const data = {
       user: {
-        email: user.email,
+        email: email,
         current_password: pwd,
-        password: pwdConfirm
-      }
-    }
+      },
+    };
 
     try {
-      const response = await APIManager.updatePwd(data);
+      const response = await APIManager.updateEmail(data);
       setSuccess(true);
-      console.log(response)
       setUser(response.data);
       // router.push("/");
     } catch (err) {
-      setBtnValue("éditer");
+      setBtnValue("éditer mon adresse mail");
 
       if (!err?.response) {
         setErrMsg("Oups ! Pas de réponse du serveur...");
@@ -101,8 +95,9 @@ const EditUserImportantInfos = ({user}) => {
   };
 
   return (
-    <form className={`${form} ${pwdForm}`} onSubmit={handleEdit}>
-      <h3> Modifier mon mot de passe </h3>
+    <form className={`${form} ${pwdForm}`} onSubmit={handleLogin}>
+
+    <h3> Modifier mon email </h3>
 
       {success && (
         <p>
@@ -120,9 +115,36 @@ const EditUserImportantInfos = ({user}) => {
 
       <div className={inputWrapper}>
         <input
+          type="text"
+          className={input}
+          id="email-input2"
+          placeholder=" "
+          autoComplete="email"
+          required
+          aria-invalid={validEmail ? "false" : "true"}
+          aria-describedby="emailnote"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          onFocus={() => setEmailFocus(true)}
+          onBlur={() => setEmailFocus(false)}
+        />
+        <label htmlFor="email-input2">Nouvel email</label>
+        <ValidationIcon isValid={validEmail} />
+        <p
+          id="emailnote"
+          className={cn(instructions, {
+            [offscreen]: !(emailFocus && email && !validEmail),
+          })}
+        >
+          Veuillez entrer un email valide.
+        </p>
+      </div>
+
+      <div className={inputWrapper}>
+        <input
           type={showPwd ? "text" : "password"}
           className={`${input} ${inputPwd}`}
-          id="password-input"
+          id="password-input2"
           placeholder=" "
           autoComplete="new-password"
           required
@@ -133,7 +155,7 @@ const EditUserImportantInfos = ({user}) => {
           onFocus={() => setPwdFocus(true)}
           onBlur={() => setPwdFocus(false)}
         />
-        <label htmlFor="password-input">Mot de passe actuel</label>
+        <label htmlFor="password-input2">Confirmez votre mot de passe</label>
         <ValidationIcon isValid={validPwd} />
         <div
           className={showPwdIcon}
@@ -156,46 +178,6 @@ const EditUserImportantInfos = ({user}) => {
         </p>
       </div>
 
-      <div className={inputWrapper}>
-        <input
-          type={showPwdConfirm ? "text" : "password"}
-          className={`${input} ${inputPwd}`}
-          id="passwordConfirm-input"
-          placeholder=" "
-          autoComplete="new-password"
-          required
-          aria-invalid={validPwdConfirm ? "false" : "true"}
-          aria-describedby="pwdconfirmnote"
-          value={pwdConfirm}
-          onChange={(e) => setPwdConfirm(e.target.value)}
-          onFocus={() => setPwdConfirmFocus(true)}
-          onBlur={() => setPwdConfirmFocus(false)}
-        />
-        <label htmlFor="passwordConfirm-input">
-          Nouveau mot de passe
-        </label>
-        <ValidationIcon isValid={validPwdConfirm} />
-        <div
-          className={showPwdIcon}
-          focusable="false"
-          aria-hidden="true"
-          onClick={(e) => {
-            e.preventDefault();
-            setShowPwdConfirm(!showPwdConfirm);
-          }}
-        >
-          {showPwdConfirm ? <EyeOffIcon /> : <EyeIcon />}
-        </div>
-        <p
-          id="pwdconfirmnote"
-          className={cn(instructions, {
-            [offscreen]: !(pwdConfirmFocus && pwdConfirm && !validPwdConfirm),
-          })}
-        >
-          Veuillez réécrire votre mot de passe.
-        </p>
-      </div>
-
       <input
         className={`${btn} bg-primary txt-btn`}
         tabIndex={0}
@@ -204,9 +186,8 @@ const EditUserImportantInfos = ({user}) => {
         value={btnValue}
         disabled={!canSave}
       />
-
     </form>
   );
 };
 
-export default EditUserImportantInfos;
+export default EditUserEmail;

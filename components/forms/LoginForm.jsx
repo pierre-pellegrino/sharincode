@@ -50,6 +50,15 @@ const LoginForm = () => {
     setErrMsg("");
   }, [email, pwd]);
 
+  const handleForgottenPwd = async () => {
+    try {
+      const response = await APIManager.forgottenPassword();
+    }
+    catch (err) {
+      setErrMsg("Oups ! Pas de réponse du serveur...")
+    }
+  }
+
   const handleLogin = async (e) => {
     e.preventDefault();
     
@@ -154,6 +163,9 @@ const LoginForm = () => {
           <a className="txt-primary"> M&apos;inscrire</a>
         </Link>
       </div>
+      <Link href="/forgotten-password">
+          <a>Mot de passe oublié ?</a>
+      </Link>
       <a href={github_url}>Me connecter avec github</a>
     </form>
   );

@@ -11,6 +11,7 @@ import {
 } from "./profile_tab.module.scss";
 import PostCard from "components/PostCard/PostCard";
 import EditUserImportantInfos from "../forms/EditUserImportantInfos";
+import EditUserEmail from "../forms/EditUserEmail";
 
 const ProfileTabMenu = ({
   user,
@@ -75,7 +76,8 @@ const ProfileTabMenu = ({
             userAvatar={userAvatar}
             userId={user?.id}
           />
-          <EditUserImportantInfos user={user} />
+          <EditUserImportantInfos user={user}/>
+          <EditUserEmail />
           </>
         )}
       </div>

@@ -58,7 +58,7 @@ export default class APIManager {
   }
 
   static async updatePwd(data) {
-    const endpoint = "/users/password";
+    const endpoint = "/users";
     const response = await APIRequest.patch(endpoint, data);
     return response;
   }
@@ -155,6 +155,12 @@ export default class APIManager {
       }
     })
     Cookies.set("token", response.headers.authorization);
+    return response;
+  }
+
+  static async forgottenPassword(data) {
+    const endpoint = "/users/password"
+    const response = await APIRequest.post(endpoint, data);
     return response;
   }
 

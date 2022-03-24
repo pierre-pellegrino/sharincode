@@ -203,6 +203,11 @@
   }
 }
 
+.pwdForm {
+  border-top: 1px solid $primary;
+  margin-top: 1rem;
+}
+
 @media screen and (max-width: 525px) {
   .form {
     min-width: 100%;
