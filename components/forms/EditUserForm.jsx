@@ -59,13 +59,6 @@ const EditUserForm = ({ user, mutate, userAvatar, userId }) => {
     }
   }, [preferedTheme, user]);
 
-  // useEffect(() => {
-  //   if (!modalOpen) return;
-  //   const handleClick = () => setModalOpen(false);
-  //   window.addEventListener("click", handleClick);
-  //   return () => window.removeEventListener("click", handleClick);
-  // }, [modalOpen]);
-
   const handleUpdate = async (e) => {
     e.preventDefault();
 
