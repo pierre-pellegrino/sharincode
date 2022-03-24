@@ -1,7 +1,11 @@
 import { useAtom } from "jotai";
 import Link from "components/Link";
 import { showNewPostModalAtom, userAtom } from "store";
-import { SignOutIcon, LogInIconOutline, CreateIconOutlined } from "components/icons";
+import {
+  SignOutIcon,
+  LogInIconOutline,
+  CreateIconOutlined,
+} from "components/icons";
 import {
   navItems,
   navItem,
@@ -15,6 +19,7 @@ import { useRouter } from "next/router";
 import NewPostModal from "components/NewPostModal";
 import Image from "next/image";
 import { useMediaQuery } from "react-responsive";
+import { LogInIconFilled } from "components/icons";
 
 const LoggedInNav = () => {
   const router = useRouter();
@@ -23,9 +28,9 @@ const LoggedInNav = () => {
   const middleBreakpoint = useMediaQuery({ query: "(max-width: 1000px)" });
 
   const handleDisconnect = () => {
+    router.push("/");
     Cookies.remove("token");
     setUser(null);
-    router.push("/");
   };
 
   return (
@@ -42,15 +47,8 @@ const LoggedInNav = () => {
             >
               {({ isActive }) => (
                 <>
-                  {
-                    isActive ? (
-                      <CreateIconOutlined />
-                    ) : (
-                      <CreateIconOutlined />
-                      )
-            
-                    }
-                    <span className={text}>Nouveau Snippet</span>
+                  {isActive ? <CreateIconOutlined /> : <CreateIconOutlined />}
+                  <span className={text}>Nouveau Snippet</span>
                 </>
               )}
             </Link>
@@ -70,25 +68,38 @@ const LoggedInNav = () => {
             href={`/profile/${user.user.id}`}
             className={navItem}
             aria-label="Accéder à la page de mon compte."
+            activeClassName={active}
           >
-            {({ isActive }) => (
-              <>
-                {user?.avatar ? (
-                  <div className={avatarContainer}>
-                    <Image
-                      src={user.avatar}
-                      width={48}
-                      height={48}
-                      alt=""
-                      className={avatar}
-                    />
-                  </div>
-                ) : (
-                  <LogInIconOutline />
-                )}
-                <span className={text}>{user?.user.username}</span>
-              </>
-            )}
+            {({ isActive }) => {
+              let profileIcon = isActive ? (
+                <LogInIconFilled />
+              ) : (
+                <LogInIconOutline />
+              );
+
+              if (user?.avatar) {
+                profileIcon = (
+                  <>
+                    <div className={avatarContainer}>
+                      <Image
+                        src={user.avatar}
+                        width={48}
+                        height={48}
+                        alt=""
+                        className={avatar}
+                      />
+                    </div>
+                  </>
+                );
+              }
+
+              return (
+                <>
+                  {profileIcon}
+                  <span className={text}>{user?.user.username}</span>
+                </>
+              );
+            }}
           </Link>
         </li>
         <li>
