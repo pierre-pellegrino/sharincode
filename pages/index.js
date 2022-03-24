@@ -50,14 +50,6 @@ export default function Home() {
   if (data) {
     content = (
       <>
-        {/* <button
-          className={`${styles.btn} bg-primary txt-btn`}
-          onClick={() => mutate()}
-          disabled={isValidating}
-        >
-          Rafraichir
-        </button> */}
-
         {data.posts.map((post) => {
           return <PostCard post={post.post} key={post.post.id} page={page} />;
         })}
@@ -85,10 +77,7 @@ export default function Home() {
           content="Le réseau social de partage de snippets"
         />
 
-        <meta
-          property="twitter:url"
-          content={getAbsoluteURL(router.asPath)}
-        />
+        <meta property="twitter:url" content={getAbsoluteURL(router.asPath)} />
         <meta property="twitter:title" content="Home | Snipshare" />
         <meta
           property="twitter:description"

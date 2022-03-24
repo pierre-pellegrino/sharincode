@@ -9,7 +9,7 @@ const NewPost = () => {
   return (
     <>
       <Head>
-        <title>Nouveau Snippet | SnipShare</title>
+        <title>Nouveau Snippet | Snipshare</title>
         <meta name="title" content="Nouveau Snippet | Snipshare" />
 
         <meta property="og:url" content={getAbsoluteURL(router.asPath)} />

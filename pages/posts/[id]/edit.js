@@ -44,7 +44,7 @@ const CommentEdit = () => {
     <>
       <Head>
         <title>
-          Edit {post?.user?.username ?? "User"}&apos;s snippet | SnipShare
+          Edit {post?.user?.username ?? "User"}&apos;s snippet | Snipshare
         </title>
         <meta
           name="title"

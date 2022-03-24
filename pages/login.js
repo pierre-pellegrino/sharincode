@@ -10,7 +10,7 @@ const Login = () => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Me Connecter | SnipShare</title>
+        <title>Me Connecter | Snipshare</title>
         <meta name="title" content="Me Connecter | Snipshare" />
 
         <meta property="og:url" content={getAbsoluteURL(router.asPath)} />

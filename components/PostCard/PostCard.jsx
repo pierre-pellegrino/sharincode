@@ -150,7 +150,7 @@ const PostCard = ({ post, detail, theme, page }) => {
           </Link>
         </div>
         <div className={btnsWrapper}>
-          {isConnected && <ReactionsModal postId={id} reactions={reactions} page={page}/>}
+          {isConnected && <ReactionsModal postId={id} reactions={reactions} page={page} userId={author.user_id}/>}
           <Link href={`/posts/${id}`}>
             <a className={btn}>
               <p className={{ comment }}>Commenter</p>

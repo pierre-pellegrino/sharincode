@@ -10,7 +10,7 @@ const Register = () => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>M&apos;inscrire | SnipShare</title>
+        <title>M&apos;inscrire | Snipshare</title>
         <meta name="title" content="M'inscrire | Snipshare" />
 
         <meta property="og:url" content={getAbsoluteURL(router.asPath)} />

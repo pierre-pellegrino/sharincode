@@ -38,7 +38,7 @@ const Search = () => {
   return (
     <>
       <Head>
-        <title>Recherche | SnipShare</title>
+        <title>Recherche | Snipshare</title>
         <meta name="title" content="Recherche | Snipshare" />
 
         <meta property="og:url" content={getAbsoluteURL(router.asPath)} />

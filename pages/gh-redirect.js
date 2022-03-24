@@ -35,7 +35,7 @@ const GhRedirect = () => {
   return (
     <>
       <Head>
-        <title>Github Redirection | SnipShare</title>
+        <title>Github Redirection | Snipshare</title>
         <meta name="title" content="Github Redirection | Snipshare" />
 
         <meta property="og:url" content={getAbsoluteURL(router.asPath)} />

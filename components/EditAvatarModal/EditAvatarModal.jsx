@@ -3,12 +3,14 @@ import { editAvatarWrapper, editAvatar } from "./edit_avatar.module.scss";
 import { form, inputWrapper, btn } from "components/forms/form.module.scss";
 import APIManager from "pages/api/axios";
 import { useSWRConfig } from "swr";
+import { useRouter } from "next/router";
 
-const EditAvatarModal = ({ closeModal }) => {
+const EditAvatarModal = ({ closeModal, userId }) => {
   const [file, setFile] = useState([]);
   const avatar = useRef();
   const { mutate } = useSWRConfig();
   const [loadingText, setLoadingText] = useState(false);
+  const router = useRouter();
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -26,12 +28,12 @@ const EditAvatarModal = ({ closeModal }) => {
     try {
       setLoadingText(true);
       const response = await APIManager.updateProfile(data);
-
-      mutate(`profiles/${id}`);
     } catch (error) {
       console.error(error);
     }
 
+    router.reload(window.location.pathname);
+    // mutate(`profiles/${userId}`);
     closeModal();
     setLoadingText(false);
   };

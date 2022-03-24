@@ -28,7 +28,7 @@ const ProfilePage = () => {
     content = (
       <>
         <Head>
-          <title>{data.user.username} | SnipShare</title>
+          <title>{data.user.username} | Snipshare</title>
           <meta name="title" content={`${data.user.username} | Snipshare`} />
 
           <meta property="og:url" content={getAbsoluteURL(router.asPath)} />
@@ -76,10 +76,6 @@ const ProfilePage = () => {
 
   return (
     <>
-      <Head>
-        <title>SnipShare</title>
-      </Head>
-
       <main className={styles.main}>{content}</main>
     </>
   );
