@@ -12,7 +12,6 @@ const Search = () => {
   const [posts, setPosts] = useState();
 
   const searchQuery = async () => {
-    console.log(query["q"])
     try {
       const response = await APIManager.search(query["q"]);
       setPosts(response.data.posts);
