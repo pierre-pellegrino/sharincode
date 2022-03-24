@@ -1,6 +1,8 @@
 import Loader from "components/Loader";
 import NewPostForm from "components/NewPostModal/NewPostForm";
 import { useAtom } from "jotai";
+import { getAbsoluteURL } from "lib/getAbsoluteURL";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import APIManager from "pages/api/axios";
 import { useEffect, useState } from "react";
@@ -39,12 +41,35 @@ const CommentEdit = () => {
   const { description, snippets } = data?.post;
 
   return (
-    <NewPostForm
-      editDescription={description}
-      editLanguage={snippets[0].language}
-      editSnippet={snippets[0].content}
-      post={data.post}
-    />
+    <>
+      <Head>
+        <title>
+          Edit {post?.user?.username ?? "User"}&apos;s snippet | Snipshare
+        </title>
+        <meta
+          name="title"
+          content={`Edit ${post?.user?.username ?? "User"}'s snippet | Snipshare`}
+        />
+
+        <meta property="og:url" content={getAbsoluteURL(router.asPath)} />
+        <meta
+          property="og:title"
+          content={`Edit ${post?.user?.username ?? "User"}'s snippet | Snipshare`}
+        />
+
+        <meta property="twitter:url" content={getAbsoluteURL(router.asPath)} />
+        <meta
+          property="twitter:title"
+          content={`Edit ${post?.user?.username ?? "User"}'s snippet | Snipshare`}
+        />
+      </Head>
+      <NewPostForm
+        editDescription={description}
+        editLanguage={snippets[0].language}
+        editSnippet={snippets[0].content}
+        post={data.post}
+      />
+    </>
   );
 };
 

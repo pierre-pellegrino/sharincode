@@ -21,8 +21,6 @@ const FormattedDescription = ({ description }) => {
       });
   };
 
-  console.log(HASHTAG_FORMATTER(description));
-
   return (
     <div className={descriptionStyle}>{HASHTAG_FORMATTER(description)}</div>
   );
