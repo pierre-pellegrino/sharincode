@@ -24,7 +24,6 @@ import { useEffect } from "react";
 
 const NewPostForm = ({
   editDescription,
-  editLanguage,
   editSnippet,
   post,
   closeModal,
@@ -35,18 +34,31 @@ const NewPostForm = ({
   const [_, setShowNewPostModalAtom] = useAtom(showNewPostModalAtom);
 
 
-  // const [snippet, setSnippet] = useState(editSnippet ?? "");
-  // const [selectedLanguage, setSelectedLanguage] = useState(() => {
-  //   if (!editLanguage) return `${LANGUAGES[0].name} ${LANGUAGES[0].mode}`;
-  //
-  //   const languageObj = LANGUAGES.filter(
-  //     (lang) => lang.name === editLanguage
-  //   )[0];
-  //
-  //   return `${languageObj.name} ${languageObj.mode}`;
-  // });
-  const [snippets, setSnippets] = useState([""])
-  const [selectedLanguages, setSelectedLanguages] = useState([`${LANGUAGES[0].name} ${LANGUAGES[0].mode}`])
+  const [selectedLanguages, setSelectedLanguages] = useState(() => {
+    if (!editSnippet) return `${LANGUAGES[0].name} ${LANGUAGES[0].mode}`;
+
+    const array = []
+    editSnippet.forEach((snippet) => {
+      const languageObj = LANGUAGES.filter(
+        (lang) => lang.name === snippet.language
+      )[0];
+
+      array.push(`${languageObj.name} ${languageObj.mode}`) ;
+    })
+    return array
+  });
+
+  const [snippets, setSnippets] = useState(() => {
+    if (!editSnippet) return [''];
+
+    const array = []
+
+    editSnippet.forEach((snippet) => {
+      array.push(snippet.content)
+    })
+
+    return array
+  })
 
   const [description, setDescription] = useState(
     createEditorStateWithText(editDescription ?? "")
@@ -55,7 +67,7 @@ const NewPostForm = ({
   const [btnValue, setBtnValue] = useState(
     editSnippet ? "Editer mon snippet" : "Partager mon code au monde ! 🚀"
   );
-  const [snippetCounter, setSnippetCounter] = useState(["1"])
+  const [snippetCounter, setSnippetCounter] = useState(editSnippet ? Array.from(Array(editSnippet.length).keys()) : [''])
 
   const hashtagPlugin = createHashtagPlugin({ hashtagComponent: HashtagLink });
 
@@ -135,7 +147,7 @@ const NewPostForm = ({
   };
 
   const handleSetSnippetCount = () => {
-    setSnippetCounter([...snippetCounter, '1'])
+    setSnippetCounter([...snippetCounter, ''])
     setSelectedLanguages([...selectedLanguages, `${LANGUAGES[0].name} ${LANGUAGES[0].mode}`])
   }
 

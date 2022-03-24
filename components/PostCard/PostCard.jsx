@@ -36,9 +36,7 @@ const PostCard = ({ post, detail, theme, page }) => {
   const [user] = useAtom(userAtom);
   const [isConnected] = useAtom(isConnectedAtom);
 
-  const language = post.snippets[0]?.language.replace(/^(\[")(.+)("])$/, "$2");
   const description = post.description;
-  const snippet = post.snippets[0]?.content || "There is no code yet.";
   const date = post.created_at;
   const author = post.user;
   const id = post.id;
@@ -47,7 +45,7 @@ const PostCard = ({ post, detail, theme, page }) => {
   const lightReacts = reactions.filter(react => react.reaction_id === 1);
   const loveReacts = reactions.filter(react => react.reaction_id === 2);
   const checkReacts = reactions.filter(react => react.reaction_id === 3);
-  const snippet_list = post.snippets
+  const snippetList = post.snippets
   const currentUserReact = reactions.filter(react => react.user_id === user?.user.id)[0]?.reaction_id || 0;
 
   const [displayActionsMenu, setDisplayActionsMenu] = useState(false);
@@ -88,8 +86,7 @@ const PostCard = ({ post, detail, theme, page }) => {
                   opened={displayActionsMenu}
                   postId={id}
                   description={description}
-                  language={language}
-                  snippet={snippet}
+                  snippetList={snippetList}
                   post={post}
                   setButtonDisabled={setButtonDisabled}
                 />
@@ -105,8 +102,7 @@ const PostCard = ({ post, detail, theme, page }) => {
                   opened={displayActionsMenu}
                   postId={id}
                   description={description}
-                  language={language}
-                  snippet={snippet}
+                  snippetList={snippetList}
                   post={post}
                   setButtonDisabled={setButtonDisabled}
                 />
@@ -117,7 +113,7 @@ const PostCard = ({ post, detail, theme, page }) => {
       <FormattedDescription description={description} />
       <div className={snippetStyle}>
         {
-          snippet_list.map((snippet) => (
+          snippetList.map((snippet) => (
             <div key={snippet.id} className={snippetStyle}>
               <p className={languageStyle}>{snippet.language}</p>
               <SnippetHighlighter
@@ -158,7 +154,7 @@ const PostCard = ({ post, detail, theme, page }) => {
               <p className={{ comment }}>Commenter</p>
             </a>
           </Link>
-          <ShareModal language={language} author={author} id={id}/>
+          <ShareModal language={snippetList[0].language} author={author} id={id}/>
         </div>
       </div>
     </div>
