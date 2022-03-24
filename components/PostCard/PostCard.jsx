@@ -40,7 +40,7 @@ import FormattedDescription from "./FormattedDescription";
 import APIManager from "pages/api/axios";
 import { useSWRConfig } from "swr";
 
-const PostCard = ({ post, detail, theme, page }) => {
+const PostCard = ({ post, detail, theme, page, mutate: mutateProfile }) => {
   const [user, setUser] = useAtom(userAtom);
   const [isConnected] = useAtom(isConnectedAtom);
 
@@ -81,19 +81,21 @@ const PostCard = ({ post, detail, theme, page }) => {
     if (!user) return;
     if (user?.user?.id === post?.user?.user_id) return;
 
-    setIsFavorite(user.favorite_posts.find((fav) => fav.post.id === id) !== undefined)
+    setIsFavorite(
+      user.favorite_posts.find((fav) => fav.post.id === id) !== undefined
+    );
   }, [id, post?.user?.user_id, user]);
 
   const handleAddFavorite = async () => {
     try {
       setIsFavorite(true);
       await APIManager.addFavorite(id);
-      
+
       const updatedUser = await APIManager.getMyProfile();
 
       await mutate("/posts");
       await mutate(`/posts/${id}`);
-      await mutate(`profiles/${user.user_id}`);
+      if (mutateProfile) mutateProfile();
       await setUser(updatedUser.data);
     } catch (err) {
       console.error(err);
@@ -113,7 +115,7 @@ const PostCard = ({ post, detail, theme, page }) => {
 
       await mutate("/posts");
       await mutate(`/posts/${id}`);
-      await mutate(`profiles/${user.user_id}`);
+      if (mutateProfile) mutateProfile();
       await setUser(updatedUser.data);
     } catch (err) {
       console.error(err);
