@@ -300,3 +300,17 @@
 .reactsModal.hidden {
   display: none;
 }
+
+.favorite {
+  border: none;
+  background-color: transparent;
+
+  svg {
+    height: 1.5rem;
+    opacity: 0.5;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

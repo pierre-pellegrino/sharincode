@@ -20,6 +20,7 @@ const ProfileTabMenu = ({
   isCurrentUser,
   mutate,
   posts,
+  favoritePosts,
 }) => {
   const [activeTab, setActiveTab] = useState(1);
   return (
@@ -38,7 +39,7 @@ const ProfileTabMenu = ({
             className={`${tab} ${activeTab === 2 && active}`}
             onClick={(e) => setActiveTab(2)}
           >
-            Snippets favoris
+            Snippets favoris ({favoritePosts.length})
           </h3>
         </div>
         {isCurrentUser && (
@@ -67,7 +68,14 @@ const ProfileTabMenu = ({
             })
           ))}
 
-        {activeTab === 2 && <p> Aucun snippet favori ! </p>}
+        {activeTab === 2 &&
+          (favoritePosts.length === 0 ? (
+            <p> Aucun snippet favori ! </p>
+          ) : (
+            favoritePosts.map((post) => (
+              <PostCard post={post.post} mutate={mutate} key={post.post.id} />
+            ))
+          ))}
         {activeTab === 3 && (
           <>
           <EditUserForm

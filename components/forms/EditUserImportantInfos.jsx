@@ -1,6 +1,4 @@
 import {
-  USERNAME_REGEX,
-  EMAIL_REGEX,
   PWD_REGEX,
 } from "lib/constants/validations";
 import { useEffect, useRef, useState } from "react";
@@ -83,9 +81,10 @@ const EditUserImportantInfos = ({user}) => {
 
     try {
       const response = await APIManager.updatePwd(data);
+      
       setSuccess(true);
       setUser(response.data);
-      // router.push("/");
+      router.push("/");
     } catch (err) {
       setBtnValue("éditer mon mot de passe");
 

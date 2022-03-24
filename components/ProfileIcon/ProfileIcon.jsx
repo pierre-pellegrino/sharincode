@@ -50,7 +50,7 @@ const ProfileIcon = ({user, type}) => {
       <div className={`${profileIcon} ${type && profilePage}`}>
         <div className={profileIconPicture}>
           {!type ? (
-            <Link href={`profile/${user?.user_id ?? ''}`}>
+            <Link href={`/profile/${user?.user_id ?? ''}`}>
               <a>
                 <Image 
                   src={ user && user.avatar || "/profile.jpeg"}
@@ -71,7 +71,7 @@ const ProfileIcon = ({user, type}) => {
         </div>
         <div className={profileIconText}>
           {!type ? (
-            <Link href={`profile/${user?.user_id ?? ''}`}>
+            <Link href={`/profile/${user?.user_id ?? ''}`}>
               <a>
                 <p>{user?.username || user?.user.username || "Pseudonyme"}</p>
               </a>
