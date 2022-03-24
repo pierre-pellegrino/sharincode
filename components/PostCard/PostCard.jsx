@@ -29,6 +29,7 @@ import PostActionsModal from "components/PostActionsModal";
 import { userAtom, isConnectedAtom } from "store";
 import { useAtom } from "jotai";
 import ReactionsModal from "components/ReactionsModal/ReactionsModal";
+import ShareModal from "components/ShareModal/ShareModal";
 import FormattedDescription from "./FormattedDescription";
 
 const PostCard = ({ post, detail, theme, page }) => {
@@ -155,7 +156,7 @@ const PostCard = ({ post, detail, theme, page }) => {
               <p className={{ comment }}>Commenter</p>
             </a>
           </Link>
-          <p className={btn}>Partager</p>
+          <ShareModal language={language} author={author} id={id}/>
         </div>
       </div>
     </div>
