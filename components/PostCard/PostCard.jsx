@@ -29,6 +29,8 @@ import PostActionsModal from "components/PostActionsModal";
 import { userAtom, isConnectedAtom } from "store";
 import { useAtom } from "jotai";
 import ReactionsModal from "components/ReactionsModal/ReactionsModal";
+import ShareModal from "components/ShareModal/ShareModal";
+import FormattedDescription from "./FormattedDescription";
 
 const PostCard = ({ post, detail, theme, page }) => {
   const [user] = useAtom(userAtom);
@@ -111,11 +113,12 @@ const PostCard = ({ post, detail, theme, page }) => {
             ))}
         </div>
       </div>
-      <Link href={`/posts/${id}`} passHref>
+      {/* <Link href={`/posts/${id}`} passHref>
         <div className={descriptionStyle}>
           <a>{description}</a>
         </div>
-      </Link>
+      </Link> */}
+      <FormattedDescription description={description} />
       <div className={snippetStyle}>
         <p className={languageStyle}>{language}</p>
         <SnippetHighlighter
@@ -147,13 +150,13 @@ const PostCard = ({ post, detail, theme, page }) => {
           </Link>
         </div>
         <div className={btnsWrapper}>
-          {isConnected && <ReactionsModal postId={id} reactions={reactions} page={page}/>}
+          {isConnected && <ReactionsModal postId={id} reactions={reactions} page={page} userId={author.user_id}/>}
           <Link href={`/posts/${id}`}>
             <a className={btn}>
               <p className={{ comment }}>Commenter</p>
             </a>
           </Link>
-          <p className={btn}>Partager</p>
+          <ShareModal language={language} author={author} id={id}/>
         </div>
       </div>
     </div>

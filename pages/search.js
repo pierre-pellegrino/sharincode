@@ -4,6 +4,8 @@ import PostCard from "components/PostCard/PostCard";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import APIManager from "./api/axios";
+import Head from "next/head";
+import { getAbsoluteURL } from "lib/getAbsoluteURL";
 
 const Search = () => {
   const router = useRouter();
@@ -13,13 +15,13 @@ const Search = () => {
 
   const searchQuery = async () => {
     try {
-      const response = await APIManager.search({ language: query["language"] });
+      const response = await APIManager.search(query["q"]);
       setPosts(response.data.posts);
     } catch (err) {
-      console.error(err.response);
+      console.error(err);
     }
   };
-  
+
   if (query !== {} && query !== previousQuery) {
     setPreviousQuery(query);
     searchQuery();
@@ -28,15 +30,32 @@ const Search = () => {
   let content = <Loader />;
 
   if (posts) {
-    content = posts.map((post) => <PostCard post={post.post} key={post.post.id} />);
+    content = posts.map((post) => (
+      <PostCard post={post.post} key={post.post.id} />
+    ));
   }
 
   return (
-    <div className={styles.main}>
-      Résultats de la recherche : {router.query["language"]}
-      {content}
-    </div>
+    <>
+      <Head>
+        <title>Recherche | Snipshare</title>
+        <meta name="title" content="Recherche | Snipshare" />
+
+        <meta property="og:url" content={getAbsoluteURL(router.asPath)} />
+        <meta property="og:title" content="Recherche | Snipshare" />
+
+        <meta
+          property="twitter:url"
+          content={getAbsoluteURL(router.asPath)}
+        />
+        <meta property="twitter:title" content="Recherche | Snipshare" />
+      </Head>
+      <div className={styles.main}>
+        Résultats de la recherche : {router.query["q"]}
+        {content}
+      </div>
+    </>
   );
-}
+};
 
 export default Search;

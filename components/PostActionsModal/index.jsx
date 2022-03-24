@@ -1,6 +1,7 @@
 import cn from "classnames";
 import NewPostModal from "components/NewPostModal";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import APIManager from "pages/api/axios";
 import { useState } from "react";
 import { useMediaQuery } from "react-responsive";
@@ -26,11 +27,13 @@ const PostActionsModal = (props) => {
   const { mutate } = useSWRConfig();
   const [displayEditModal, setDisplayEditModal] = useState(false);
   const middleBreakpoint = useMediaQuery({ query: "(max-width: 1000px)" });
+  const router = useRouter();
 
   const handleDelete = async () => {
     try {
       await APIManager.deletePost(postId);
       await mutate("/posts");
+      router.replace("/");
     } catch (e) {
       console.error(e.response);
     }

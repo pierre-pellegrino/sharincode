@@ -49,7 +49,7 @@ const Searchbar = () => {
       const selected = suggestions[cursor];
 
       handleSearch();
-      router.push(`/search?language=${selected}`);
+      router.push(`/search?q=${selected}`);
     }
   }, [searchBySuggestion, cursor, enterPress, inputFocused, router, suggestions]);
 
@@ -78,7 +78,7 @@ const Searchbar = () => {
     if (!query) return;
 
     handleSearch();
-    router.push(`/search?language=${query}`);
+    router.push(`/search?q=${query}`);
   };
 
   return (
@@ -112,7 +112,7 @@ const Searchbar = () => {
             onMouseLeave={() => setHovered(undefined)}
           >
             <Link
-              href={{ pathname: "/search", query: { language: suggestion } }}
+              href={{ pathname: "/search", query: { q: suggestion } }}
             >
               <a onClick={handleSearch}>{suggestion}</a>
             </Link>
