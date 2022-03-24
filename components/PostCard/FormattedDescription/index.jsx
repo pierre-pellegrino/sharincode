@@ -10,7 +10,7 @@ const FormattedDescription = ({ description }) => {
         if (word.includes("#")) {
           return (
             <Link
-              href={{ pathname: "/search", query: { q: word.substring(2) } }}
+              href={{ pathname: "/search", query: { q: word.replace("#", "").trim() } }}
             >
               <a className="txt-primary">{word}</a>
             </Link>

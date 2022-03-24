@@ -107,6 +107,8 @@ const NewPostForm = ({
         tags,
       };
 
+      console.log(data);
+
       const response = await APIManager.editPost(post.id, data);
 
       await mutate("/posts");
