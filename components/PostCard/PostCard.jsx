@@ -1,4 +1,10 @@
-import { ApprovalIcon, LikeIcon, IdeaIcon } from "components/icons";
+import {
+  ApprovalIcon,
+  LikeIcon,
+  IdeaIcon,
+  StarIconOutlined,
+  StarIcon,
+} from "components/icons";
 import React, { useEffect, useState } from "react";
 import ProfileIcon from "../ProfileIcon/ProfileIcon";
 import SnippetHighlighter from "../SnippetHighlighter/SnippetHighlighter";
@@ -6,7 +12,6 @@ import Link from "next/link";
 import {
   postCardWrapper,
   top,
-  description as descriptionStyle,
   snippet as snippetStyle,
   bottom,
   btnsWrapper,
@@ -21,6 +26,7 @@ import {
   topRight,
   language as languageStyle,
   menuDisabled,
+  favorite,
 } from "./post_card.module.scss";
 import { formatDistanceToNow } from "date-fns";
 import { en, fr } from "date-fns/locale";
@@ -31,9 +37,11 @@ import { useAtom } from "jotai";
 import ReactionsModal from "components/ReactionsModal/ReactionsModal";
 import ShareModal from "components/ShareModal/ShareModal";
 import FormattedDescription from "./FormattedDescription";
+import APIManager from "pages/api/axios";
+import { useSWRConfig } from "swr";
 
-const PostCard = ({ post, detail, theme, page }) => {
-  const [user] = useAtom(userAtom);
+const PostCard = ({ post, detail, theme, page, mutate: mutateProfile }) => {
+  const [user, setUser] = useAtom(userAtom);
   const [isConnected] = useAtom(isConnectedAtom);
 
   const description = post.description;
@@ -42,15 +50,22 @@ const PostCard = ({ post, detail, theme, page }) => {
   const id = post.id;
   const commentNb = post.comments;
   const reactions = post.reactions;
+
   const lightReacts = reactions.filter(react => react.reaction_id === 1);
   const loveReacts = reactions.filter(react => react.reaction_id === 2);
   const checkReacts = reactions.filter(react => react.reaction_id === 3);
   const snippetList = post.snippets
-  const currentUserReact = reactions.filter(react => react.user_id === user?.user.id)[0]?.reaction_id || 0;
+  const currentUserReact =
+    reactions.filter((react) => react.user_id === user?.user.id)[0]
+      ?.reaction_id || 0;
 
   const [displayActionsMenu, setDisplayActionsMenu] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const nbOfComments = commentNb.reduce((acc, i) => (acc += 1), 0);
+
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const { mutate } = useSWRConfig();
 
   useEffect(() => {
     if (!displayActionsMenu) return;
@@ -61,6 +76,51 @@ const PostCard = ({ post, detail, theme, page }) => {
 
     return () => window.removeEventListener("click", handleClick);
   }, [displayActionsMenu]);
+
+  useEffect(() => {
+    if (!user) return;
+    if (user?.user?.id === post?.user?.user_id) return;
+
+    setIsFavorite(
+      user.favorite_posts.find((fav) => fav.post.id === id) !== undefined
+    );
+  }, [id, post?.user?.user_id, user]);
+
+  const handleAddFavorite = async () => {
+    try {
+      setIsFavorite(true);
+      await APIManager.addFavorite(id);
+
+      const updatedUser = await APIManager.getMyProfile();
+
+      await mutate("/posts");
+      await mutate(`/posts/${id}`);
+      if (mutateProfile) mutateProfile();
+      await setUser(updatedUser.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleRemoveFavorite = async () => {
+    try {
+      setIsFavorite(false);
+      const favoriteId = user.favorite_posts.find(
+        (fav) => fav.post.id === id
+      ).favorite_id;
+
+      await APIManager.removeFavorite(favoriteId);
+
+      const updatedUser = await APIManager.getMyProfile();
+
+      await mutate("/posts");
+      await mutate(`/posts/${id}`);
+      if (mutateProfile) mutateProfile();
+      await setUser(updatedUser.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <div
@@ -108,6 +168,17 @@ const PostCard = ({ post, detail, theme, page }) => {
                 />
               </div>
             ))}
+          {user &&
+            user.user.id !== post.user.user_id &&
+            (isFavorite ? (
+              <button className={favorite} onClick={handleRemoveFavorite}>
+                <StarIcon />
+              </button>
+            ) : (
+              <button className={favorite} onClick={handleAddFavorite}>
+                <StarIconOutlined />
+              </button>
+            ))}
         </div>
       </div>
       <FormattedDescription description={description} />
@@ -129,15 +200,21 @@ const PostCard = ({ post, detail, theme, page }) => {
         <div className={reactsWrapper}>
           <div className={reacts}>
             <div className={reactItem}>
-              <p className={currentUserReact === 1 ? "txt-primary" : ""}>{lightReacts.length}</p>
+              <p className={currentUserReact === 1 ? "txt-primary" : ""}>
+                {lightReacts.length}
+              </p>
               <IdeaIcon />
             </div>
             <div className={reactItem}>
-              <p className={currentUserReact === 2 ? "txt-primary" : ""}>{loveReacts.length}</p>
+              <p className={currentUserReact === 2 ? "txt-primary" : ""}>
+                {loveReacts.length}
+              </p>
               <LikeIcon />
             </div>
             <div className={reactItem}>
-              <p className={currentUserReact === 3 ? "txt-primary" : ""}>{checkReacts.length}</p>
+              <p className={currentUserReact === 3 ? "txt-primary" : ""}>
+                {checkReacts.length}
+              </p>
               <ApprovalIcon />
             </div>
           </div>
@@ -148,7 +225,14 @@ const PostCard = ({ post, detail, theme, page }) => {
           </Link>
         </div>
         <div className={btnsWrapper}>
-          {isConnected && <ReactionsModal postId={id} reactions={reactions} page={page} userId={author.user_id}/>}
+          {isConnected && (
+            <ReactionsModal
+              postId={id}
+              reactions={reactions}
+              page={page}
+              userId={author.user_id}
+            />
+          )}
           <Link href={`/posts/${id}`}>
             <a className={btn}>
               <p className={{ comment }}>Commenter</p>
