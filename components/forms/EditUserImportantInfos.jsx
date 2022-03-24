@@ -26,7 +26,6 @@ import { EyeIcon } from "components/icons";
 import { EyeOffIcon } from "components/icons";
 
 const EditUserImportantInfos = ({user}) => {
-  console.log(user)
   const router = useRouter();
 
   const errors = useRef();
@@ -44,7 +43,7 @@ const EditUserImportantInfos = ({user}) => {
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
 
-  const [btnValue, setBtnValue] = useState("Éditer le mot de passe");
+  const [btnValue, setBtnValue] = useState("Éditer mon mot de passe");
 
   const canSave = [validPwd, validPwdConfirm].every(
     Boolean
@@ -85,11 +84,10 @@ const EditUserImportantInfos = ({user}) => {
     try {
       const response = await APIManager.updatePwd(data);
       setSuccess(true);
-      console.log(response)
       setUser(response.data);
       // router.push("/");
     } catch (err) {
-      setBtnValue("éditer");
+      setBtnValue("éditer mon mot de passe");
 
       if (!err?.response) {
         setErrMsg("Oups ! Pas de réponse du serveur...");

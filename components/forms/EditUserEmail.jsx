@@ -81,7 +81,8 @@ const EditUserEmail = () => {
       const response = await APIManager.updateEmail(data);
       setSuccess(true);
       setUser(response.data);
-      // router.push("/");
+      console.log(data)
+      router.push("/");
     } catch (err) {
       setBtnValue("éditer mon adresse mail");
 
