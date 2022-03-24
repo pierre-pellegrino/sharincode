@@ -1,4 +1,10 @@
-import { ApprovalIcon, LikeIcon, IdeaIcon } from "components/icons";
+import {
+  ApprovalIcon,
+  LikeIcon,
+  IdeaIcon,
+  StarIconOutlined,
+  StarIcon,
+} from "components/icons";
 import React, { useEffect, useState } from "react";
 import ProfileIcon from "../ProfileIcon/ProfileIcon";
 import SnippetHighlighter from "../SnippetHighlighter/SnippetHighlighter";
@@ -6,7 +12,6 @@ import Link from "next/link";
 import {
   postCardWrapper,
   top,
-  description as descriptionStyle,
   snippet as snippetStyle,
   bottom,
   btnsWrapper,
@@ -21,6 +26,7 @@ import {
   topRight,
   language as languageStyle,
   menuDisabled,
+  favorite,
 } from "./post_card.module.scss";
 import { formatDistanceToNow } from "date-fns";
 import { en, fr } from "date-fns/locale";
@@ -31,6 +37,7 @@ import { useAtom } from "jotai";
 import ReactionsModal from "components/ReactionsModal/ReactionsModal";
 import ShareModal from "components/ShareModal/ShareModal";
 import FormattedDescription from "./FormattedDescription";
+import APIManager from "pages/api/axios";
 
 const PostCard = ({ post, detail, theme, page }) => {
   const [user] = useAtom(userAtom);
@@ -44,10 +51,12 @@ const PostCard = ({ post, detail, theme, page }) => {
   const id = post.id;
   const commentNb = post.comments;
   const reactions = post.reactions;
-  const lightReacts = reactions.filter(react => react.reaction_id === 1);
-  const loveReacts = reactions.filter(react => react.reaction_id === 2);
-  const checkReacts = reactions.filter(react => react.reaction_id === 3);
-  const currentUserReact = reactions.filter(react => react.user_id === user?.user.id)[0]?.reaction_id || 0;
+  const lightReacts = reactions.filter((react) => react.reaction_id === 1);
+  const loveReacts = reactions.filter((react) => react.reaction_id === 2);
+  const checkReacts = reactions.filter((react) => react.reaction_id === 3);
+  const currentUserReact =
+    reactions.filter((react) => react.user_id === user?.user.id)[0]
+      ?.reaction_id || 0;
 
   const [displayActionsMenu, setDisplayActionsMenu] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
@@ -62,6 +71,16 @@ const PostCard = ({ post, detail, theme, page }) => {
 
     return () => window.removeEventListener("click", handleClick);
   }, [displayActionsMenu]);
+
+  const handleAddFavorite = async () => {
+    try {
+      const response = await APIManager.addFavorite(id);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleRemoveFavorite = () => {};
 
   return (
     <div
@@ -91,13 +110,13 @@ const PostCard = ({ post, detail, theme, page }) => {
                   snippet={snippet}
                   post={post}
                   setButtonDisabled={setButtonDisabled}
-                />
+                  />
               </div>
             ) : (
               <div
-                role="button"
-                className={actionsMenu}
-                onClick={() => setDisplayActionsMenu(true)}
+              role="button"
+              className={actionsMenu}
+              onClick={() => setDisplayActionsMenu(true)}
               >
                 <ThreeDotsIcon />
                 <PostActionsModal
@@ -111,13 +130,19 @@ const PostCard = ({ post, detail, theme, page }) => {
                 />
               </div>
             ))}
+          {user &&
+            user.user.id !== post.user.user_id &&
+            (user.favorite_posts.find((fav) => fav.post.id === id) ? (
+              <button className={favorite} onClick={handleRemoveFavorite}>
+                <StarIcon />
+              </button>
+            ) : (
+              <button className={favorite} onClick={handleAddFavorite}>
+                <StarIconOutlined />
+              </button>
+            ))}
         </div>
       </div>
-      {/* <Link href={`/posts/${id}`} passHref>
-        <div className={descriptionStyle}>
-          <a>{description}</a>
-        </div>
-      </Link> */}
       <FormattedDescription description={description} />
       <div className={snippetStyle}>
         <p className={languageStyle}>{language}</p>
@@ -131,15 +156,21 @@ const PostCard = ({ post, detail, theme, page }) => {
         <div className={reactsWrapper}>
           <div className={reacts}>
             <div className={reactItem}>
-              <p className={currentUserReact === 1 ? "txt-primary" : ""}>{lightReacts.length}</p>
+              <p className={currentUserReact === 1 ? "txt-primary" : ""}>
+                {lightReacts.length}
+              </p>
               <IdeaIcon />
             </div>
             <div className={reactItem}>
-              <p className={currentUserReact === 2 ? "txt-primary" : ""}>{loveReacts.length}</p>
+              <p className={currentUserReact === 2 ? "txt-primary" : ""}>
+                {loveReacts.length}
+              </p>
               <LikeIcon />
             </div>
             <div className={reactItem}>
-              <p className={currentUserReact === 3 ? "txt-primary" : ""}>{checkReacts.length}</p>
+              <p className={currentUserReact === 3 ? "txt-primary" : ""}>
+                {checkReacts.length}
+              </p>
               <ApprovalIcon />
             </div>
           </div>
@@ -150,13 +181,20 @@ const PostCard = ({ post, detail, theme, page }) => {
           </Link>
         </div>
         <div className={btnsWrapper}>
-          {isConnected && <ReactionsModal postId={id} reactions={reactions} page={page} userId={author.user_id}/>}
+          {isConnected && (
+            <ReactionsModal
+              postId={id}
+              reactions={reactions}
+              page={page}
+              userId={author.user_id}
+            />
+          )}
           <Link href={`/posts/${id}`}>
             <a className={btn}>
               <p className={{ comment }}>Commenter</p>
             </a>
           </Link>
-          <ShareModal language={language} author={author} id={id}/>
+          <ShareModal language={language} author={author} id={id} />
         </div>
       </div>
     </div>
