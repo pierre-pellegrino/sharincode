@@ -13,7 +13,7 @@ export default function Home() {
   const router = useRouter();
   const [isVisible, setIsVisible] = useState(false);
   const page = 1;
-  const { data, error, isValidating, mutate } = useSWR("/posts", () =>
+  const { data, error } = useSWR("/posts", () =>
     APIManager.fetcher(`/posts?page=${page}`)
   );
 
