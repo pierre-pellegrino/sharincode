@@ -29,6 +29,8 @@ import PostActionsModal from "components/PostActionsModal";
 import { userAtom, isConnectedAtom } from "store";
 import { useAtom } from "jotai";
 import ReactionsModal from "components/ReactionsModal/ReactionsModal";
+import ShareModal from "components/ShareModal/ShareModal";
+import FormattedDescription from "./FormattedDescription";
 
 const PostCard = ({ post, detail, theme, page }) => {
   const [user] = useAtom(userAtom);
@@ -46,6 +48,7 @@ const PostCard = ({ post, detail, theme, page }) => {
   const loveReacts = reactions.filter(react => react.reaction_id === 2);
   const checkReacts = reactions.filter(react => react.reaction_id === 3);
   const snippet_list = post.snippets
+  const currentUserReact = reactions.filter(react => react.user_id === user?.user.id)[0]?.reaction_id || 0;
 
   const [displayActionsMenu, setDisplayActionsMenu] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
@@ -111,38 +114,35 @@ const PostCard = ({ post, detail, theme, page }) => {
             ))}
         </div>
       </div>
-      <Link href={`/posts/${id}`} passHref>
-        <div className={descriptionStyle}>
-          <a>{description}</a>
-        </div>
-      </Link>
-
-      {
-        snippet_list.map((snippet) => (
-          <div key={snippet.id} className={snippetStyle}>
-            <p className={languageStyle}>{snippet.language}</p>
-            <SnippetHighlighter
-              snippet={snippet.content}
-              language={snippet.language}
-              theme={theme}
-            />
-          </div>
-        ))
-      }
-
+      <FormattedDescription description={description} />
+      <div className={snippetStyle}>
+        <p className={languageStyle}>{language}</p>
+        {
+          snippet_list.map((snippet) => (
+            <div key={snippet.id} className={snippetStyle}>
+              <p className={languageStyle}>{snippet.language}</p>
+              <SnippetHighlighter
+                snippet={snippet.content}
+                language={snippet.language}
+                theme={theme}
+              />
+            </div>
+          ))
+        }
+      </div>
       <div className={bottom}>
         <div className={reactsWrapper}>
           <div className={reacts}>
             <div className={reactItem}>
-              <p>{lightReacts.length}</p>
+              <p className={currentUserReact === 1 ? "txt-primary" : ""}>{lightReacts.length}</p>
               <IdeaIcon />
             </div>
             <div className={reactItem}>
-              <p>{loveReacts.length}</p>
+              <p className={currentUserReact === 2 ? "txt-primary" : ""}>{loveReacts.length}</p>
               <LikeIcon />
             </div>
             <div className={reactItem}>
-              <p>{checkReacts.length}</p>
+              <p className={currentUserReact === 3 ? "txt-primary" : ""}>{checkReacts.length}</p>
               <ApprovalIcon />
             </div>
           </div>
@@ -153,13 +153,13 @@ const PostCard = ({ post, detail, theme, page }) => {
           </Link>
         </div>
         <div className={btnsWrapper}>
-          {isConnected && <ReactionsModal postId={id} reactions={reactions} page={page}/>}
+          {isConnected && <ReactionsModal postId={id} reactions={reactions} page={page} userId={author.user_id}/>}
           <Link href={`/posts/${id}`}>
             <a className={btn}>
               <p className={{ comment }}>Commenter</p>
             </a>
           </Link>
-          <p className={btn}>Partager</p>
+          <ShareModal language={language} author={author} id={id}/>
         </div>
       </div>
     </div>

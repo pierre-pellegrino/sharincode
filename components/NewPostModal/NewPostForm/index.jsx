@@ -1,15 +1,26 @@
 import EditorContainer from "components/EditorContainer";
 import { LANGUAGES } from "lib/constants/languages";
 import { useRef, useState } from "react";
-import { form, inputWrapper } from "../new_post_modal.module.scss";
+import {
+  form,
+  inputWrapper,
+  descriptionEditor,
+} from "../new_post_modal.module.scss";
 import { btn } from "components/forms/form.module.scss";
-import { useEffect } from "react";
 import APIManager from "pages/api/axios";
 import { useRouter } from "next/router";
 import { useAtom } from "jotai";
 import { showNewPostModalAtom } from "store";
 import { useSWRConfig } from "swr";
 import NewSnippetForm from "./NewSnippetForm";
+import DescriptionEditor, {
+  createEditorStateWithText,
+} from "@draft-js-plugins/editor";
+import createHashtagPlugin, {
+  extractHashtagsWithIndices,
+} from "@draft-js-plugins/hashtag";
+import HashtagLink from "components/Hashtag";
+import { useEffect } from "react";
 
 const NewPostForm = ({
   editDescription,
@@ -23,7 +34,7 @@ const NewPostForm = ({
   const router = useRouter();
   const [_, setShowNewPostModalAtom] = useAtom(showNewPostModalAtom);
 
-  const [description, setDescription] = useState(editDescription ?? "");
+
   // const [snippet, setSnippet] = useState(editSnippet ?? "");
   // const [selectedLanguage, setSelectedLanguage] = useState(() => {
   //   if (!editLanguage) return `${LANGUAGES[0].name} ${LANGUAGES[0].mode}`;
@@ -36,16 +47,19 @@ const NewPostForm = ({
   // });
   const [snippets, setSnippets] = useState([""])
   const [selectedLanguages, setSelectedLanguages] = useState([`${LANGUAGES[0].name} ${LANGUAGES[0].mode}`])
+
+  const [description, setDescription] = useState(
+    createEditorStateWithText(editDescription ?? "")
+  );
+
   const [btnValue, setBtnValue] = useState(
     editSnippet ? "Editer mon snippet" : "Partager mon code au monde ! 🚀"
   );
   const [snippetCounter, setSnippetCounter] = useState(["1"])
 
-  const { mutate } = useSWRConfig();
+  const hashtagPlugin = createHashtagPlugin({ hashtagComponent: HashtagLink });
 
-  useEffect(() => {
-    descriptionRef.current.focus();
-  }, []);
+  const { mutate } = useSWRConfig();
 
   const canSave = [
     snippets[0],
@@ -61,31 +75,35 @@ const NewPostForm = ({
 
       setBtnValue(editSnippet ? "Edition en cours..." : "Création en cours...");
 
+      const tags = extractHashtagsWithIndices(
+        description.getCurrentContent().getPlainText()
+      ).map((tag) => tag.hashtag);
+
       if (!editSnippet) {
         const data = {
-          description: description,
+          description: description.getCurrentContent().getPlainText(),
           snippets: [
             {
               content: snippets[0],
               language: selectedLanguage[0].split(" ").slice(0, -1).join(" "),
             },
           ],
-          tags: [],
+          tags,
         };
 
         const response = await APIManager.createPost(data);
         setShowNewPostModalAtom(false);
 
         await mutate("/posts");
-        
+
         router.push(`/posts/${response.data.post.id}`);
-        
+
         return;
       }
-      
+
       const data = {
         ...post,
-        description,
+        description: description.getCurrentContent().getPlainText(),
         snippets: [
           {
             ...post.snippets[0],
@@ -93,13 +111,13 @@ const NewPostForm = ({
             language: selectedLanguage[0].split(" ").slice(0, -1).join(" "),
           },
         ],
+        tags,
       };
-      
+
       const response = await APIManager.editPost(post.id, data);
-      
-      await mutate(`/posts/${post.id}`);
+
       await mutate("/posts");
-      
+
       closeModal();
       setButtonDisabled(false);
 
@@ -133,14 +151,13 @@ const NewPostForm = ({
     <form className={form} onSubmit={handleSubmit} style={{overflow: 'auto'}}>
       <div className={inputWrapper}>
         <label htmlFor="description">Description</label>
-        <textarea
-          name="description"
-          id="description"
-          ref={descriptionRef}
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-          required
-        />
+        <div className={descriptionEditor}>
+          <DescriptionEditor
+            editorState={description}
+            onChange={setDescription}
+            plugins={[hashtagPlugin]}
+          />
+        </div>
       </div>
       {
         snippetCounter.map((e, index) => (

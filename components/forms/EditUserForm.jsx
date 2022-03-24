@@ -6,6 +6,8 @@ import {
   btn,
   deleteAccount,
   favoriteTheme,
+  userPictureWrapper,
+  userPicture,
 } from "./form.module.scss";
 import APIManager from "pages/api/axios";
 import { useRouter } from "next/router";
@@ -13,8 +15,10 @@ import { useAtom } from "jotai";
 import { userAtom } from "store";
 import ThemeSelect from "components/ThemeSelect";
 import { preferedThemeAtom } from "store";
+import Image from "next/image";
+import EditAvatarModal from "../EditAvatarModal/EditAvatarModal";
 
-const EditUserForm = ({ user, mutate }) => {
+const EditUserForm = ({ user, mutate, userAvatar, userId }) => {
   const [_, setUser] = useAtom(userAtom);
 
   const [errMsg, setErrMsg] = useState("");
@@ -25,6 +29,7 @@ const EditUserForm = ({ user, mutate }) => {
 
   const [btnValue, setBtnValue] = useState("Editer");
   const [preferedTheme] = useAtom(preferedThemeAtom);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const handleDeleteAccount = () => {
     if (confirm("Êtes-vous sûr ?\nCette action est irréversible.")) {
@@ -34,21 +39,31 @@ const EditUserForm = ({ user, mutate }) => {
     }
   };
 
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
+
   const router = useRouter();
 
   useEffect(() => {
     if (user && user.favorite_theme !== preferedTheme) {
       try {
         APIManager.updateProfile({
-          user: {
-            favorite_theme: preferedTheme,
-          }
+          ...user,
+          favorite_theme: preferedTheme,
         });
       } catch (err) {
         console.error(err.response);
       }
     }
-  })
+  }, [preferedTheme, user]);
+
+  // useEffect(() => {
+  //   if (!modalOpen) return;
+  //   const handleClick = () => setModalOpen(false);
+  //   window.addEventListener("click", handleClick);
+  //   return () => window.removeEventListener("click", handleClick);
+  // }, [modalOpen]);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -56,10 +71,11 @@ const EditUserForm = ({ user, mutate }) => {
     setBtnValue("Edition en cours...");
 
     const data = {
-        username: user?.username,
-        description: description,
-        github_url: github,
-        personal_url: personal
+      username: user?.username,
+      description: description,
+      github_url: github,
+      personal_url: personal,
+      favorite_theme: preferedTheme,
     };
 
     try {
@@ -69,19 +85,31 @@ const EditUserForm = ({ user, mutate }) => {
       setBtnValue("Editer");
     } catch (err) {
       setBtnValue("Editer");
-      
+
       if (!err?.response) {
         setErrMsg("Oups ! Pas de réponse du serveur...");
       } else {
         setErrMsg(err.response.data.message);
       }
     }
-
   };
 
   return (
     <>
-      <form className={form} onSubmit={handleUpdate}>
+      <div className={userPictureWrapper} onClick={() => setModalOpen(true)}>
+        <Image
+          className={userPicture}
+          src={userAvatar || "/profile.jpeg"}
+          alt="Profile Picture"
+          height={128}
+          width={128}
+        />
+        <p>Modifier mon avatar</p>
+      </div>
+      {modalOpen && (
+        <EditAvatarModal closeModal={handleCloseModal} userId={userId} />
+      )}
+      <form className={`${form} links-form`} onSubmit={handleUpdate}>
         {success && <p>Modifications enregistrées !</p>}
 
         <p aria-live="assertive">{errMsg}</p>

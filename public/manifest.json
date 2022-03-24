@@ -4,8 +4,8 @@
     "display": "standalone",
     "scope": "/",
     "start_url": "/",
-    "name": "SnipShare",
-    "short_name": "SnipShare",
+    "name": "Snipshare",
+    "short_name": "Snipshare",
     "description": "The snippets social network",
     "icons": [
         {

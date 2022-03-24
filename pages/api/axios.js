@@ -1,6 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
+
 const baseurl = "https://snipshare-api-staging.herokuapp.com";
 // const baseurl = 'https://snipshare-api.herokuapp.com'
 // const baseurl = 'https://staging-xs3.herokuapp.com'
@@ -109,14 +110,13 @@ export default class APIManager {
     const response = await APIRequest.delete(endpoint);
     return response;
   }
-
-  static async search({ language }) {
+  static async search(query) {
     const endpoint = "/searches";
-    const formattedQuery = language.replace(" ", "_");
+    const formattedQuery = query.replace(" ", "_");
     const response = await APIRequest.get(endpoint, {
       params: {
         keywords: formattedQuery,
-        in: "languages",
+        in: "all",
       },
     });
 
@@ -132,6 +132,17 @@ export default class APIManager {
   static async addReaction(postId, data) {
     const endpoint = `/posts/${postId}/post_reactions`;
     const response = await APIRequest.post(endpoint, data);
+    return response;
+  }
+
+  static async logFromGithub(code) {
+    const endpoint = "/auth";
+    const response = await APIRequest.get(endpoint, {
+      params: {
+        code,
+      }
+    })
+    Cookies.set("token", response.headers.authorization);
     return response;
   }
 
