@@ -44,23 +44,23 @@ const CommentEdit = () => {
     <>
       <Head>
         <title>
-          Edit {post?.user?.username ?? "User"}&apos;s snippet | Snipshare
+          Edit {data.post?.user?.username ?? "User"}&apos;s snippet | Snipshare
         </title>
         <meta
           name="title"
-          content={`Edit ${post?.user?.username ?? "User"}'s snippet | Snipshare`}
+          content={`Edit ${data.post?.user?.username ?? "User"}'s snippet | Snipshare`}
         />
 
         <meta property="og:url" content={getAbsoluteURL(router.asPath)} />
         <meta
           property="og:title"
-          content={`Edit ${post?.user?.username ?? "User"}'s snippet | Snipshare`}
+          content={`Edit ${data.post?.user?.username ?? "User"}'s snippet | Snipshare`}
         />
 
         <meta property="twitter:url" content={getAbsoluteURL(router.asPath)} />
         <meta
           property="twitter:title"
-          content={`Edit ${post?.user?.username ?? "User"}'s snippet | Snipshare`}
+          content={`Edit ${data.post?.user?.username ?? "User"}'s snippet | Snipshare`}
         />
       </Head>
       <NewPostForm

@@ -29,7 +29,13 @@ const PostActionsModal = (props) => {
   const middleBreakpoint = useMediaQuery({ query: "(max-width: 1000px)" });
   const router = useRouter();
 
+  const handleEditClick = async () => {
+    if (middleBreakpoint) return router.push(`/posts/${postId}/edit`);
+    setDisplayEditModal(true);
+  };
+
   const handleDelete = async () => {
+    if (!confirm("Êtes-vous sûr de vouloir supprimer ce snippet ?")) return;
     try {
       await APIManager.deletePost(postId);
       await mutate("/posts");
@@ -56,17 +62,9 @@ const PostActionsModal = (props) => {
         />
       )}
       <ul className={navItems}>
-        {middleBreakpoint ? (
-          <li className={navItem}>
-            <Link href={`/posts/${postId}/edit`}>
-              <a>Editer</a>
-            </Link>
-          </li>
-        ) : (
-          <li className={navItem} onClick={() => setDisplayEditModal(true)}>
-            Editer
-          </li>
-        )}
+        <li className={navItem} onClick={handleEditClick}>
+          Editer
+        </li>
         <li className={navItem} onClick={handleDelete}>
           Supprimer
         </li>

@@ -13,11 +13,12 @@ export default function Home() {
   const router = useRouter();
   const [isVisible, setIsVisible] = useState(false);
   const page = 1;
-  const { data, error, isValidating, mutate } = useSWR("/posts", () =>
+  const { data, error } = useSWR("/posts", () =>
     APIManager.fetcher(`/posts?page=${page}`)
   );
 
   const bottomRef = useRef(null);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const observerOptions = {
     rootMargin: "0px",
     threshold: 1,
@@ -39,6 +40,7 @@ export default function Home() {
     isVisible && observer.unobserve(bottomRef.current);
 
     return () => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       if (bottomRef.current) observer.unobserve(bottomRef.current);
     };
   }, [bottomRef, observerOptions, isVisible]);

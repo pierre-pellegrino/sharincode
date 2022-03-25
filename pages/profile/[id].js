@@ -69,6 +69,7 @@ const ProfilePage = () => {
           userAvatar={userData && userData.avatar}
           mutate={mutate}
           posts={data.posts}
+          favoritePosts={data.favorite_posts}
         />
       </>
     );

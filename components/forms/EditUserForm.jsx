@@ -21,8 +21,9 @@ import EditAvatarModal from "../EditAvatarModal/EditAvatarModal";
 const EditUserForm = ({ user, mutate, userAvatar, userId }) => {
   const [_, setUser] = useAtom(userAtom);
 
-  const [errMsg, setErrMsg] = useState("");
+  const [errMsg, setErrMsg] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [username, setUsername] = useState(user?.username ?? "");
   const [description, setDescription] = useState(user?.description ?? "");
   const [github, setGithub] = useState(user?.github_url ?? "");
   const [personal, setPersonal] = useState(user?.personal_url ?? "");
@@ -34,8 +35,8 @@ const EditUserForm = ({ user, mutate, userAvatar, userId }) => {
   const handleDeleteAccount = () => {
     if (confirm("Êtes-vous sûr ?\nCette action est irréversible.")) {
       APIManager.deleteUser();
-      setUser(null);
       router.push("/");
+      setUser(null);
     }
   };
 
@@ -53,17 +54,9 @@ const EditUserForm = ({ user, mutate, userAvatar, userId }) => {
           favorite_theme: preferedTheme,
         });
       } catch (err) {
-        console.error(err.response);
       }
     }
   }, [preferedTheme, user]);
-
-  // useEffect(() => {
-  //   if (!modalOpen) return;
-  //   const handleClick = () => setModalOpen(false);
-  //   window.addEventListener("click", handleClick);
-  //   return () => window.removeEventListener("click", handleClick);
-  // }, [modalOpen]);
 
   const handleUpdate = async (e) => {
     e.preventDefault();
@@ -71,7 +64,7 @@ const EditUserForm = ({ user, mutate, userAvatar, userId }) => {
     setBtnValue("Edition en cours...");
 
     const data = {
-      username: user?.username,
+      username: username.trim(),
       description: description,
       github_url: github,
       personal_url: personal,
@@ -82,15 +75,12 @@ const EditUserForm = ({ user, mutate, userAvatar, userId }) => {
       const response = await APIManager.updateProfile(data);
       await mutate();
       setSuccess(true);
+      setErrMsg(false);
       setBtnValue("Editer");
     } catch (err) {
       setBtnValue("Editer");
-
-      if (!err?.response) {
-        setErrMsg("Oups ! Pas de réponse du serveur...");
-      } else {
-        setErrMsg(err.response.data.message);
-      }
+      setErrMsg(true);
+      setSuccess(false);
     }
   };
 
@@ -111,8 +101,21 @@ const EditUserForm = ({ user, mutate, userAvatar, userId }) => {
       )}
       <form className={`${form} links-form`} onSubmit={handleUpdate}>
         {success && <p>Modifications enregistrées !</p>}
+        {errMsg && <p>Ce nom d&apos;utilisateur est déjà pris.</p>}
 
         <p aria-live="assertive">{errMsg}</p>
+
+        <div className={inputWrapper}>
+          <input
+            type="text"
+            id="username-input"
+            className={`${input}`}
+            placeholder=" "
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <label htmlFor="username-input">Nom d&apos;utilisateur</label>
+        </div>
 
         <div className={inputWrapper}>
           <input

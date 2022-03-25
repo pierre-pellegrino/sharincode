@@ -53,7 +53,7 @@ const ReactionsModal = ({postId, reactions, page=1, userId}) => {
   return (
     <div className={`${btn} ${openReacts}`}>
       <p>Réagir</p>
-      <div className={`${reactsModal} ${closeReactions && hidden}`} onHover={() => setCloseReactions(false)}>
+      <div className={`${reactsModal} ${closeReactions && hidden}`}>
         <div onClick={() => handleAddReaction(1)} className={singleReactWrapper}>
           <IdeaIcon />
           <p className={`${singleReactInfo} bg-global-secondary`}>

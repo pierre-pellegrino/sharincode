@@ -65,7 +65,7 @@ const LoggedInNav = () => {
         </li>
         <li>
           <Link
-            href={`/profile/${user.user.id}`}
+            href={`/profile/${user?.user.id}`}
             className={navItem}
             aria-label="Accéder à la page de mon compte."
             activeClassName={active}

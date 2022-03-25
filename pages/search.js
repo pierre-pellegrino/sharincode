@@ -6,6 +6,7 @@ import { useState } from "react";
 import APIManager from "./api/axios";
 import Head from "next/head";
 import { getAbsoluteURL } from "lib/getAbsoluteURL";
+import Link from "next/link";
 
 const Search = () => {
   const router = useRouter();
@@ -52,6 +53,9 @@ const Search = () => {
       </Head>
       <div className={styles.main}>
         Résultats de la recherche : {router.query["q"]}
+        <Link href="/"> 
+          <a className="txt-primary"> Annuler la recherche </a>
+        </Link>
         {content}
       </div>
     </>

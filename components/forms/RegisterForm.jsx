@@ -15,7 +15,8 @@ import {
   instructions,
   formLink,
   showPwdIcon,
-  advantages
+  advantages,
+  github
 } from "./form.module.scss";
 import cn from "classnames";
 import APIManager from "pages/api/axios";
@@ -27,6 +28,7 @@ import { useAtom } from "jotai";
 import { userAtom } from "store";
 import { EyeIcon } from "components/icons";
 import { EyeOffIcon } from "components/icons";
+import { GithubIcon } from "components/icons";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -312,13 +314,16 @@ const LoginForm = () => {
         value={btnValue}
         disabled={!canSave}
       />
+      <a href={github_url} className={`${btn} ${github} bg-primary txt-btn`}>
+        <GithubIcon />
+        Connexion avec github
+      </a>
       <div className={formLink}>
         <span>Déjà inscrit ?</span>
         <Link href="/login">
           <a className="txt-primary"> Me connecter</a>
         </Link>
       </div>
-      <a href={github_url}>Me connecter avec github</a>
     </form>
   );
 };
