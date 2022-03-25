@@ -65,8 +65,7 @@ const CommentEdit = () => {
       </Head>
       <NewPostForm
         editDescription={description}
-        editLanguage={snippets[0].language}
-        editSnippet={snippets[0].content}
+        editSnippets={snippets}
         post={data.post}
       />
     </>

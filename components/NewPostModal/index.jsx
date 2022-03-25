@@ -33,7 +33,7 @@ const NewPostModal = (props) => {
         <h2>{post ? "Editer un snippet" : "Créer un snippet"}</h2>
         <NewPostForm
           editDescription={description}
-          editSnippet={snippetList}
+          editSnippets={snippetList}
           id={id}
           post={post}
           closeModal={closeModal}

@@ -36,7 +36,7 @@ const emptyContentState = convertFromRaw({
 
 const NewPostForm = ({
   editDescription,
-  editSnippet,
+  editSnippets,
   post,
   closeModal,
   setButtonDisabled,
@@ -45,8 +45,8 @@ const NewPostForm = ({
   const [_, setShowNewPostModalAtom] = useAtom(showNewPostModalAtom);
 
   const [snippets, setSnippets] = useState(
-    editSnippet
-      ? editSnippet.map((snippet) => {
+    editSnippets
+      ? editSnippets.map((snippet) => {
           const languageObj = LANGUAGES_HASH[snippet.language];
           return {
             ...snippet,
@@ -65,38 +65,44 @@ const NewPostForm = ({
 
   const [description, setDescription] = useState("");
 
-  const handleStrategy = (contentBlock, callback, contentState) => {
-    findWithRegex(HASHTAG_REGEX, contentBlock, callback);
-  };
-
-  const findWithRegex = (regex, contentBlock, callback) => {
-    const text = contentBlock.getText();
-    let matchArr, start;
-    while ((matchArr = regex.exec(text)) !== null) {
-      start = matchArr.index;
-      callback(start, start + matchArr[0].length);
-    }
-  };
-
-  const hashtagsDecorator = new CompositeDecorator([
-    {
-      strategy: handleStrategy,
-      component: HashtagLink,
-    },
-  ]);
-
   const [descriptionEditorState, setDescriptionEditorState] = useState(
     createWithContent(emptyContentState)
   );
 
   useEffect(() => {
+    const handleStrategy = (contentBlock, callback, contentState) => {
+      findWithRegex(HASHTAG_REGEX, contentBlock, callback);
+    };
+
+    const findWithRegex = (regex, contentBlock, callback) => {
+      const text = contentBlock.getText();
+      let matchArr, start;
+      while ((matchArr = regex.exec(text)) !== null) {
+        start = matchArr.index;
+        callback(start, start + matchArr[0].length);
+      }
+    };
+
+    const hashtagsDecorator = new CompositeDecorator([
+      {
+        strategy: handleStrategy,
+        component: HashtagLink,
+      },
+    ]);
+
     setDescriptionEditorState(
-      createWithContent(createFromText(editDescription ?? ""), hashtagsDecorator)
+      createWithContent(
+        createFromText(editDescription ?? ""),
+        hashtagsDecorator
+      )
     );
+
+    setDescription(descriptionEditorState.getCurrentContent().getPlainText())
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [editDescription]);
 
   const [btnValue, setBtnValue] = useState(
-    editSnippet ? "Editer mon snippet" : "Partager mon code au monde ! 🚀"
+    editSnippets ? "Editer mon snippet" : "Partager mon code au monde ! 🚀"
   );
 
   const { mutate } = useSWRConfig();
@@ -107,6 +113,15 @@ const NewPostForm = ({
       .every((snippet) => snippet.content !== ""),
     description,
   ].every(Boolean);
+  
+  const handleAddSnippet = (e) => {
+    e.preventDefault();
+
+    setSnippets([
+      ...snippets,
+      { content: "", language: `${LANGUAGES[0].name} ${LANGUAGES[0].mode}`, snippetId: uuid() },
+    ]);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -114,7 +129,7 @@ const NewPostForm = ({
     try {
       if (!canSave) throw new Error("Oups, quelque chose s'est mal passé !");
 
-      setBtnValue(editSnippet ? "Edition en cours..." : "Création en cours...");
+      setBtnValue(editSnippets ? "Edition en cours..." : "Création en cours...");
 
       const tags = extractHashtagsWithIndices(description).map(
         (tag) => tag.hashtag
@@ -126,7 +141,7 @@ const NewPostForm = ({
           language: snippet.language.split(" ").slice(0, -1).join(""),
         }));
 
-      if (!editSnippet) {
+      if (!editSnippets) {
         const data = {
           description: description,
           snippets: formatSnippets(),
@@ -153,26 +168,18 @@ const NewPostForm = ({
 
       await mutate("/posts");
 
-      closeModal();
-      setButtonDisabled(false);
+      if (closeModal) closeModal();
+      if (setButtonDisabled) setButtonDisabled(false);
 
       router.push(`/posts/${response.data.post.id}`);
     } catch (err) {
       setBtnValue(
-        editSnippet ? "Editer mon snippet" : "Partager mon code au monde ! 🚀"
+        editSnippets ? "Editer mon snippet" : "Partager mon code au monde ! 🚀"
       );
       console.error(err);
     }
   };
 
-  const handleAddSnippet = (e) => {
-    e.preventDefault();
-
-    setSnippets([
-      ...snippets,
-      { content: "", language: `${LANGUAGES[0].name} ${LANGUAGES[0].mode}` },
-    ]);
-  };
 
   return (
     <form className={form} onSubmit={handleSubmit} style={{ overflow: "auto" }}>
@@ -199,7 +206,7 @@ const NewPostForm = ({
             snippets={snippets}
           />
         ))}
-      {!editSnippet && (
+      {!editSnippets && (
         <button
           className={`${btn} bg-primary txt-btn`}
           onClick={(e) => handleAddSnippet(e)}
