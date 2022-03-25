@@ -69,10 +69,9 @@ const NewPwdForm = ({token}) => {
     }
 
     try {
-      const response = await APIManager.forgottenPassword(data);
+      const response = await APIManager.setNewPassword(data);
       
       setSuccess(true);
-      setUser(response.data);
       router.push("/");
     } catch (err) {
       setBtnValue("éditer mon mot de passe");
@@ -89,6 +88,7 @@ const NewPwdForm = ({token}) => {
       {success && (
         <p>
           Votre nouveau mot de passe est enregistré !<br />
+          Vous pouvez désormais vous connecter avec votre mot de passe.
         </p>
       )}
 

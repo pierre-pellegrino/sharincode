@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import { useRouter } from 'next/router';
 import EmailForm from '../components/forms/EmailForm';
-import LoginForm from '../components/forms/LoginForm';
 import styles from '/styles/Home.module.scss';
 
 const Login = () => {
