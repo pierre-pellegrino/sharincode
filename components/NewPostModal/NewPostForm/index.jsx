@@ -1,6 +1,5 @@
-import EditorContainer from "components/EditorContainer";
-import { LANGUAGES } from "lib/constants/languages";
-import { useRef, useState } from "react";
+import { LANGUAGES, LANGUAGES_HASH } from "lib/constants/languages";
+import { useState } from "react";
 import {
   form,
   inputWrapper,
@@ -20,8 +19,7 @@ import createHashtagPlugin, {
   extractHashtagsWithIndices,
 } from "@draft-js-plugins/hashtag";
 import HashtagLink from "components/Hashtag";
-import { useEffect } from "react";
-import { CloseIcon } from 'components/icons'
+import uuid from "draft-js/lib/uuid";
 
 const NewPostForm = ({
   editDescription,
@@ -30,36 +28,21 @@ const NewPostForm = ({
   closeModal,
   setButtonDisabled,
 }) => {
-  const descriptionRef = useRef();
   const router = useRouter();
   const [_, setShowNewPostModalAtom] = useAtom(showNewPostModalAtom);
 
-
-  const [selectedLanguages, setSelectedLanguages] = useState(() => {
-    if (!editSnippet) return [`${LANGUAGES[0].name} ${LANGUAGES[0].mode}`];
-
-    const languages = []
-    editSnippet.forEach((snippet) => {
-      const languageObj = LANGUAGES.filter(
-        (lang) => lang.name === snippet.language
-      )[0];
-
-      languages.push(`${languageObj.name} ${languageObj.mode}`) ;
-    })
-    return languages
-  });
-
-  const [snippets, setSnippets] = useState(() => {
-    if (!editSnippet) return [''];
-
-    const snippets = []
-
-    editSnippet.forEach((snippet) => {
-      snippets.push(snippet.content)
-    })
-
-    return snippets
-  })
+  const [snippets, setSnippets] = useState(
+    editSnippet
+      ? editSnippet.map((snippet) => {
+          const languageObj = LANGUAGES_HASH[snippet.language];
+          return {
+            ...snippet,
+            language: `${languageObj.name} ${languageObj.mode}`,
+            snippetId: uuid()
+          };
+        })
+      : [{ content: "", language: `${LANGUAGES[0].name} ${LANGUAGES[0].mode}`, snippetId: uuid() }]
+  );
 
   const [description, setDescription] = useState(
     createEditorStateWithText(editDescription ?? "")
@@ -74,9 +57,8 @@ const NewPostForm = ({
   const { mutate } = useSWRConfig();
 
   const canSave = [
-    snippets[0],
+    snippets[0]?.content,
     description,
-    selectedLanguages[0].split(" ").slice(0, -1).join(" "),
   ].every(Boolean);
 
   const handleSubmit = async (e) => {
@@ -91,35 +73,11 @@ const NewPostForm = ({
         description.getCurrentContent().getPlainText()
       ).map((tag) => tag.hashtag);
 
-      const formatSnippets = () => {
-        const formattedSnippets = []
-
-        if (!editSnippet) {
-          snippets.forEach((snippet, index) => {
-            formattedSnippets.push({
-              content: snippet,
-              language: selectedLanguages[index].split(" ").slice(0, -1).join(" "),
-            })
-          })
-        } else {
-          editSnippet.forEach((snippet, index) => {
-            if (snippet.content === 'destroy') {
-              formattedSnippets.push({
-                id: editSnippet[index].id,
-                destroy: true,
-              })
-            } else {
-              formattedSnippets.push({
-                id: editSnippet[index].id,
-                content: snippet.content,
-                language: selectedLanguages[index].split(" ").slice(0, -1).join(" "),
-              })
-            }
-          })
-        }
-
-        return formattedSnippets
-      }
+      const formatSnippets = () =>
+        snippets.map((snippet) => ({
+          ...snippet,
+          language: snippet.language.split(" ").slice(0, -1).join(""),
+        }));
 
       if (!editSnippet) {
         const data = {
@@ -160,37 +118,15 @@ const NewPostForm = ({
     }
   };
 
-  const handleSetSnippetCount = (e) => {
-    e.preventDefault();
-    setSelectedLanguages([...selectedLanguages, `${LANGUAGES[0].name} ${LANGUAGES[0].mode}`])
-    setSnippets([...snippets, ''])
-  }
-
-  const handleLanguageChange = (value, id) => {
-    selectedLanguages[id] = value
-    setSelectedLanguages([...selectedLanguages])
-  }
-
-  const handleSnippetChange = (value, id) => {
-    snippets[id] = value
-    setSnippets(snippets)
-    if (editSnippet) editSnippet[id].content = value
-  }
-
-  const removeSnippet = (id, e) => {
-    e.preventDefault()
-    if (!editSnippet) {
-      setSnippets((oldState) => [...oldState.slice(0, id), ...oldState.slice(id + 1)])
-      setSelectedLanguages((oldState) => [...oldState.slice(0, id), ...oldState.slice(id + 1)])
-    } else {
-      editSnippet[id].content = 'destroy'
-      setSnippets((oldState) => [...oldState.slice(0, id), ...oldState.slice(id + 1)])
-      setSelectedLanguages((oldState) => [...oldState.slice(0, id), ...oldState.slice(id + 1)])
-    }
-  }
+  const handleAddSnippet = () => {
+    setSnippets([
+      ...snippets,
+      { content: "", language: `${LANGUAGES[0].name} ${LANGUAGES[0].mode}` },
+    ]);
+  };
 
   return (
-    <form className={form} onSubmit={handleSubmit} style={{overflow: 'auto'}}>
+    <form className={form} onSubmit={handleSubmit} style={{ overflow: "auto" }}>
       <div className={inputWrapper}>
         <label htmlFor="description">Description</label>
         <div className={descriptionEditor}>
@@ -201,23 +137,24 @@ const NewPostForm = ({
           />
         </div>
       </div>
-      {
-        snippets.map((e, index) => (
+      {snippets
+        .filter((snippet) => snippet?.destroy !== true)
+        .map((snippet, i) => (
           <NewSnippetForm
-            selectedLanguages={selectedLanguages}
-            handleLanguageChange={handleLanguageChange}
+            snippet={snippet}
+            key={snippet.snippetId}
+            setSnippets={setSnippets}
             snippets={snippets}
-            handleSnippetChange={handleSnippetChange}
-            key={index}
-            snippetNumber={index}
-            removeSnippet={removeSnippet}
-            totalSnippetCount={snippets.length}
           />
-        ))
-      }
-      {
-        !editSnippet && <button className={`${btn} bg-primary txt-btn`} onClick={handleSetSnippetCount}>ajouter un snippet</button>
-      }
+        ))}
+      {!editSnippet && (
+        <button
+          className={`${btn} bg-primary txt-btn`}
+          onClick={handleAddSnippet}
+        >
+          Ajouter un snippet
+        </button>
+      )}
       <input
         type="submit"
         className={`${btn} bg-primary txt-btn`}
