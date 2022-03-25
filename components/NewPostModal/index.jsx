@@ -7,8 +7,7 @@ import { useEffect } from "react";
 const NewPostModal = (props) => {
   const {
     description,
-    language,
-    snippet,
+    snippetList,
     closeModal,
     id,
     post,
@@ -34,8 +33,7 @@ const NewPostModal = (props) => {
         <h2>{post ? "Editer un snippet" : "Créer un snippet"}</h2>
         <NewPostForm
           editDescription={description}
-          editLanguage={language}
-          editSnippet={snippet}
+          editSnippet={snippetList}
           id={id}
           post={post}
           closeModal={closeModal}

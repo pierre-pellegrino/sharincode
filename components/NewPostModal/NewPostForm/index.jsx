@@ -1,6 +1,5 @@
-import EditorContainer from "components/EditorContainer";
-import { LANGUAGES } from "lib/constants/languages";
-import { useRef, useState } from "react";
+import { LANGUAGES, LANGUAGES_HASH } from "lib/constants/languages";
+import { useState } from "react";
 import {
   form,
   inputWrapper,
@@ -12,6 +11,7 @@ import { useRouter } from "next/router";
 import { useAtom } from "jotai";
 import { showNewPostModalAtom } from "store";
 import { useSWRConfig } from "swr";
+import NewSnippetForm from "./NewSnippetForm";
 import DescriptionEditor, {
   createEditorStateWithText,
 } from "@draft-js-plugins/editor";
@@ -19,33 +19,35 @@ import createHashtagPlugin, {
   extractHashtagsWithIndices,
 } from "@draft-js-plugins/hashtag";
 import HashtagLink from "components/Hashtag";
-import { useEffect } from "react";
+import uuid from "draft-js/lib/uuid";
 
 const NewPostForm = ({
   editDescription,
-  editLanguage,
   editSnippet,
   post,
   closeModal,
   setButtonDisabled,
 }) => {
-  const descriptionRef = useRef();
   const router = useRouter();
   const [_, setShowNewPostModalAtom] = useAtom(showNewPostModalAtom);
+
+  const [snippets, setSnippets] = useState(
+    editSnippet
+      ? editSnippet.map((snippet) => {
+          const languageObj = LANGUAGES_HASH[snippet.language];
+          return {
+            ...snippet,
+            language: `${languageObj.name} ${languageObj.mode}`,
+            snippetId: uuid()
+          };
+        })
+      : [{ content: "", language: `${LANGUAGES[0].name} ${LANGUAGES[0].mode}`, snippetId: uuid() }]
+  );
 
   const [description, setDescription] = useState(
     createEditorStateWithText(editDescription ?? "")
   );
-  const [snippet, setSnippet] = useState(editSnippet ?? "");
-  const [selectedLanguage, setSelectedLanguage] = useState(() => {
-    if (!editLanguage) return `${LANGUAGES[0].name} ${LANGUAGES[0].mode}`;
 
-    const languageObj = LANGUAGES.filter(
-      (lang) => lang.name === editLanguage
-    )[0];
-
-    return `${languageObj.name} ${languageObj.mode}`;
-  });
   const [btnValue, setBtnValue] = useState(
     editSnippet ? "Editer mon snippet" : "Partager mon code au monde ! 🚀"
   );
@@ -55,9 +57,8 @@ const NewPostForm = ({
   const { mutate } = useSWRConfig();
 
   const canSave = [
-    snippet,
+    snippets.filter((snippet) => snippet.destroy !== true).every((snippet) => snippet.content !== ''),
     description,
-    selectedLanguage.split(" ").slice(0, -1).join(" "),
   ].every(Boolean);
 
   const handleSubmit = async (e) => {
@@ -72,15 +73,16 @@ const NewPostForm = ({
         description.getCurrentContent().getPlainText()
       ).map((tag) => tag.hashtag);
 
+      const formatSnippets = () =>
+        snippets.map((snippet) => ({
+          ...snippet,
+          language: snippet.language.split(" ").slice(0, -1).join(""),
+        }));
+
       if (!editSnippet) {
         const data = {
           description: description.getCurrentContent().getPlainText(),
-          snippets: [
-            {
-              content: snippet,
-              language: selectedLanguage.split(" ").slice(0, -1).join(" "),
-            },
-          ],
+          snippets: formatSnippets(),
           tags,
         };
 
@@ -95,15 +97,8 @@ const NewPostForm = ({
       }
 
       const data = {
-        ...post,
         description: description.getCurrentContent().getPlainText(),
-        snippets: [
-          {
-            ...post.snippets[0],
-            content: snippet,
-            language: selectedLanguage.split(" ").slice(0, -1).join(" "),
-          },
-        ],
+        snippets: formatSnippets(),
         tags,
       };
 
@@ -115,16 +110,25 @@ const NewPostForm = ({
       setButtonDisabled(false);
 
       router.push(`/posts/${response.data.post.id}`);
-    } catch (e) {
+    } catch (err) {
       setBtnValue(
         editSnippet ? "Editer mon snippet" : "Partager mon code au monde ! 🚀"
       );
-      console.error(e.response);
+      console.error(err);
     }
   };
 
+  const handleAddSnippet = (e) => {
+    e.preventDefault();
+    
+    setSnippets([
+      ...snippets,
+      { content: "", language: `${LANGUAGES[0].name} ${LANGUAGES[0].mode}` },
+    ]);
+  };
+
   return (
-    <form className={form} onSubmit={handleSubmit}>
+    <form className={form} onSubmit={handleSubmit} style={{ overflow: "auto" }}>
       <div className={inputWrapper}>
         <label htmlFor="description">Description</label>
         <div className={descriptionEditor}>
@@ -135,33 +139,24 @@ const NewPostForm = ({
           />
         </div>
       </div>
-      <div className={inputWrapper}>
-        <label htmlFor="language">Langage</label>
-        <select
-          name="language"
-          id="language"
-          value={selectedLanguage}
-          autoComplete="none"
-          onChange={(e) => setSelectedLanguage(e.target.value)}
-          required
+      {snippets
+        .filter((snippet) => snippet?.destroy !== true)
+        .map((snippet) => (
+          <NewSnippetForm
+            snippet={snippet}
+            key={snippet.snippetId}
+            setSnippets={setSnippets}
+            snippets={snippets}
+          />
+        ))}
+      {!editSnippet && (
+        <button
+          className={`${btn} bg-primary txt-btn`}
+          onClick={(e) => handleAddSnippet(e)}
         >
-          {LANGUAGES.map((language) => (
-            <option
-              value={`${language.name} ${language.mode}`}
-              key={language.name}
-            >
-              {language.name}
-            </option>
-          ))}
-        </select>
-      </div>
-      <EditorContainer
-        language={selectedLanguage.split(" ").slice(-1)[0]}
-        theme="dracula"
-        value={snippet}
-        onChange={setSnippet}
-        required
-      />
+          Ajouter un snippet
+        </button>
+      )}
       <input
         type="submit"
         className={`${btn} bg-primary txt-btn`}

@@ -32,7 +32,6 @@ const EmailForm = () => {
       setBtnMsg("envoi en cours...");
       setDisableBtn(true);
       const response = await APIManager.forgottenPassword(data);
-      console.log(response)
       setSuccess(true);
     }
     catch (err) {
