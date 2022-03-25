@@ -77,8 +77,10 @@ const Searchbar = () => {
 
     if (!query) return;
 
+    const formattedQuery = query.replace(/^#/, "");
+
+    router.push(`/search?q=${formattedQuery}`);
     handleSearch();
-    router.push(`/search?q=${query}`);
   };
 
   return (
@@ -91,7 +93,7 @@ const Searchbar = () => {
       <SearchIcon />
       <input
         type="text"
-        placeholder="Rechercher"
+        placeholder="Rechercher un langage, un utilisateur, un hashtag..."
         id="searchBar"
         className={search}
         value={query}
