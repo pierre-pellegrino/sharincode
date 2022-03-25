@@ -21,6 +21,7 @@ import createHashtagPlugin, {
 } from "@draft-js-plugins/hashtag";
 import HashtagLink from "components/Hashtag";
 import { useEffect } from "react";
+import { CloseIcon } from 'components/icons'
 
 const NewPostForm = ({
   editDescription,
@@ -159,16 +160,12 @@ const NewPostForm = ({
     setSelectedLanguages([...selectedLanguages, `${LANGUAGES[0].name} ${LANGUAGES[0].mode}`])
   }
 
-  const handleLanguageChange = (value, id) => {
-    const tmpArr = [...selectedLanguages]
-    tmpArr[id] = value
-    setSelectedLanguages(tmpArr)
+  const handleLanguageChange = (value) => {
+    setSelectedLanguages([...selectedLanguages, value])
   }
 
-  const handleSnippetChange = (value, id) => {
-    const tmpArr = [...snippets]
-    tmpArr[id] = value
-    setSnippets(tmpArr)
+  const handleSnippetChange = (value) => {
+    setSnippets([...snippets, value])
   }
 
   return (
