@@ -127,7 +127,6 @@ export default class APIManager {
     const response = await APIRequest.get(endpoint, {
       params: {
         keywords: formattedQuery,
-        in: "all",
       },
     });
 
