@@ -28,7 +28,8 @@ const NewSnippetForm = ({ snippet, snippets, setSnippets }) => {
     );
   };
 
-  const handleDelete = () => {
+  const handleDelete = (e) => {
+    e.preventDefault();
     setSnippets((prev) =>
       prev.map((prevSnippet) =>
         prevSnippet === snippet
@@ -44,7 +45,7 @@ const NewSnippetForm = ({ snippet, snippets, setSnippets }) => {
         <div className={actions}>
           <label htmlFor="language">Langage</label>
           {snippets.filter((s) => s?.destroy !== true).length > 1 && (
-            <button onClick={handleDelete}>
+            <button onClick={(e) => handleDelete(e)}>
               <CloseIcon />
             </button>
           )}
