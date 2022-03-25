@@ -10,7 +10,8 @@ const NewSnippetForm = ({
                           snippets,
                           handleSnippetChange,
                           snippetNumber,
-                          removeSnippet
+                          removeSnippet,
+                          totalSnippetCount
                         }) => {
 
   const [snippet, setSnippet] = useState(snippets[snippetNumber])
@@ -23,7 +24,9 @@ const NewSnippetForm = ({
     <div>
       <div className={inputWrapper}>
         <label htmlFor="language">Langage</label>
-        <button onClick={(e) => removeSnippet(snippetNumber, e)}><CloseIcon /></button>
+        {
+          totalSnippetCount > 1 && <button onClick={(e) => removeSnippet(snippetNumber, e)}><CloseIcon /></button>
+        }
         <select
           name="language"
           id="language"

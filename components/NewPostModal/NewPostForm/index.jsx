@@ -211,6 +211,7 @@ const NewPostForm = ({
             key={index}
             snippetNumber={index}
             removeSnippet={removeSnippet}
+            totalSnippetCount={snippets.length}
           />
         ))
       }
