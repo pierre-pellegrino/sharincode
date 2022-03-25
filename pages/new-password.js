@@ -18,10 +18,10 @@ const GhRedirect = () => {
     <>
       <Head>
         <title>New Password | Snipshare</title>
-        <meta name="title" content="New Password | Snipshare" />
+        <meta name="title" content="Nouveau mot de passe | Snipshare" />
 
         <meta property="og:url" content={getAbsoluteURL(router.asPath)} />
-        <meta property="og:title" content="New Password Redirection | Snipshare" />
+        <meta property="og:title" content="Nouveau mot de passe | Snipshare" />
 
         <meta
           property="twitter:url"
@@ -29,7 +29,7 @@ const GhRedirect = () => {
         />
         <meta
           property="twitter:title"
-          content="New Password Redirection | Snipshare"
+          content="Nouveau mot de passe | Snipshare"
         />
       </Head>
       <div className={main}>
