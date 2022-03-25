@@ -1,8 +1,8 @@
-import { inputWrapper } from "../../new_post_modal.module.scss";
-import { LANGUAGES } from "../../../../lib/constants/languages";
-import EditorContainer from "../../../EditorContainer";
+import { inputWrapper, actions } from "components/NewPostModal/new_post_modal.module.scss";
+import { LANGUAGES } from "lib/constants/languages";
+import EditorContainer from "components/EditorContainer";
 import { useState } from "react";
-import { CloseIcon } from "../../../icons";
+import { CloseIcon } from "components/icons";
 
 const NewSnippetForm = ({ snippet, snippets, setSnippets }) => {
   const [content, setContent] = useState(snippet.content);
@@ -41,12 +41,14 @@ const NewSnippetForm = ({ snippet, snippets, setSnippets }) => {
   return (
     <div>
       <div className={inputWrapper}>
-        <label htmlFor="language">Langage</label>
-        {snippets.filter((s) => s?.destroy !== true).length > 1 && (
-          <button onClick={handleDelete}>
-            <CloseIcon />
-          </button>
-        )}
+        <div className={actions}>
+          <label htmlFor="language">Langage</label>
+          {snippets.filter((s) => s?.destroy !== true).length > 1 && (
+            <button onClick={handleDelete}>
+              <CloseIcon />
+            </button>
+          )}
+        </div>
         <select
           name="language"
           id="language"

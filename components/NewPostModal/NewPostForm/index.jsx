@@ -139,7 +139,7 @@ const NewPostForm = ({
       </div>
       {snippets
         .filter((snippet) => snippet?.destroy !== true)
-        .map((snippet, i) => (
+        .map((snippet) => (
           <NewSnippetForm
             snippet={snippet}
             key={snippet.snippetId}
