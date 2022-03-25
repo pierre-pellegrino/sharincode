@@ -35,7 +35,7 @@ const PostActionsModal = (props) => {
   };
 
   const handleDelete = async () => {
-    if (!confirm("Êtes-vous sûr ? de vouloir supprimer ce snippet ?")) return;
+    if (!confirm("Êtes-vous sûr de vouloir supprimer ce snippet ?")) return;
     try {
       await APIManager.deletePost(postId);
       await mutate("/posts");
