@@ -57,7 +57,7 @@ const NewPostForm = ({
   const { mutate } = useSWRConfig();
 
   const canSave = [
-    snippets[0]?.content,
+    snippets.filter((snippet) => snippet.destroy !== true)[0].content,
     description,
   ].every(Boolean);
 
@@ -110,11 +110,11 @@ const NewPostForm = ({
       setButtonDisabled(false);
 
       router.push(`/posts/${response.data.post.id}`);
-    } catch (e) {
+    } catch (err) {
       setBtnValue(
         editSnippet ? "Editer mon snippet" : "Partager mon code au monde ! 🚀"
       );
-      console.error(e.response);
+      console.error(err);
     }
   };
 

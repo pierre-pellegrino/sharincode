@@ -70,7 +70,6 @@ const NewSnippetForm = ({ snippet, snippets, setSnippets }) => {
         onChange={handleContentChange}
         required
       />
-      {console.log(language)}
     </div>
   );
 };

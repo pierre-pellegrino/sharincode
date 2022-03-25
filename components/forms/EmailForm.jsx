@@ -29,7 +29,6 @@ const EmailForm = () => {
     }
     try {
       const response = await APIManager.forgottenPassword(data);
-      console.log(response)
       setSuccess(true);
     }
     catch (err) {
