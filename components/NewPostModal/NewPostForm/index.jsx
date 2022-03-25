@@ -44,7 +44,7 @@ const NewPostForm = ({
         (lang) => lang.name === snippet.language
       )[0];
 
-      array.push(`${languageObj.name} ${languageObj.mode}`) ;
+      languages.push(`${languageObj.name} ${languageObj.mode}`) ;
     })
     return languages
   });
@@ -55,7 +55,7 @@ const NewPostForm = ({
     const snippets = []
 
     editSnippet.forEach((snippet) => {
-      array.push(snippet.content)
+      snippets.push(snippet.content)
     })
 
     return snippets
@@ -68,7 +68,6 @@ const NewPostForm = ({
   const [btnValue, setBtnValue] = useState(
     editSnippet ? "Editer mon snippet" : "Partager mon code au monde ! 🚀"
   );
-  const [snippetCounter, setSnippetCounter] = useState(editSnippet ? Array.from(Array(editSnippet.length).keys()) : [''])
 
   const hashtagPlugin = createHashtagPlugin({ hashtagComponent: HashtagLink });
 
@@ -156,20 +155,36 @@ const NewPostForm = ({
 
   const handleSetSnippetCount = (e) => {
     e.preventDefault();
-    setSnippetCounter([...snippetCounter, ''])
     setSelectedLanguages([...selectedLanguages, `${LANGUAGES[0].name} ${LANGUAGES[0].mode}`])
+    setSnippets([...snippets, ''])
   }
 
-  const handleLanguageChange = (value) => {
-    setSelectedLanguages([...selectedLanguages, value])
+  const handleLanguageChange = (value, id) => {
+    const tmpArr = languages
+    tmpArr[id] = value
+    setSelectedLanguages(tmpArr)
   }
 
-  const handleSnippetChange = (value) => {
-    setSnippets([...snippets, value])
+  const handleSnippetChange = (value, id) => {
+    const tmpArr = snippets
+    tmpArr[id] = value
+    setSnippets(tmpArr)
+  }
+
+  const removeSnippet = (id, e) => {
+    e.preventDefault()
+    if (!editSnippet) {
+      setSnippets((oldState) => [...oldState.slice(0, id), ...oldState.slice(id + 1)])
+      setSelectedLanguages((oldState) => [...oldState.slice(0, id), ...oldState.slice(id + 1)])
+    } else {
+      setSnippets((oldState) => [...oldState.slice(0, id), ...oldState.slice(id + 1)])
+      setSelectedLanguages((oldState) => [...oldState.slice(0, id), ...oldState.slice(id + 1)])
+    }
   }
 
   return (
     <form className={form} onSubmit={handleSubmit} style={{overflow: 'auto'}}>
+      {console.log(snippets)}
       <div className={inputWrapper}>
         <label htmlFor="description">Description</label>
         <div className={descriptionEditor}>
@@ -181,7 +196,7 @@ const NewPostForm = ({
         </div>
       </div>
       {
-        snippetCounter.map((e, index) => (
+        snippets.map((e, index) => (
           <NewSnippetForm
             selectedLanguages={selectedLanguages}
             handleLanguageChange={handleLanguageChange}
@@ -189,6 +204,7 @@ const NewPostForm = ({
             handleSnippetChange={handleSnippetChange}
             key={index}
             snippetNumber={index}
+            removeSnippet={removeSnippet}
           />
         ))
       }

@@ -9,26 +9,27 @@ const NewSnippetForm = ({
                           handleLanguageChange,
                           snippets,
                           handleSnippetChange,
-                          snippetNumber
+                          snippetNumber,
+                          removeSnippet
                         }) => {
 
   const [snippet, setSnippet] = useState(snippets[snippetNumber])
 
   useEffect(() => {
-    handleSnippetChange(snippet)
+    handleSnippetChange(snippet, snippetNumber)
   }, [snippet])
 
   return (
     <div>
       <div className={inputWrapper}>
         <label htmlFor="language">Langage</label>
-        <button><CloseIcon /></button>
+        <button onClick={(e) => removeSnippet(snippetNumber, e)}><CloseIcon /></button>
         <select
           name="language"
           id="language"
           value={selectedLanguages[snippetNumber]}
           autoComplete="none"
-          onChange={(e) => handleLanguageChange(e.target.value)}
+          onChange={(e) => handleLanguageChange(e.target.value, snippetNumber)}
           required
         >
           {LANGUAGES.map((language) => (
