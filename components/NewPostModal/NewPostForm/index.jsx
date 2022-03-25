@@ -102,12 +102,19 @@ const NewPostForm = ({
             })
           })
         } else {
-          snippets.forEach((snippet, index) => {
-            formattedSnippets.push({
-              id: editSnippet[index].id,
-              content: snippet,
-              language: selectedLanguages[index].split(" ").slice(0, -1).join(" "),
-            })
+          editSnippet.forEach((snippet, index) => {
+            if (snippet.content === 'destroy') {
+              formattedSnippets.push({
+                id: editSnippet[index].id,
+                destroy: true,
+              })
+            } else {
+              formattedSnippets.push({
+                id: editSnippet[index].id,
+                content: snippet.content,
+                language: selectedLanguages[index].split(" ").slice(0, -1).join(" "),
+              })
+            }
           })
         }
 
@@ -160,15 +167,14 @@ const NewPostForm = ({
   }
 
   const handleLanguageChange = (value, id) => {
-    const tmpArr = languages
-    tmpArr[id] = value
-    setSelectedLanguages(tmpArr)
+    selectedLanguages[id] = value
+    setSelectedLanguages([...selectedLanguages])
   }
 
   const handleSnippetChange = (value, id) => {
-    const tmpArr = snippets
-    tmpArr[id] = value
-    setSnippets(tmpArr)
+    snippets[id] = value
+    setSnippets(snippets)
+    if (editSnippet) editSnippet[id].content = value
   }
 
   const removeSnippet = (id, e) => {
@@ -177,6 +183,7 @@ const NewPostForm = ({
       setSnippets((oldState) => [...oldState.slice(0, id), ...oldState.slice(id + 1)])
       setSelectedLanguages((oldState) => [...oldState.slice(0, id), ...oldState.slice(id + 1)])
     } else {
+      editSnippet[id].content = 'destroy'
       setSnippets((oldState) => [...oldState.slice(0, id), ...oldState.slice(id + 1)])
       setSelectedLanguages((oldState) => [...oldState.slice(0, id), ...oldState.slice(id + 1)])
     }
@@ -184,7 +191,6 @@ const NewPostForm = ({
 
   return (
     <form className={form} onSubmit={handleSubmit} style={{overflow: 'auto'}}>
-      {console.log(snippets)}
       <div className={inputWrapper}>
         <label htmlFor="description">Description</label>
         <div className={descriptionEditor}>
