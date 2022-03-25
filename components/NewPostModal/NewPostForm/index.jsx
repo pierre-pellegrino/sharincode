@@ -57,7 +57,7 @@ const NewPostForm = ({
   const { mutate } = useSWRConfig();
 
   const canSave = [
-    snippets.filter((snippet) => snippet.destroy !== true)[0].content,
+    snippets.filter((snippet) => snippet.destroy !== true).every((snippet) => snippet.content !== ''),
     description,
   ].every(Boolean);
 
