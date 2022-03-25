@@ -1,23 +1,26 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import APIManager from "pages/api/axios";
 import {
   form,
   inputWrapper,
   input,
-  inputPwd,
   btn,
-  errmsg,
-  offscreen,
-  showPwdIcon,
-  showPwdIconLogin,
-  formLink,
 } from "./form.module.scss";
 
 const EmailForm = () => {
   const emailRef = useRef();
-  const [email, setEmail] = useState("");
+  const errors = useRef();
 
-  const handleForgottenPwd = async () => {
+  const [email, setEmail] = useState("");
+  const [errMsg, setErrMsg] = useState("");
+  const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    setErrMsg("");
+  }, [email]);
+
+  const handleForgottenPwd = async (e) => {
+    e.preventDefault();
 
     const data = {
       user: {
@@ -26,6 +29,8 @@ const EmailForm = () => {
     }
     try {
       const response = await APIManager.forgottenPassword(data);
+      console.log(response)
+      setSuccess(true);
     }
     catch (err) {
       console.log("Oups ! Pas de réponse du serveur...");
@@ -33,21 +38,16 @@ const EmailForm = () => {
   }
 
   return (
-<form className={`${form} bg-global-secondary`} onSubmit={handleLogin}>
+    <form className={`${form} bg-global-secondary`} onSubmit={handleForgottenPwd}>
       <p> Merci de saisir l&apos;adresse email liée à votre compte. </p>
 
       {success && (
         <p>
-          Connexion réussie !<br />
-          Vous allez être redirigé sur la page d&apos;accueil...
+          Un email vous a été envoyé pour vous permettre de choisir un nouveau mot de passe.
         </p>
       )}
 
-      <p
-        ref={errors}
-        className={cn(errmsg, { [offscreen]: !errMsg })}
-        aria-live="assertive"
-      >
+      <p>
         {errMsg}
       </p>
 
@@ -66,8 +66,13 @@ const EmailForm = () => {
         <label htmlFor="email-input">Email</label>
       </div>
 
-        <p onClick={() => handleForgottenPwd()}>Mot de passe oublié ?</p>
-      <a href={github_url}>Me connecter avec github</a>
+      <input
+        className={`${btn} bg-primary txt-btn`}
+        type="submit"
+        role="button"
+        value={"Renvoyer"}
+      />
+
     </form>
   );
 };
