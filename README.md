@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <div align='center'>
 
 # Snipshare
@@ -45,5 +44,3 @@ A la manière d'Instagram ou Tiktok, **SharinCode** est un réseau social de par
 ## Crédits et remerciements
 
 Merci à [The Hacking Project](https://www.thehackingproject.org/) et à tous les moussaillons pour cette formation de qualité !
-=======
->>>>>>> d1e7b3a3ba5dc01764c80c8732f7e3eca0bda5de
