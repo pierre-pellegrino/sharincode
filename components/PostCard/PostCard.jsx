@@ -51,17 +51,17 @@ const PostCard = ({
   const [user, setUser] = useAtom(userAtom);
   const [isConnected] = useAtom(isConnectedAtom);
 
-  const language = post.snippets[0]?.language.replace(/^(\[")(.+)("])$/, "$2");
   const description = post.description;
-  const snippet = post.snippets[0]?.content || "There is no code yet.";
   const date = post.created_at;
   const author = post.user;
   const id = post.id;
   const commentNb = post.comments;
   const reactions = post.reactions;
-  const lightReacts = reactions.filter((react) => react.reaction_id === 1);
-  const loveReacts = reactions.filter((react) => react.reaction_id === 2);
-  const checkReacts = reactions.filter((react) => react.reaction_id === 3);
+
+  const lightReacts = reactions.filter(react => react.reaction_id === 1);
+  const loveReacts = reactions.filter(react => react.reaction_id === 2);
+  const checkReacts = reactions.filter(react => react.reaction_id === 3);
+  const snippetList = post.snippets
   const currentUserReact =
     reactions.filter((react) => react.user_id === user?.user.id)[0]
       ?.reaction_id || 0;
@@ -153,8 +153,7 @@ const PostCard = ({
                   opened={displayActionsMenu}
                   postId={id}
                   description={description}
-                  language={language}
-                  snippet={snippet}
+                  snippetList={snippetList}
                   post={post}
                   setButtonDisabled={setButtonDisabled}
                 />
@@ -170,8 +169,7 @@ const PostCard = ({
                   opened={displayActionsMenu}
                   postId={id}
                   description={description}
-                  language={language}
-                  snippet={snippet}
+                  snippetList={snippetList}
                   post={post}
                   setButtonDisabled={setButtonDisabled}
                 />
@@ -192,12 +190,18 @@ const PostCard = ({
       </div>
       <FormattedDescription description={description} />
       <div className={snippetStyle}>
-        <p className={languageStyle}>{language}</p>
-        <SnippetHighlighter
-          snippet={snippet}
-          language={language}
-          theme={theme}
-        />
+        {
+          snippetList.map((snippet) => (
+            <div key={snippet.id} className={snippetStyle}>
+              <p className={languageStyle}>{snippet.language}</p>
+              <SnippetHighlighter
+                snippet={snippet.content}
+                language={snippet.language}
+                theme={theme}
+              />
+            </div>
+          ))
+        }
       </div>
       <div className={bottom}>
         <div className={reactsWrapper}>
@@ -246,7 +250,7 @@ const PostCard = ({
               <p className={{ comment }}>Commenter</p>
             </a>
           </Link>
-          <ShareModal language={language} author={author} id={id} />
+          <ShareModal language={snippetList[0].language} author={author} id={id}/>
         </div>
       </div>
     </div>

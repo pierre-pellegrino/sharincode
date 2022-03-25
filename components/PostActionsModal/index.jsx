@@ -18,8 +18,7 @@ const PostActionsModal = (props) => {
     opened,
     postId,
     description,
-    language,
-    snippet,
+    snippetList,
     post,
     setButtonDisabled,
   } = props;
@@ -55,8 +54,7 @@ const PostActionsModal = (props) => {
         <NewPostModal
           closeModal={() => setDisplayEditModal(false)}
           description={description}
-          language={language}
-          snippet={snippet}
+          snippetList={snippetList}
           post={post}
           setButtonDisabled={setButtonDisabled}
         />
