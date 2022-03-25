@@ -215,7 +215,9 @@ const NewPostForm = ({
           />
         ))
       }
-      <button className={`${btn} bg-primary txt-btn`} onClick={handleSetSnippetCount}>ajouter un snippet</button>
+      {
+        !editSnippet && <button className={`${btn} bg-primary txt-btn`} onClick={handleSetSnippetCount}>ajouter un snippet</button>
+      }
       <input
         type="submit"
         className={`${btn} bg-primary txt-btn`}
