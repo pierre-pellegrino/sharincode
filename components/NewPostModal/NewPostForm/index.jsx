@@ -118,7 +118,9 @@ const NewPostForm = ({
     }
   };
 
-  const handleAddSnippet = () => {
+  const handleAddSnippet = (e) => {
+    e.preventDefault();
+    
     setSnippets([
       ...snippets,
       { content: "", language: `${LANGUAGES[0].name} ${LANGUAGES[0].mode}` },
@@ -150,7 +152,7 @@ const NewPostForm = ({
       {!editSnippet && (
         <button
           className={`${btn} bg-primary txt-btn`}
-          onClick={handleAddSnippet}
+          onClick={(e) => handleAddSnippet(e)}
         >
           Ajouter un snippet
         </button>

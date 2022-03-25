@@ -65,7 +65,7 @@ const NewSnippetForm = ({ snippet, snippets, setSnippets }) => {
         </select>
       </div>
       <EditorContainer
-        language={language}
+        language={language.split(" ").slice(-1)[0]}
         value={content}
         onChange={handleContentChange}
         required
