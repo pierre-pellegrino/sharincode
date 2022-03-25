@@ -20,7 +20,7 @@ const ShareModal = ({author, language, id}) => {
           <a 
             target="_blank" 
             rel="noreferrer" 
-            href={`https://twitter.com/intent/tweet?url=https%3A%2F%2Fsnipshare.vercel.app%2Fposts%2F${id}&text=Snippet%20de%20${formattedAuthor}%20sur%20Snipshare&hashtags=snipshare,${formattedLanguage}`}
+            href={`https://twitter.com/intent/tweet?url=https%3A%2F%2Fsnipsha.re%2Fposts%2F${id}&text=Snippet%20de%20${formattedAuthor}%20sur%20Snipshare&hashtags=snipshare,${formattedLanguage}`}
             className={shareIcon}
           >
             <TwitterIcon /> 
@@ -28,7 +28,7 @@ const ShareModal = ({author, language, id}) => {
           <a
             target="_blank" 
             rel="noreferrer" 
-            href={`https://www.facebook.com/sharer.php?u=https%3A%2F%2Fsnipshare.vercel.app%2Fposts%2F${id}`}
+            href={`https://www.facebook.com/sharer.php?u=https%3A%2F%2Fsnipsha.re%2Fposts%2F${id}`}
             className={shareIcon}
           >
             <FacebookIcon /> 
