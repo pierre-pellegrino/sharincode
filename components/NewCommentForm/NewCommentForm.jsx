@@ -1,15 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import ProfileIcon from "components/ProfileIcon/ProfileIcon";
-import {
-  newCommentWrapper,
-  form
-} from "./new_comment_form.module.scss";
+import { newCommentWrapper, form } from "./new_comment_form.module.scss";
 import { btn } from "components/forms/form.module.scss";
-import {WarningIcon} from "components/icons";
+import { WarningIcon } from "components/icons";
 import APIManager from "pages/api/axios";
-import { useSWRConfig } from 'swr';
+import { useSWRConfig } from "swr";
 
-const NewCommentForm = ({currentUser, id}) => {
+const NewCommentForm = ({ currentUser, id, commentRef }) => {
   const [description, setDescription] = useState("");
   const { mutate } = useSWRConfig();
 
@@ -17,20 +14,20 @@ const NewCommentForm = ({currentUser, id}) => {
     e.preventDefault();
 
     const data = {
-      content: description
-    }
+      content: description,
+    };
 
     await APIManager.createComment(id, data);
     setDescription("");
     await mutate(`/posts/${id}/comments`);
-  }
+  };
 
   return (
     <div className={newCommentWrapper}>
-      <ProfileIcon user={currentUser}/>
-      
+      <ProfileIcon user={currentUser} />
+
       <form className={form} onSubmit={handleSubmit}>
-        <p> 
+        <p>
           {description.length} / 300
           {description.length >= 290 && <WarningIcon />}
         </p>
@@ -41,6 +38,7 @@ const NewCommentForm = ({currentUser, id}) => {
           className="bg-global-secondary"
           onChange={(e) => setDescription(e.target.value)}
           maxLength="300"
+          ref={commentRef}
           required
         />
         <input
@@ -48,7 +46,7 @@ const NewCommentForm = ({currentUser, id}) => {
           className={`${btn} bg-primary txt-btn`}
           role="button"
           value="Commenter"
-          disabled={description.length<1}
+          disabled={description.length < 1}
         />
       </form>
     </div>

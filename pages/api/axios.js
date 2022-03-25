@@ -56,6 +56,18 @@ export default class APIManager {
     return response;
   }
 
+  static async updatePwd(data) {
+    const endpoint = "/users";
+    const response = await APIRequest.patch(endpoint, data);
+    return response;
+  }
+
+  static async updateEmail(data) {
+    const endpoint = "/users";
+    const response = await APIRequest.patch(endpoint, data);
+    return response;
+  }
+
   static async deleteUser() {
     const endpoint = "/profile";
     const response = await APIRequest.delete(endpoint);
@@ -142,6 +154,12 @@ export default class APIManager {
       },
     });
     Cookies.set("token", response.headers.authorization);
+    return response;
+  }
+
+  static async forgottenPassword(data) {
+    const endpoint = "/users/password"
+    const response = await APIRequest.post(endpoint, data);
     return response;
   }
 

@@ -11,6 +11,7 @@ const FormattedDescription = ({ description }) => {
           return (
             <Link
               href={{ pathname: "/search", query: { q: word.replace("#", "").trim() } }}
+              key={i}
             >
               <a className="txt-primary">{word}</a>
             </Link>

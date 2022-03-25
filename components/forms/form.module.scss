@@ -90,6 +90,17 @@
     opacity: 0.5;
     pointer-events: none;
   }
+
+  &.github {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    svg {
+      width: 24px;
+      margin-right: 0.5rem;
+    }
+  }
 }
 
 .errmsg {
@@ -203,6 +214,11 @@
   }
 }
 
+.pwdForm {
+  border-top: 1px solid $primary;
+  margin-top: 1rem;
+}
+
 @media screen and (max-width: 525px) {
   .form {
     min-width: 100%;
@@ -212,7 +228,7 @@
 @media screen and (max-width: 375px) {
   .form {
     border: none;
-    padding: 0;
+    padding: 0 -2rem;
     background-color: inherit;
   }
 }

@@ -18,6 +18,7 @@ export default function Home() {
   );
 
   const bottomRef = useRef(null);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const observerOptions = {
     rootMargin: "0px",
     threshold: 1,
@@ -39,6 +40,7 @@ export default function Home() {
     isVisible && observer.unobserve(bottomRef.current);
 
     return () => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       if (bottomRef.current) observer.unobserve(bottomRef.current);
     };
   }, [bottomRef, observerOptions, isVisible]);

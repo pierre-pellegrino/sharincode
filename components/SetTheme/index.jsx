@@ -1,6 +1,12 @@
 const SetTheme = ({ highlights }) => (
   <style jsx global>
     {`
+      *,
+      *::before,
+      *::after {
+        ${highlights.matrix ? "font-family: monospace" : ""}
+      }
+
       // SCROLLBARS
 
       :root {
