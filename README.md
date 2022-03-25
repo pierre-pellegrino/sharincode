@@ -1,34 +1,46 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<div align='center'>
 
-## Getting Started
+# Snipshare
 
-First, run the development server:
+[![THP Badge](https://raw.githubusercontent.com/Beygs/Beygs/main/assets/the-hacking-project-badge.svg)](https://www.thehackingproject.org/)
+[![NextJs Logo](https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
+[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+[![Snipshare](./public/icon-256x256.png)](https://www.snipsha.re)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+[Pitch du projet](#pitch-du-projet) | 
+[Liens utiles](#liens-utiles) | 
+[Installation](#installation) | 
+[L'équipe](#lequipe) | 
+[Crédits et remerciements](#crédits-et-remerciements)
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+**Snipshare**, *le* réseau social de partage de snippets de code
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+</div>
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## Pitch du projet
 
-## Learn More
+A la manière d'Instagram ou Tiktok, **SharinCode** est un réseau social de partage de snippets de code informatique. Le but est de pouvoir partager de petites créations comme par exemple un composant React ou un joli footer. L'intérêt principal est évidemment d'afficher un code joliment formaté et copie-collable aisément.
 
-To learn more about Next.js, take a look at the following resources:
+## Liens utiles
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+[Repo du backend](https://github.com/pierre-pellegrino/sharincode-api)<br/>
+[Lien de l'API](https://snipshare-api.herokuapp.com/)<br/>
+[Live Site](https://www.snipsha.re)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Installation
 
-## Deploy on Vercel
+1. `yarn`
+1. `yarn dev`
+1. Go to [http://localhost:3000](http://localhost:3000)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## L'Equipe
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [Pierre Pellegrino](https://github.com/pierre-pellegrino)
+- [Anthony Charpenay](https://github.com/talmidiel)
+- [Timothée Gimbert](https://github.com/TimotheeGimbert)
+- [Boris Gilles](https://github.com/Beygs)
+
+## Crédits et remerciements
+
+Merci à [The Hacking Project](https://www.thehackingproject.org/) et à tous les moussaillons pour cette formation de qualité !
