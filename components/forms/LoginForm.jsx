@@ -172,7 +172,6 @@ const LoginForm = () => {
       <Link href="/forgotten-password">
         <a>Mot de passe oublié ?</a>
       </Link>
-      <a href={github_url}>Me connecter avec github</a>
     </form>
   );
 };

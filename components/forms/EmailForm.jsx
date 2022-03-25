@@ -9,11 +9,12 @@ import {
 
 const EmailForm = () => {
   const emailRef = useRef();
-  const errors = useRef();
 
   const [email, setEmail] = useState("");
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
+  const [btnMsg, setBtnMsg] = useState("renvoyer");
+  const [disableBtn, setDisableBtn] = useState(false);
 
   useEffect(() => {
     setErrMsg("");
@@ -28,6 +29,8 @@ const EmailForm = () => {
       }
     }
     try {
+      setBtnMsg("envoi en cours...");
+      setDisableBtn(true);
       const response = await APIManager.forgottenPassword(data);
       console.log(response)
       setSuccess(true);
@@ -35,6 +38,8 @@ const EmailForm = () => {
     catch (err) {
       console.log("Oups ! Pas de réponse du serveur...");
     }
+    setBtnMsg("renvoyer");
+    setDisableBtn(false);
   }
 
   return (
@@ -70,7 +75,8 @@ const EmailForm = () => {
         className={`${btn} bg-primary txt-btn`}
         type="submit"
         role="button"
-        value={"Renvoyer"}
+        value={btnMsg}
+        disabled={disableBtn}
       />
 
     </form>

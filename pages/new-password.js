@@ -1,27 +1,21 @@
 import { main } from "styles/Home.module.scss";
-import Loader from "components/Loader";
 import { useRouter } from "next/router";
-import { useCallback, useEffect } from "react";
-import APIManager from "./api/axios";
-import { useAtom } from "jotai";
-import { userAtom } from "store";
-import { loader } from "styles/Home.module.scss";
 import Head from "next/head";
 import { getAbsoluteURL } from "lib/getAbsoluteURL";
-import EditUserImportantInfos from "components/forms/EditUserImportantInfos";
+import NewPwdForm from "components/forms/NewPwdForm";
 
 const GhRedirect = () => {
   const router = useRouter();
-  const [user, setUser] = useAtom(userAtom);
+  const { query } = router;
 
   return (
     <>
       <Head>
         <title>New Password | Snipshare</title>
-        <meta name="title" content="New Password | Snipshare" />
+        <meta name="title" content="Nouveau mot de passe | Snipshare" />
 
         <meta property="og:url" content={getAbsoluteURL(router.asPath)} />
-        <meta property="og:title" content="New Password Redirection | Snipshare" />
+        <meta property="og:title" content="Nouveau mot de passe | Snipshare" />
 
         <meta
           property="twitter:url"
@@ -29,11 +23,11 @@ const GhRedirect = () => {
         />
         <meta
           property="twitter:title"
-          content="New Password Redirection | Snipshare"
+          content="Nouveau mot de passe | Snipshare"
         />
       </Head>
       <div className={main}>
-        <EditUserImportantInfos user={user} />
+        <NewPwdForm token={query.reset_token} />
       </div>
     </>
   );
