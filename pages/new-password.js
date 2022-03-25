@@ -1,18 +1,12 @@
 import { main } from "styles/Home.module.scss";
-import Loader from "components/Loader";
 import { useRouter } from "next/router";
-import { useCallback, useEffect } from "react";
-import APIManager from "./api/axios";
-import { useAtom } from "jotai";
-import { userAtom } from "store";
-import { loader } from "styles/Home.module.scss";
 import Head from "next/head";
 import { getAbsoluteURL } from "lib/getAbsoluteURL";
-import EditUserImportantInfos from "components/forms/EditUserImportantInfos";
+import NewPwdForm from "components/forms/NewPwdForm";
 
 const GhRedirect = () => {
   const router = useRouter();
-  const [user, setUser] = useAtom(userAtom);
+  const { query } = router;
 
   return (
     <>
@@ -33,7 +27,7 @@ const GhRedirect = () => {
         />
       </Head>
       <div className={main}>
-        <EditUserImportantInfos user={user} />
+        <NewPwdForm token={query.reset_token} />
       </div>
     </>
   );
