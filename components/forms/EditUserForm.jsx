@@ -35,8 +35,8 @@ const EditUserForm = ({ user, mutate, userAvatar, userId }) => {
   const handleDeleteAccount = () => {
     if (confirm("Êtes-vous sûr ?\nCette action est irréversible.")) {
       APIManager.deleteUser();
-      setUser(null);
       router.push("/");
+      setUser(null);
     }
   };
 
@@ -54,7 +54,6 @@ const EditUserForm = ({ user, mutate, userAvatar, userId }) => {
           favorite_theme: preferedTheme,
         });
       } catch (err) {
-        console.error(err.response);
       }
     }
   }, [preferedTheme, user]);
@@ -73,7 +72,6 @@ const EditUserForm = ({ user, mutate, userAvatar, userId }) => {
     };
 
     try {
-      console.log(data)
       const response = await APIManager.updateProfile(data);
       await mutate();
       setSuccess(true);
