@@ -167,6 +167,7 @@ const NewPostForm = ({
       const response = await APIManager.editPost(post.id, data);
 
       await mutate("/posts");
+      await mutate(`/posts/${post.id}`);
 
       if (closeModal) closeModal();
       if (setButtonDisabled) setButtonDisabled(false);

@@ -1,5 +1,11 @@
 @use "styles/abstracts/variables" as *;
 
+.infosContainer {
+  width: 100%;
+  padding: 0 1rem;
+  overflow-wrap: break-word;
+}
+
 .profileInfos {
   margin-bottom: 1.5rem;
 
