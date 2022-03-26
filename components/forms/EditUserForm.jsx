@@ -54,6 +54,7 @@ const EditUserForm = ({ user, mutate, userAvatar, userId }) => {
           favorite_theme: preferedTheme,
         });
       } catch (err) {
+        console.error(err);
       }
     }
   }, [preferedTheme, user]);
@@ -72,11 +73,33 @@ const EditUserForm = ({ user, mutate, userAvatar, userId }) => {
     };
 
     try {
-      const response = await APIManager.updateProfile(data);
+      await APIManager.updateProfile(data);
       await mutate();
       setSuccess(true);
       setErrMsg(false);
       setBtnValue("Editer");
+      
+      await setUser((prev) => {
+        const {
+          username,
+          description,
+          github_url,
+          personal_url,
+          favorite_theme,
+        } = data;
+
+        return {
+          ...prev,
+          user: {
+            ...user,
+            username,
+            description,
+            github_url,
+            personal_url,
+            favorite_theme,
+          },
+        };
+      });
     } catch (err) {
       setBtnValue("Editer");
       setErrMsg(true);
