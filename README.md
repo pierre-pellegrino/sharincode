@@ -21,7 +21,7 @@
 
 ## Pitch du projet
 
-A la manière d'Instagram ou Tiktok, **SharinCode** est un réseau social de partage de snippets de code informatique. Le but est de pouvoir partager de petites créations comme par exemple un composant React ou un joli footer. L'intérêt principal est évidemment d'afficher un code joliment formaté et copie-collable aisément.
+A la manière d'Instagram ou Tiktok, **Snipshare** est un réseau social de partage de snippets de code informatique. Le but est de pouvoir partager de petites créations comme par exemple un composant React ou un joli footer. L'intérêt principal est évidemment d'afficher un code joliment formaté et copie-collable aisément.
 
 ## Liens utiles
 
