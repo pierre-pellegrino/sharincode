@@ -238,6 +238,7 @@ const PostCard = ({
               reactions={reactions}
               page={page}
               userId={author.user_id}
+              mutate={mutateProfile}
             />
           )}
           <Link href={{ pathname: `/posts/${id}`, query: { comment: true } }}>
