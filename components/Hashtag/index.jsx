@@ -1,7 +1,16 @@
-const HashtagLink = props => {
+const HashtagLink = (props) => {
+  const {
+    children,
+    contentState,
+    decoratedText,
+    blockKey,
+    entityKey,
+    offsetKey,
+    ...rest
+  } = props;
   return (
-    <span {...props} className="txt-primary">
-      {props.children}
+    <span {...rest} className="txt-primary">
+      {children}
     </span>
   );
 };

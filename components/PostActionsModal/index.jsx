@@ -12,18 +12,20 @@ import {
   navItems,
   navItem,
 } from "./post_actions_modal.module.scss";
+import {useAtom} from "jotai";
+import {userAtom} from "store";
 
 const PostActionsModal = (props) => {
   const {
     opened,
     postId,
     description,
-    language,
-    snippet,
+    snippetList,
     post,
     setButtonDisabled,
   } = props;
 
+  const [user] = useAtom(userAtom);
   const { mutate } = useSWRConfig();
   const [displayEditModal, setDisplayEditModal] = useState(false);
   const middleBreakpoint = useMediaQuery({ query: "(max-width: 1000px)" });
@@ -39,6 +41,7 @@ const PostActionsModal = (props) => {
     try {
       await APIManager.deletePost(postId);
       await mutate("/posts");
+      mutate(`profiles/${user.user.id}`);
       router.replace("/");
     } catch (e) {
       console.error(e.response);
@@ -55,8 +58,7 @@ const PostActionsModal = (props) => {
         <NewPostModal
           closeModal={() => setDisplayEditModal(false)}
           description={description}
-          language={language}
-          snippet={snippet}
+          snippetList={snippetList}
           post={post}
           setButtonDisabled={setButtonDisabled}
         />
