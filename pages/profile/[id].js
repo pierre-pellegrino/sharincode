@@ -8,7 +8,7 @@ import Loader from "components/Loader";
 import ProfileTabMenu from "../../components/ProfileTabMenu/ProfileTabMenu";
 import { useAtom } from "jotai";
 import { userAtom } from "store";
-import { profileInfos } from "./profile.module.scss";
+import { profileInfos, infosContainer } from "./profile.module.scss";
 import { useRouter } from "next/router";
 import { getAbsoluteURL } from "lib/getAbsoluteURL";
 
@@ -46,21 +46,23 @@ const ProfilePage = () => {
             content={`${data.user.username} | Snipshare`}
           />
         </Head>
-        <ProfileIcon type="profile" user={profileData} />
-        <div className={profileInfos}>
-          <p>Description&nbsp;: {data.user.description}</p>
-          <p>
-            Github&nbsp;:
-            <a href={data.user.github_url} target="_blank" rel="noreferrer">
-              {data.user.github_url}
-            </a>
-          </p>
-          <p>
-            Lien personnel&nbsp;:
-            <a href={data.user.personal_url} target="_blank" rel="noreferrer">
-              {data.user.personal_url}
-            </a>
-          </p>
+        <div className={infosContainer}>
+          <ProfileIcon type="profile" user={profileData} />
+          <div className={profileInfos}>
+            <p>Description&nbsp;: {data.user.description}</p>
+            <p>
+              Github&nbsp;:
+              <a href={data.user.github_url} target="_blank" rel="noreferrer">
+                {data.user.github_url}
+              </a>
+            </p>
+            <p>
+              Lien personnel&nbsp;:
+              <a href={data.user.personal_url} target="_blank" rel="noreferrer">
+                {data.user.personal_url}
+              </a>
+            </p>
+          </div>
         </div>
         <ProfileTabMenu
           user={data.user}
