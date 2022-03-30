@@ -79,7 +79,12 @@ const LoginForm = () => {
       const response = await APIManager.login(data);
       setSuccess(true);
       setUser(response.data);
-      router.push("/");
+
+      if (router.query.redirect) {
+        router.back();
+      } else {
+        router.push("/");
+      }
     } catch (err) {
       setBtnValue("Me connecter");
 

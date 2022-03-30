@@ -35,7 +35,7 @@ const MyMiddleware = (req) => {
   if (authOnlyRoutes.includes(path)) {
     if (jwt === undefined) {
       url.pathname = "/login";
-
+      url.searchParams.set("redirect", true);
       return NextResponse.redirect(url);
     }
 
@@ -47,6 +47,7 @@ const MyMiddleware = (req) => {
       return NextResponse.next();
     } catch (e) {
       url.pathname = "/login";
+      url.searchParams.set("redirect", true);
       return NextResponse.redirect(url);
     }
   }
