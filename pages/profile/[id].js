@@ -11,6 +11,7 @@ import { userAtom } from "store";
 import { profileInfos, infosContainer } from "./profile.module.scss";
 import { useRouter } from "next/router";
 import { getAbsoluteURL } from "lib/getAbsoluteURL";
+import ReconnectModal from "components/ReconnectModal";
 
 const ProfilePage = () => {
   const router = useRouter();
@@ -21,6 +22,8 @@ const ProfilePage = () => {
   let content = <Loader />;
 
   if (error) content = <div>Oups ! Il y a eu un problème...</div>;
+
+  if (error?.response.status === 401) content = <ReconnectModal />;
 
   if (data) {
     const profileData = { avatar: data.avatar, username: data.user.username };
