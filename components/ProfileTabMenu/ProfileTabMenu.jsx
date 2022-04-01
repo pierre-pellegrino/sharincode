@@ -12,6 +12,7 @@ import {
 import PostCard from "components/PostCard/PostCard";
 import EditUserImportantInfos from "../forms/EditUserImportantInfos";
 import EditUserEmail from "../forms/EditUserEmail";
+import { useTranslation } from "next-i18next";
 
 const ProfileTabMenu = ({
   user,
@@ -23,6 +24,8 @@ const ProfileTabMenu = ({
   favoritePosts,
 }) => {
   const [activeTab, setActiveTab] = useState(1);
+  const { t } = useTranslation("profile");
+
   return (
     <>
       <div className={profileTabMenu}>
@@ -31,7 +34,7 @@ const ProfileTabMenu = ({
             className={`${tab} ${activeTab === 1 && active}`}
             onClick={(e) => setActiveTab(1)}
           >
-            Snippets créés ({posts.length})
+            {t("createdSnippets")} ({posts.length})
           </h3>
         </div>
         <div className={`${favSnippetsTab}`}>
@@ -39,7 +42,7 @@ const ProfileTabMenu = ({
             className={`${tab} ${activeTab === 2 && active}`}
             onClick={(e) => setActiveTab(2)}
           >
-            Snippets favoris ({favoritePosts.length})
+            {t("favoriteSnippets")} ({favoritePosts.length})
           </h3>
         </div>
         {isCurrentUser && (
@@ -48,7 +51,7 @@ const ProfileTabMenu = ({
               className={`${tab} ${activeTab === 3 && active}`}
               onClick={(e) => setActiveTab(3)}
             >
-              Réglages
+              {t("settings")}
             </h3>
           </div>
         )}
@@ -58,9 +61,7 @@ const ProfileTabMenu = ({
         {activeTab === 1 &&
           (posts.length === 0 ? (
             <p>
-              {" "}
-              {user?.username ?? "Cet utilisateur"} n&apos;a créé aucun snippet
-              !{" "}
+              {user?.username ?? t("userPlaceholder")} {t("noCreatedSnippets")}
             </p>
           ) : (
             posts.map((post) => {
@@ -70,7 +71,7 @@ const ProfileTabMenu = ({
 
         {activeTab === 2 &&
           (favoritePosts.length === 0 ? (
-            <p> Aucun snippet favori ! </p>
+            <p>{t("noFavoriteSnippets")}</p>
           ) : (
             favoritePosts.map((post) => (
               <PostCard post={post.post} mutate={mutate} key={post.post.id} />
