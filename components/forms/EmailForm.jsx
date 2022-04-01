@@ -1,19 +1,20 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from "react";
 import APIManager from "pages/api/axios";
-import {
-  form,
-  inputWrapper,
-  input,
-  btn,
-} from "./form.module.scss";
+import { form, inputWrapper, input, btn } from "./form.module.scss";
 
-const EmailForm = () => {
+const EmailForm = ({
+  instructions,
+  submit_txt,
+  sending_message,
+  success_message,
+  server_error,
+}) => {
   const emailRef = useRef();
 
   const [email, setEmail] = useState("");
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
-  const [btnMsg, setBtnMsg] = useState("renvoyer");
+  const [btnMsg, setBtnMsg] = useState(submit_txt);
   const [disableBtn, setDisableBtn] = useState(false);
 
   useEffect(() => {
@@ -25,35 +26,31 @@ const EmailForm = () => {
 
     const data = {
       user: {
-        email: email
-      }
-    }
+        email: email,
+      },
+    };
     try {
-      setBtnMsg("envoi en cours...");
+      setBtnMsg(sending_message);
       setDisableBtn(true);
       const response = await APIManager.forgottenPassword(data);
       setSuccess(true);
+    } catch (err) {
+      setErrMsg(server_error);
     }
-    catch (err) {
-      console.log("Oups ! Pas de réponse du serveur...");
-    }
-    setBtnMsg("renvoyer");
+    setBtnMsg(submit_txt);
     setDisableBtn(false);
-  }
+  };
 
   return (
-    <form className={`${form} bg-global-secondary`} onSubmit={handleForgottenPwd}>
-      <p> Merci de saisir l&apos;adresse email liée à votre compte. </p>
+    <form
+      className={`${form} bg-global-secondary`}
+      onSubmit={handleForgottenPwd}
+    >
+      <p>{instructions}</p>
 
-      {success && (
-        <p>
-          Un email vous a été envoyé pour vous permettre de choisir un nouveau mot de passe.
-        </p>
-      )}
+      {success && <p>{success_message}</p>}
 
-      <p>
-        {errMsg}
-      </p>
+      <p>{errMsg}</p>
 
       <div className={inputWrapper}>
         <input
@@ -77,7 +74,6 @@ const EmailForm = () => {
         value={btnMsg}
         disabled={disableBtn}
       />
-
     </form>
   );
 };

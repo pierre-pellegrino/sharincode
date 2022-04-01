@@ -1,5 +1,6 @@
 import Layout from "components/layout";
 import { Provider } from "jotai";
+import { appWithTranslation, withTranslation } from "next-i18next";
 import Head from "next/head";
 import "styles/globals.scss";
 import "styles/reset.scss";
@@ -50,4 +51,4 @@ const MyApp = ({ Component, pageProps }) => {
   );
 };
 
-export default MyApp;
+export default appWithTranslation(withTranslation("common")(MyApp));
