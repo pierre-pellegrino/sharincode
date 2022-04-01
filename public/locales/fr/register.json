@@ -1,0 +1,17 @@
+{
+  "title": "M'inscrire | Snipshare",
+  "register": "M'inscrire",
+  "savingBtn": "Inscription en cours...",
+  "advantages": {
+    "intro": "En créant votre compte, vous pourrez",
+    "share": "Partager vos meilleurs snippets au monde",
+    "comment": "Commenter des snippets",
+    "react": "Réagir aux snippets que vous aimez",
+    "fav": "Enregistrer vos snippets préférés dans vos favoris",
+    "theme": "Choisir votre thème préféré"
+  },
+  "registerComplete": "Incription réussie !",
+  "redirect": "Vous allez être redirigé sur la page d'accueil...",
+  "alreadyRegistered": "Déjà inscrit ?",
+  "loginLink": "Me connecter"
+}

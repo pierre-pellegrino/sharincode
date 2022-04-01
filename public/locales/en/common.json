@@ -1,5 +1,6 @@
 {
   "skipLink": "Skip to main content",
+  "loginAriaLabel": "Go to login page",
   "login": "Login",
   "newSnippet": "New Snippet",
   "newSnippetAriaLabel": "Create a new snippet.",
@@ -16,5 +17,6 @@
   "shareBtn": "Share",
   "searchbar": "Search a language, a user, a hashtag...",
   "edit": "Edit",
-  "delete": "Delete"
+  "delete": "Delete",
+  "cantSaveError": "One or more fields are invalid !"
 }

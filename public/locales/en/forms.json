@@ -1,0 +1,19 @@
+{
+  "username": {
+    "value": "Username",
+    "instructions": "4 to 36 characters.\nMust begin with a letter.\nAuthorized characters : letters, numbers, hyphens (- and _)."
+  },
+  "email": {
+    "value": "Email",
+    "instructions": "Please enter a valid email address."
+  },
+  "pwd": {
+    "value": "Password",
+    "instructions": "Minimum 6 characters."
+  },
+  "pwdConfirm": {
+    "value": "Password Confirmation",
+    "instructions": "Please retype your password."
+  },
+  "github": "Login with Github"
+}

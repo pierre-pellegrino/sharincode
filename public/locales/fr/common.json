@@ -1,7 +1,7 @@
 {
   "skipLink": "Accéder au contenu principal",
-  "login": "Me connecter",
   "loginAriaLabel": "Accéder à la page de connexion",
+  "login": "Me connecter",
   "newSnippet": "Nouveau Snippet",
   "newSnippetAriaLabel": "Créer un nouveau snippet.",
   "accountAriaLabel": "Accéder à mon compte",
@@ -17,5 +17,6 @@
   "shareBtn": "Partager",
   "searchbar": "Rechercher un langage, un utilisateur, un hashtag...",
   "edit": "Editer",
-  "delete": "Supprimer"
+  "delete": "Supprimer",
+  "cantSaveError": "Un (ou plusieurs) champ(s) sont invalides !"
 }

@@ -74,5 +74,5 @@ export default Search;
 export const getStaticProps = async ({ locale }) => ({
   props: {
     ...(await serverSideTranslations(locale, ["common", "search"])),
-  }
-})
+  },
+});

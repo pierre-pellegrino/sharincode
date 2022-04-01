@@ -1,0 +1,17 @@
+{
+  "title": "Register | Snipshare",
+  "register": "Register",
+  "savingBtn": "Registration in progress...",
+  "advantages": {
+    "intro": "By creating an account, you'll can",
+    "share": "Share your best snippets to the world",
+    "comment": "Comment snippets",
+    "react": "React to snippets that you love",
+    "fav": "Save your favorite snippets",
+    "theme": "Choose your favorite theme"
+  },
+  "registerComplete": "Register completed !",
+  "redirect": "You'll be redirected to the homepage...",
+  "alreadyRegistered": "Already registered ?",
+  "loginLink": "Login"
+}

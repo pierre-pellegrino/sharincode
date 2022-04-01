@@ -6,6 +6,14 @@ module.exports = {
     locales: ["en", "fr"],
   },
   defaultNS: "common",
-  ns: ["common", "forgotten_pwd", "search", "comments", "profile"],
+  ns: [
+    "common",
+    "forgotten_pwd",
+    "search",
+    "comments",
+    "profile",
+    "register",
+    "forms",
+  ],
   reloadOnPrerender: true,
 };
