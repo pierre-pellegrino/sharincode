@@ -2,6 +2,7 @@ import cn from "classnames";
 import useKeyPress from "components/Hooks/useKeyPress";
 import { SearchIcon } from "components/icons";
 import { LANGUAGES } from "lib/constants/languages";
+import { useTranslation } from "next-i18next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -16,6 +17,7 @@ import {
 
 const Searchbar = () => {
   const router = useRouter();
+  const { t } = useTranslation();
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
@@ -79,7 +81,7 @@ const Searchbar = () => {
 
     const formattedQuery = query.replace(/^#/, "");
 
-    router.push(`/search?q=${formattedQuery}`);
+    router.push({ pathname: "/search", query: { q: formattedQuery }, locale: router.locale });
     handleSearch();
   };
 
@@ -93,7 +95,7 @@ const Searchbar = () => {
       <SearchIcon />
       <input
         type="text"
-        placeholder="Rechercher un langage, un utilisateur, un hashtag..."
+        placeholder={t("searchbar")}
         id="searchBar"
         className={search}
         value={query}
@@ -114,7 +116,7 @@ const Searchbar = () => {
             onMouseLeave={() => setHovered(undefined)}
           >
             <Link
-              href={{ pathname: "/search", query: { q: suggestion } }}
+              href={{ pathname: "/search", query: { q: suggestion }, locale: router.locale }}
             >
               <a onClick={handleSearch}>{suggestion}</a>
             </Link>

@@ -13,5 +13,6 @@
   "likeReaction": "I like it !",
   "approvalReaction": "I agree !",
   "commentBtn": "Comment",
-  "shareBtn": "Share"
+  "shareBtn": "Share",
+  "searchbar": "Search a language, a user, a hashtag..."
 }

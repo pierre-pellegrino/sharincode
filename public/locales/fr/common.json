@@ -14,5 +14,6 @@
   "likeReaction": "J'aime !",
   "approvalReaction": "J'approuve !",
   "commentBtn": "Commenter",
-  "shareBtn": "Partager"
+  "shareBtn": "Partager",
+  "searchbar": "Rechercher un langage, un utilisateur, un hashtag..."
 }
