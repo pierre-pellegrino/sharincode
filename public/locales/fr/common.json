@@ -15,5 +15,7 @@
   "approvalReaction": "J'approuve !",
   "commentBtn": "Commenter",
   "shareBtn": "Partager",
-  "searchbar": "Rechercher un langage, un utilisateur, un hashtag..."
+  "searchbar": "Rechercher un langage, un utilisateur, un hashtag...",
+  "edit": "Editer",
+  "delete": "Supprimer"
 }

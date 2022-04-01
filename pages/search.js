@@ -42,7 +42,7 @@ const Search = () => {
     const { posts } = data;
 
     content = posts.map((post) => (
-      <PostCard post={post.post} key={post.post.id} />
+      <PostCard post={post.post} key={post.post.id} locale={router.locale} />
     ));
   }
 

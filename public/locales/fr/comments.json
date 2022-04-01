@@ -1,0 +1,9 @@
+{
+  "message": {
+    "createAccount": "Créez un compte",
+    "or": "ou",
+    "login": "connectez-vous",
+    "toCreateComment": "pour laisser un commentaire"
+  },
+  "commentBtn": "Commenter"
+}

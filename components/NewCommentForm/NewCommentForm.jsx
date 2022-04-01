@@ -5,10 +5,12 @@ import { btn } from "components/forms/form.module.scss";
 import { WarningIcon } from "components/icons";
 import APIManager from "pages/api/axios";
 import { useSWRConfig } from "swr";
+import { useTranslation } from "next-i18next";
 
 const NewCommentForm = ({ currentUser, id, commentRef }) => {
   const [description, setDescription] = useState("");
   const { mutate } = useSWRConfig();
+  const { t } = useTranslation("comments");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,7 +47,7 @@ const NewCommentForm = ({ currentUser, id, commentRef }) => {
           type="submit"
           className={`${btn} bg-primary txt-btn`}
           role="button"
-          value="Commenter"
+          value={t("commentBtn")}
           disabled={description.length < 1}
         />
       </form>

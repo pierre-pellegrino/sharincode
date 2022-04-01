@@ -20,8 +20,10 @@ import {
   menuDisabled,
 } from "components/PostCard/post_card.module.scss";
 import cn from "classnames";
+import { useRouter } from "next/router";
 
 const CommentCard = ({ comment, currentUser, postId }) => {
+  const { locale } = useRouter();
   const { content, created_at, username, avatar, id } = comment;
   const [displayActionsMenu, setDisplayActionsMenu] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
@@ -52,7 +54,7 @@ const CommentCard = ({ comment, currentUser, postId }) => {
           <i>
             {formatDistanceToNow(new Date(created_at), {
               addSuffix: true,
-              locale: fr,
+              locale: locale === "fr" ? fr : en,
             })}
           </i>
           {currentUser &&

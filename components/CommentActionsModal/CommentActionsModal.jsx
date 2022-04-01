@@ -9,9 +9,11 @@ import {
   navItem,
 } from "components/PostActionsModal/post_actions_modal.module.scss";
 import EditCommentForm from "../EditCommentForm/EditCommentForm";
+import { useTranslation } from "next-i18next";
 
 const PostActionsModal = (props) => {
   const { opened, postId, commentId, content, setButtonDisabled } = props;
+  const { t } = useTranslation();
 
   const { mutate } = useSWRConfig();
   const [displayEditModal, setDisplayEditModal] = useState(false);
@@ -46,10 +48,10 @@ const PostActionsModal = (props) => {
       )}
       <ul className={navItems}>
         <li className={navItem} onClick={() => setDisplayEditModal(true)}>
-          Editer
+          {t("edit")}
         </li>
         <li className={navItem} onClick={handleDelete}>
-          Supprimer
+          {t("delete")}
         </li>
       </ul>
     </div>

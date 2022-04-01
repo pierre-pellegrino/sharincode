@@ -8,9 +8,11 @@ import {
 import { useAtom } from "jotai";
 import { userAtom } from "store";
 import Link from "next/link";
+import { useTranslation } from "next-i18next";
 
 const CommentsSection = ({ comments, id, commentRef }) => {
   const [currentUser] = useAtom(userAtom);
+  const { t } = useTranslation("comments");
 
   return (
     <div className={commentsSectionWrapper}>
@@ -18,13 +20,13 @@ const CommentsSection = ({ comments, id, commentRef }) => {
       {!currentUser && (
         <p className={visitorMessage}>
           <Link href="/register">
-            <a className="txt-primary">Créez un compte</a>
-          </Link>{" "}
-          ou&nbsp;
-          <Link href="/login">
-            <a className="txt-primary">connectez-vous</a>
+            <a className="txt-primary">{t("message.createAccount")}</a>
           </Link>
-          &nbsp;pour laisser un commentaire.
+          {` ${t("message.or")} `}
+          <Link href="/login">
+            <a className="txt-primary">{t("message.login")}</a>
+          </Link>
+          &nbsp;{t("message.toCreateComment")}
         </p>
       )}
 

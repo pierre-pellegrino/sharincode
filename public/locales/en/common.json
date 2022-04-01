@@ -14,5 +14,7 @@
   "approvalReaction": "I agree !",
   "commentBtn": "Comment",
   "shareBtn": "Share",
-  "searchbar": "Search a language, a user, a hashtag..."
+  "searchbar": "Search a language, a user, a hashtag...",
+  "edit": "Edit",
+  "delete": "Delete"
 }
