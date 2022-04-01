@@ -1,0 +1,18 @@
+{
+  "skipLink": "Accéder au contenu principal",
+  "login": "Me connecter",
+  "loginAriaLabel": "Accéder à la page de connexion",
+  "newSnippet": "Nouveau Snippet",
+  "newSnippetAriaLabel": "Créer un nouveau snippet.",
+  "accountAriaLabel": "Accéder à mon compte",
+  "logout": "Me déconnecter",
+  "logoutAriaLabel": "Bouton de déconnexion.",
+  "serverError": "Oups ! Pas de réponse du serveur...",
+  "comments": "commentaire",
+  "reactBtn": "Réagir",
+  "ideaReaction": "Bonne idée !",
+  "likeReaction": "J'aime !",
+  "approvalReaction": "J'approuve !",
+  "commentBtn": "Commenter",
+  "shareBtn": "Partager"
+}

@@ -1,0 +1,17 @@
+{
+  "skipLink": "Skip to main content",
+  "login": "Login",
+  "newSnippet": "New Snippet",
+  "newSnippetAriaLabel": "Create a new snippet.",
+  "accountAriaLabel": "Go to my account.",
+  "logout": "Logout",
+  "logoutAriaLabel": "Logout button.",
+  "serverError": "Oops ! The server did not respond...",
+  "comments": "comment",
+  "reactBtn": "React",
+  "ideaReaction": "Good idea !",
+  "likeReaction": "I like it !",
+  "approvalReaction": "I agree !",
+  "commentBtn": "Comment",
+  "shareBtn": "Share"
+}

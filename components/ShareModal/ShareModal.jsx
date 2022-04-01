@@ -9,13 +9,15 @@ import {
   TwitterIcon,
   FacebookIcon
 } from "components/icons";
+import { useTranslation } from 'next-i18next';
 
 const ShareModal = ({author, language, id}) => {
+  const { t } = useTranslation();
   const formattedAuthor = escape(author.username);
   const formattedLanguage = escape(language);
   return (
       <div className={`${btn} ${openShareModal}`}>
-        <p>Partager</p>
+        <p>{t("shareBtn")}</p>
         <div className={shareModal}>
           <a 
             target="_blank" 

@@ -11,7 +11,7 @@ const LoggedOutNav = () => {
       <li>
         <Link
           href="/login"
-          aria-label="Accéder à la page de connexion"
+          aria-label={t("loginAriaLabel")}
           className={navItem}
           activeClassName={active}
         >

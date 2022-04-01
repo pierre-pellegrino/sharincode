@@ -26,7 +26,7 @@ const ForgottenPwd = () => {
           submit_txt={t("submit_txt")}
           sending_message={t("sending_message")}
           success_message={t("success_message")}
-          server_error={common("server_error")}
+          server_error={common("serverError")}
         />
       </main>
     </div>
