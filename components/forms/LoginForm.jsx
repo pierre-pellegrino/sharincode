@@ -21,10 +21,13 @@ import { EyeOffIcon } from "components/icons";
 import { EyeIcon } from "components/icons";
 import Link from "next/link";
 import { GithubIcon } from "components/icons";
+import { useTranslation } from "next-i18next";
 
 const LoginForm = () => {
   const router = useRouter();
   const errors = useRef();
+  const { t: common } = useTranslation("common");
+  const { t } = useTranslation(["login", "forms"]);
 
   const emailRef = useRef();
 
@@ -38,7 +41,7 @@ const LoginForm = () => {
 
   const canSave = [email, pwd].every(Boolean);
 
-  const [btnValue, setBtnValue] = useState("Me connecter");
+  const [btnValue, setBtnValue] = useState(t("login"));
 
   const [_, setUser] = useAtom(userAtom);
 
@@ -57,16 +60,16 @@ const LoginForm = () => {
     try {
       const response = await APIManager.forgottenPassword();
     } catch (err) {
-      setErrMsg("Oups ! Pas de réponse du serveur...");
+      setErrMsg(common("serverError"));
     }
   };
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    if (!canSave) return setErrMsg("Un (ou plusieurs) champs sont invalides !");
+    if (!canSave) return setErrMsg(common("cantSaveError"));
 
-    setBtnValue("Connexion en cours...");
+    setBtnValue(t("savingBtn"));
 
     const data = {
       user: {
@@ -81,10 +84,10 @@ const LoginForm = () => {
       setUser(response.data);
       router.push("/");
     } catch (err) {
-      setBtnValue("Me connecter");
+      setBtnValue(t("login"));
 
       if (!err?.response) {
-        setErrMsg("Oups ! Pas de réponse du serveur...");
+        setErrMsg(common("serverError"));
       } else {
         setErrMsg(err.response.data);
       }
@@ -94,12 +97,11 @@ const LoginForm = () => {
 
   return (
     <form className={`${form} bg-global-secondary`} onSubmit={handleLogin}>
-      <h1> Connexion </h1>
+      <h1>{t("login")}</h1>
 
       {success && (
         <p>
-          Connexion réussie !<br />
-          Vous allez être redirigé sur la page d&apos;accueil...
+          {t("success")}
         </p>
       )}
 
@@ -123,7 +125,7 @@ const LoginForm = () => {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-        <label htmlFor="email-input">Email</label>
+        <label htmlFor="email-input">{t("forms:email.value")}</label>
       </div>
 
       <div className={inputWrapper}>
@@ -137,7 +139,7 @@ const LoginForm = () => {
           onChange={(e) => setPwd(e.target.value)}
           required
         />
-        <label htmlFor="password-input">Mot de passe</label>
+        <label htmlFor="password-input">{t("forms:pwd.value")}</label>
         <div
           className={`${showPwdIcon} ${showPwdIconLogin}`}
           focusable="false"
@@ -161,16 +163,16 @@ const LoginForm = () => {
       />
       <a href={github_url} className={`${btn} ${github} bg-primary txt-btn`}>
         <GithubIcon />
-        Connexion avec github
+        {t("forms:github")}
       </a>
       <div className={formLink}>
-        <span>Pas encore de compte ?</span>
+        <span>{t("noAccount")}</span>
         <Link href="/register">
-          <a className="txt-primary"> M&apos;inscrire</a>
+          <a className="txt-primary"> {t("registerLink")}</a>
         </Link>
       </div>
       <Link href="/forgotten-password">
-        <a>Mot de passe oublié ?</a>
+        <a>{t("forgottenPwdLink")}</a>
       </Link>
     </form>
   );

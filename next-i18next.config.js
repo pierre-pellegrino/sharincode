@@ -13,6 +13,7 @@ module.exports = {
     "comments",
     "profile",
     "register",
+    "login",
     "forms",
   ],
   reloadOnPrerender: true,
