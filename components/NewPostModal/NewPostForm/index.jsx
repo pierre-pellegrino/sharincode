@@ -21,6 +21,7 @@ import HashtagLink from "components/Hashtag";
 import { useEffect } from "react";
 import { CompositeDecorator } from "draft-js";
 import { HASHTAG_REGEX } from "lib/constants/validations";
+import { useTranslation } from "next-i18next";
 
 const emptyContentState = convertFromRaw({
   entityMap: {},
@@ -43,6 +44,8 @@ const NewPostForm = ({
 }) => {
   const router = useRouter();
   const [_, setShowNewPostModalAtom] = useAtom(showNewPostModalAtom);
+  const { t: common } = useTranslation("common");
+  const { t } = useTranslation("post-editor");
 
   const [snippets, setSnippets] = useState(
     editSnippets
@@ -63,7 +66,7 @@ const NewPostForm = ({
         ]
   );
 
-  const [description, setDescription] = useState("");
+  const [description, setDescription] = useState(editDescription ?? "");
 
   const [descriptionEditorState, setDescriptionEditorState] = useState(
     createWithContent(emptyContentState)
@@ -102,7 +105,7 @@ const NewPostForm = ({
   }, [editDescription]);
 
   const [btnValue, setBtnValue] = useState(
-    editSnippets ? "Editer mon snippet" : "Partager mon code au monde ! 🚀"
+    editSnippets ? t("editPostBtn") : t("newPostBtn")
   );
 
   const { mutate } = useSWRConfig();
@@ -127,9 +130,9 @@ const NewPostForm = ({
     e.preventDefault();
 
     try {
-      if (!canSave) throw new Error("Oups, quelque chose s'est mal passé !");
+      if (!canSave) throw new Error(common("serverError"));
 
-      setBtnValue(editSnippets ? "Edition en cours..." : "Création en cours...");
+      setBtnValue(editSnippets ? t("savingEditBtn") : t("savingNewBtn"));
 
       const tags = extractHashtagsWithIndices(description).map(
         (tag) => tag.hashtag
@@ -175,7 +178,7 @@ const NewPostForm = ({
       router.push(`/posts/${response.data.post.id}`);
     } catch (err) {
       setBtnValue(
-        editSnippets ? "Editer mon snippet" : "Partager mon code au monde ! 🚀"
+        editSnippets ? t("editPostBtn") : t("newPostBtn")
       );
       console.error(err);
     }
@@ -212,7 +215,7 @@ const NewPostForm = ({
           className={`${btn} bg-primary txt-btn`}
           onClick={(e) => handleAddSnippet(e)}
         >
-          Ajouter un snippet
+          {t("addSnippet")}
         </button>
       )}
       <input

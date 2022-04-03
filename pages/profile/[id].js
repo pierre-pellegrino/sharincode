@@ -92,6 +92,6 @@ export default ProfilePage;
 
 export const getServerSideProps = async ({ locale }) => ({
   props: {
-    ...(await serverSideTranslations(locale, ["common", "profile"])),
+    ...(await serverSideTranslations(locale, ["common", "profile", "post-editor"])),
   },
 });

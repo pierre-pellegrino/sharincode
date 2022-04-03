@@ -92,6 +92,6 @@ export default PostDetailPage;
 
 export const getServerSideProps = async ({ locale }) => ({
   props: {
-    ...(await serverSideTranslations(locale, ["common", "comments"])),
+    ...(await serverSideTranslations(locale, ["common", "comments", "post-editor"])),
   },
 });

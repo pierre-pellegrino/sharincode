@@ -1,10 +1,16 @@
-import { inputWrapper, actions } from "components/NewPostModal/new_post_modal.module.scss";
+import {
+  inputWrapper,
+  actions,
+} from "components/NewPostModal/new_post_modal.module.scss";
 import { LANGUAGES } from "lib/constants/languages";
 import EditorContainer from "components/EditorContainer";
 import { useState } from "react";
 import { CloseIcon } from "components/icons";
+import { useTranslation } from "next-i18next";
 
 const NewSnippetForm = ({ snippet, snippets, setSnippets }) => {
+  const { t } = useTranslation("post-editor");
+
   const [content, setContent] = useState(snippet.content);
   const [language, setLanguage] = useState(snippet.language);
 
@@ -42,7 +48,7 @@ const NewSnippetForm = ({ snippet, snippets, setSnippets }) => {
     <div>
       <div className={inputWrapper}>
         <div className={actions}>
-          <label htmlFor="language">Langage</label>
+          <label htmlFor="language">{t("language")}</label>
           {snippets.filter((s) => s?.destroy !== true).length > 1 && (
             <button onClick={handleDelete}>
               <CloseIcon />

@@ -2,6 +2,7 @@ import Loader from "components/Loader";
 import NewPostForm from "components/NewPostModal/NewPostForm";
 import { useAtom } from "jotai";
 import { getAbsoluteURL } from "lib/getAbsoluteURL";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import APIManager from "pages/api/axios";
@@ -73,3 +74,9 @@ const CommentEdit = () => {
 };
 
 export default CommentEdit;
+
+export const getServerSideProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ["common", "post-editor"])),
+  },
+});

@@ -15,6 +15,7 @@ module.exports = {
     "register",
     "login",
     "forms",
+    "post-editor",
   ],
   reloadOnPrerender: true,
 };
