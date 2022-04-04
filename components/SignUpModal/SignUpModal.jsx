@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   signUpModal,
   signUpModalBg,
@@ -7,25 +7,27 @@ import {
 import Link from "next/link";
 import styles from "styles/Home.module.scss";
 
-const SignUpInvitation = ({user}) => {
+const SignUpInvitation = ({ user }) => {
   return (
     <div className={signUpModalBg}>
-      <div className={`${signUpModal} bg-global-secondary`} >
-        <p>
-          Vous devez avoir un compte pour accéder au profil de {user}.
-        </p>
+      <div className={`${signUpModal} bg-global-secondary`}>
+        <p>Vous devez avoir un compte pour accéder au profil de {user}.</p>
 
         <p className={subcategory}>J&apos;ai déjà un compte</p>
-        <Link href="/login">
+        <Link href={{ pathname: "/login", query: { redirect: true } }}>
           <a>
-            <button className={`${styles.btn} bg-primary txt-btn`}>Me connecter</button>
+            <button className={`${styles.btn} bg-primary txt-btn`}>
+              Me connecter
+            </button>
           </a>
         </Link>
 
         <p className={subcategory}>Je crée mon compte</p>
-        <Link href="/register">
+        <Link href={{ pathname: "/register", query: { redirect: true } }}>
           <a>
-            <button className={`${styles.btn} bg-primary txt-btn`}>M&apos;inscrire</button>
+            <button className={`${styles.btn} bg-primary txt-btn`}>
+              M&apos;inscrire
+            </button>
           </a>
         </Link>
       </div>
