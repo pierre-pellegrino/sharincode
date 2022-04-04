@@ -16,6 +16,9 @@ module.exports = {
     "login",
     "forms",
     "post-editor",
+    "edit-email",
+    "edit-pwd",
+    "edit-profile",
   ],
   reloadOnPrerender: true,
 };

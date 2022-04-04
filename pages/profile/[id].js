@@ -92,6 +92,14 @@ export default ProfilePage;
 
 export const getServerSideProps = async ({ locale }) => ({
   props: {
-    ...(await serverSideTranslations(locale, ["common", "profile", "post-editor"])),
+    ...(await serverSideTranslations(locale, [
+      "common",
+      "profile",
+      "post-editor",
+      "forms",
+      "edit-profile",
+      "edit-email",
+      "edit-pwd",
+    ])),
   },
 });

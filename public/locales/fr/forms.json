@@ -15,5 +15,25 @@
     "value": "Confirmation du mot de passe",
     "instructions": "Veuillez réécrire votre mot de passe."
   },
+  "actualPwd": {
+    "value": "Mot de passe actuel",
+    "instructions": "Veuillez entrer votre mot de passe actuel"
+  },
+  "newPwd": {
+    "value": "Nouveau mot de passe",
+    "instructions": "Au moins 6 caractères"
+  },
+  "newEmail": {
+    "value": "Nouvelle adresse email",
+    "instructions": "Veuillez entrer une adresse mail valide."
+  },
+  "githubLink": {
+    "value": "Lien Github",
+    "instructions": "Lien de profil Github au format https://github.com/username"
+  },
+  "otherLink": {
+    "value": "Autre Lien",
+    "instructions": "Veuillez entrer une URL valide"
+  },
   "github": "Connexion avec Github"
 }

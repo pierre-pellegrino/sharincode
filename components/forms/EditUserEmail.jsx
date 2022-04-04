@@ -20,14 +20,16 @@ import APIManager from "pages/api/axios";
 import { useRouter } from "next/router";
 import { InfoIcon } from "components/icons";
 import ValidationIcon from "components/ValidationIcon";
-import Link from "next/link";
 import { useAtom } from "jotai";
 import { userAtom } from "store";
 import { EyeIcon } from "components/icons";
 import { EyeOffIcon } from "components/icons";
+import { useTranslation } from "next-i18next";
 
 const EditUserEmail = () => {
   const router = useRouter();
+  const { t } = useTranslation(["edit-email", "forms"]);
+  const { t: common } = useTranslation("common");
 
   const errors = useRef();
 
@@ -43,7 +45,7 @@ const EditUserEmail = () => {
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
 
-  const [btnValue, setBtnValue] = useState("éditer mon adresse mail");
+  const [btnValue, setBtnValue] = useState(t("edit"));
 
   const canSave = [validEmail, validPwd].every(
     Boolean
@@ -68,7 +70,7 @@ const EditUserEmail = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    if (!canSave) return setErrMsg("Un (ou plusieurs) champs sont invalides !");
+    if (!canSave) return setErrMsg(common("cantSaveError"));
 
     const data = {
       user: {
@@ -78,15 +80,16 @@ const EditUserEmail = () => {
     };
 
     try {
+      setBtnValue(t("savingBtn"))
       const response = await APIManager.updateEmail(data);
       setSuccess(true);
       setUser(response.data);
       router.push("/");
     } catch (err) {
-      setBtnValue("éditer mon adresse mail");
+      setBtnValue(t("edit"));
 
       if (!err?.response) {
-        setErrMsg("Oups ! Pas de réponse du serveur...");
+        setErrMsg(common("serverError"));
       } else {
         setErrMsg(err.response.data.error.message);
       }
@@ -97,11 +100,11 @@ const EditUserEmail = () => {
   return (
     <form className={`${form} ${pwdForm}`} onSubmit={handleLogin}>
 
-    <h3> Modifier mon email </h3>
+    <h3>{t("title")}</h3>
 
       {success && (
         <p>
-          Édition réussie !<br />
+          {t("success")}<br />
         </p>
       )}
 
@@ -128,7 +131,7 @@ const EditUserEmail = () => {
           onFocus={() => setEmailFocus(true)}
           onBlur={() => setEmailFocus(false)}
         />
-        <label htmlFor="email-input2">Nouvel email</label>
+        <label htmlFor="email-input2">{t("forms:newEmail.value")}</label>
         <ValidationIcon isValid={validEmail} />
         <p
           id="emailnote"
@@ -136,7 +139,8 @@ const EditUserEmail = () => {
             [offscreen]: !(emailFocus && email && !validEmail),
           })}
         >
-          Veuillez entrer un email valide.
+          <InfoIcon />
+          {t("forms:newEmail.instructions")}
         </p>
       </div>
 
@@ -155,7 +159,7 @@ const EditUserEmail = () => {
           onFocus={() => setPwdFocus(true)}
           onBlur={() => setPwdFocus(false)}
         />
-        <label htmlFor="password-input2">Confirmez votre mot de passe</label>
+        <label htmlFor="password-input2">{t("forms:pwdConfirm.value")}</label>
         <ValidationIcon isValid={validPwd} />
         <div
           className={showPwdIcon}
@@ -174,7 +178,8 @@ const EditUserEmail = () => {
             [offscreen]: !(pwdFocus && pwd && !validPwd),
           })}
         >
-          Au moins 6 caractères.
+          <InfoIcon />
+          {t("forms:pwdConfirm.instructions")}
         </p>
       </div>
 
