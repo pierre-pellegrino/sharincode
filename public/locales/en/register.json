@@ -3,9 +3,9 @@
   "register": "Register",
   "savingBtn": "Registration in progress...",
   "advantages": {
-    "intro": "By creating an account, you'll can",
+    "intro": "By creating an account, you'll be able to",
     "share": "Share your best snippets to the world",
-    "comment": "Comment snippets",
+    "comment": "Comment on snippets",
     "react": "React to snippets that you love",
     "fav": "Save your favorite snippets",
     "theme": "Choose your favorite theme"
