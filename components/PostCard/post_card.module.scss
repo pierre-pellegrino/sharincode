@@ -28,6 +28,7 @@
   .snippet {
     padding: 0.25rem 0;
     margin: 1rem;
+    position: relative;
 
     code {
       min-height: 100px;
@@ -38,6 +39,22 @@
       -moz-border-radius: 0.25rem;
       -ms-border-radius: 0.25rem;
       -o-border-radius: 0.25rem;
+    }
+
+    .copyEditorContent {
+      position: absolute;
+      right: 0.75rem;
+      top: 2.25rem;
+      cursor: pointer;
+      display: none;
+
+      svg {
+        width: 1rem;
+      }
+    }
+
+    & .snippet:hover .copyEditorContent {
+      display: block;
     }
   }
 
