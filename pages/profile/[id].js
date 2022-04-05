@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import { getAbsoluteURL } from "lib/getAbsoluteURL";
 import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 import { useTranslation } from "next-i18next";
+import ReconnectModal from "components/ReconnectModal";
 
 const ProfilePage = () => {
   const router = useRouter();
@@ -25,6 +26,8 @@ const ProfilePage = () => {
   let content = <Loader />;
 
   if (error) content = <div>{common("serverError")}</div>;
+
+  if (error?.response.status === 401) content = <ReconnectModal />;
 
   if (data) {
     const profileData = { avatar: data.avatar, username: data.user.username };
