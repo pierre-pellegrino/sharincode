@@ -4,6 +4,7 @@ import {
   IdeaIcon,
   StarIconOutlined,
   StarIcon,
+  CopyIcon,
 } from "components/icons";
 import React, { useEffect, useState } from "react";
 import ProfileIcon from "../ProfileIcon/ProfileIcon";
@@ -27,6 +28,7 @@ import {
   language as languageStyle,
   menuDisabled,
   favorite,
+  copyEditorContent
 } from "./post_card.module.scss";
 import { formatDistanceToNow } from "date-fns";
 import { en, fr } from "date-fns/locale";
@@ -92,6 +94,10 @@ const PostCard = ({
       user.favorite_posts.find((fav) => fav.post.id === id) !== undefined
     );
   }, [id, post?.user?.user_id, user]);
+
+  const handleCopyContent = (e) => {
+    navigator.clipboard.writeText(e.target.parentNode.parentNode.parentNode.querySelector("code").innerText)
+  }
 
   const handleAddFavorite = async () => {
     try {
@@ -199,6 +205,9 @@ const PostCard = ({
                 language={snippet.language}
                 theme={theme}
               />
+              <div className={copyEditorContent} onClick={(e) => handleCopyContent(e)}>
+                <CopyIcon />
+              </div>
             </div>
           ))
         }
