@@ -39,6 +39,7 @@ import ShareModal from "components/ShareModal/ShareModal";
 import FormattedDescription from "./FormattedDescription";
 import APIManager from "pages/api/axios";
 import { useSWRConfig } from "swr";
+import { useTranslation } from "next-i18next";
 
 const PostCard = ({
   post,
@@ -47,9 +48,11 @@ const PostCard = ({
   page,
   mutate: mutateProfile,
   commentRef,
+  locale,
 }) => {
   const [user, setUser] = useAtom(userAtom);
   const [isConnected] = useAtom(isConnectedAtom);
+  const { t } = useTranslation();
 
   const description = post.description;
   const date = post.created_at;
@@ -58,10 +61,10 @@ const PostCard = ({
   const commentNb = post.comments;
   const reactions = post.reactions;
 
-  const lightReacts = reactions.filter(react => react.reaction_id === 1);
-  const loveReacts = reactions.filter(react => react.reaction_id === 2);
-  const checkReacts = reactions.filter(react => react.reaction_id === 3);
-  const snippetList = post.snippets
+  const lightReacts = reactions.filter((react) => react.reaction_id === 1);
+  const loveReacts = reactions.filter((react) => react.reaction_id === 2);
+  const checkReacts = reactions.filter((react) => react.reaction_id === 3);
+  const snippetList = post.snippets;
   const currentUserReact =
     reactions.filter((react) => react.user_id === user?.user.id)[0]
       ?.reaction_id || 0;
@@ -141,7 +144,7 @@ const PostCard = ({
           <i>
             {formatDistanceToNow(new Date(date), {
               addSuffix: true,
-              locale: fr,
+              locale: locale === "fr" ? fr : en,
             })}
           </i>
           {user &&
@@ -190,18 +193,16 @@ const PostCard = ({
       </div>
       <FormattedDescription description={description} />
       <div className={snippetStyle}>
-        {
-          snippetList.map((snippet) => (
-            <div key={snippet.id} className={snippetStyle}>
-              <p className={languageStyle}>{snippet.language}</p>
-              <SnippetHighlighter
-                snippet={snippet.content}
-                language={snippet.language}
-                theme={theme}
-              />
-            </div>
-          ))
-        }
+        {snippetList.map((snippet) => (
+          <div key={snippet.id} className={snippetStyle}>
+            <p className={languageStyle}>{snippet.language}</p>
+            <SnippetHighlighter
+              snippet={snippet.content}
+              language={snippet.language}
+              theme={theme}
+            />
+          </div>
+        ))}
       </div>
       <div className={bottom}>
         <div className={reactsWrapper}>
@@ -227,7 +228,7 @@ const PostCard = ({
           </div>
           <Link href={`/posts/${id}`}>
             <a className={comments}>
-              {nbOfComments} commentaire{nbOfComments > 1 && "s"}
+              {`${nbOfComments} ${t("comments")}${nbOfComments > 1 ? "s" : ""}`}
             </a>
           </Link>
         </div>
@@ -248,10 +249,14 @@ const PostCard = ({
                 if (commentRef?.current) commentRef.current.focus();
               }}
             >
-              <p className={{ comment }}>Commenter</p>
+              <p className={{ comment }}>{t("commentBtn")}</p>
             </a>
           </Link>
-          <ShareModal language={snippetList[0].language} author={author} id={id}/>
+          <ShareModal
+            language={snippetList[0].language}
+            author={author}
+            id={id}
+          />
         </div>
       </div>
     </div>

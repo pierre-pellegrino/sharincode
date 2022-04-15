@@ -8,11 +8,15 @@ import { getAbsoluteURL } from "lib/getAbsoluteURL";
 import Link from "next/link";
 import useSWR, { useSWRConfig } from "swr";
 import { useEffect, useState } from "react";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 const Search = () => {
   const router = useRouter();
   const { query } = router;
   const [previousQuery, setPreviousQuery] = useState({});
+  const { t: common } = useTranslation("common");
+  const { t } = useTranslation("search");
 
   const { data, error } = useSWR(query !== {} ? "/posts" : null, () =>
     APIManager.fetcher(`/searches?keywords=${query["q"].replace(" ", "_")}`)
@@ -31,33 +35,33 @@ const Search = () => {
 
   if (error) {
     console.log(error);
-    content = <div>Oups ! Une erreur est survenue...</div>;
+    content = <div>{common("serverError")}</div>;
   }
 
   if (data) {
     const { posts } = data;
 
     content = posts.map((post) => (
-      <PostCard post={post.post} key={post.post.id} />
+      <PostCard post={post.post} key={post.post.id} locale={router.locale} />
     ));
   }
 
   return (
     <>
       <Head>
-        <title>Recherche | Snipshare</title>
-        <meta name="title" content="Recherche | Snipshare" />
+        <title>{t("title")}</title>
+        <meta name="title" content={t("title")} />
 
         <meta property="og:url" content={getAbsoluteURL(router.asPath)} />
-        <meta property="og:title" content="Recherche | Snipshare" />
+        <meta property="og:title" content={t("title")} />
 
         <meta property="twitter:url" content={getAbsoluteURL(router.asPath)} />
-        <meta property="twitter:title" content="Recherche | Snipshare" />
+        <meta property="twitter:title" content={t("title")} />
       </Head>
       <div className={styles.main}>
-        Résultats de la recherche : {router.query["q"]}
+        {t("searchResults")} {router.query["q"]}
         <Link href="/">
-          <a className="txt-primary"> Annuler la recherche </a>
+          <a className="txt-primary">{t("cancelSearch")}</a>
         </Link>
         {content}
       </div>
@@ -66,3 +70,9 @@ const Search = () => {
 };
 
 export default Search;
+
+export const getStaticProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ["common", "search", "post-editor"])),
+  },
+});

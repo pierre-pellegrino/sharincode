@@ -1,0 +1,39 @@
+{
+  "username": {
+    "value": "Username",
+    "instructions": "4 to 36 characters.\nMust begin with a letter.\nAuthorized characters : letters, numbers, hyphens (- and _)."
+  },
+  "email": {
+    "value": "Email",
+    "instructions": "Please enter a valid email address."
+  },
+  "pwd": {
+    "value": "Password",
+    "instructions": "Minimum 6 characters."
+  },
+  "pwdConfirm": {
+    "value": "Password Confirmation",
+    "instructions": "Please retype your password."
+  },
+  "actualPwd": {
+    "value": "Actual password",
+    "instructions": "Please enter your actual password"
+  },
+  "newPwd": {
+    "value": "New password",
+    "instructions": "Minimum 6 characters"
+  },
+  "newEmail": {
+    "value": "New email address",
+    "instructions": "Please enter a valid email address."
+  },
+  "githubLink": {
+    "value": "Github Link",
+    "instructions": "Link to your Github profile => https://github.com/username"
+  },
+  "otherLink": {
+    "value": "Other Link",
+    "instructions": "Please enter a valid URL."
+  },
+  "github": "Login with Github"
+}

@@ -1,14 +1,17 @@
 import Link from "components/Link";
+import { useTranslation } from "next-i18next";
 import { LogInIconOutline, LogInIconFilled } from "../../icons";
 import { navItems, navItem, text, active } from "../header.module.scss";
 
 const LoggedOutNav = () => {
+  const { t } = useTranslation();
+
   return (
     <ul className={navItems} role="navigation ">
       <li>
         <Link
           href="/login"
-          aria-label="Accéder à la page de connexion"
+          aria-label={t("loginAriaLabel")}
           className={navItem}
           activeClassName={active}
         >
@@ -19,7 +22,7 @@ const LoggedOutNav = () => {
               ) : (
                 <LogInIconOutline />
               )}
-              <span className={text}>Me connecter</span>
+              <span className={text}>{t("login")}</span>
             </>
           )}
         </Link>

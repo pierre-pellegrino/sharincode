@@ -20,12 +20,14 @@ import NewPostModal from "components/NewPostModal";
 import Image from "next/image";
 import { useMediaQuery } from "react-responsive";
 import { LogInIconFilled } from "components/icons";
+import { useTranslation } from "next-i18next";
 
 const LoggedInNav = () => {
   const router = useRouter();
   const [showNewPostModal, setShowNewPostModal] = useAtom(showNewPostModalAtom);
   const [user, setUser] = useAtom(userAtom);
   const middleBreakpoint = useMediaQuery({ query: "(max-width: 1000px)" });
+  const { t } = useTranslation();
 
   const handleDisconnect = () => {
     router.push("/");
@@ -43,23 +45,23 @@ const LoggedInNav = () => {
               href="/new-post"
               className={navItem}
               activeClassName={active}
-              aria-label="Créer un nouveau snippet."
+              aria-label={t("newSnippetAriaLabel")}
             >
               {({ isActive }) => (
                 <>
                   {isActive ? <CreateIconOutlined /> : <CreateIconOutlined />}
-                  <span className={text}>Nouveau Snippet</span>
+                  <span className={text}>{t("newSnippet")}</span>
                 </>
               )}
             </Link>
           ) : (
             <button
               className={navItem}
-              aria-label="Créer un nouveau snippet."
+              aria-label={t("newSnippetAriaLabel")}
               onClick={() => setShowNewPostModal(true)}
             >
               <CreateIconOutlined />
-              <span className={text}>Nouveau Snippet</span>
+              <span className={text}>{t("newSnippet")}</span>
             </button>
           )}
         </li>
@@ -67,7 +69,7 @@ const LoggedInNav = () => {
           <Link
             href={`/profile/${user?.user.id}`}
             className={navItem}
-            aria-label="Accéder à la page de mon compte."
+            aria-label={t("accountAriaLabel")}
             activeClassName={active}
           >
             {({ isActive }) => {
@@ -105,11 +107,11 @@ const LoggedInNav = () => {
         <li>
           <button
             className={navItem}
-            aria-label="Bouton de déconnexion"
+            aria-label={t("logoutAriaLabel")}
             onClick={handleDisconnect}
           >
             <SignOutIcon />
-            <span className={text}>Me déconnecter</span>
+            <span className={text}>{t("logout")}</span>
           </button>
         </li>
       </ul>

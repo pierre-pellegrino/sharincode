@@ -1,0 +1,22 @@
+{
+  "skipLink": "Accéder au contenu principal",
+  "loginAriaLabel": "Accéder à la page de connexion",
+  "login": "Me connecter",
+  "newSnippet": "Nouveau Snippet",
+  "newSnippetAriaLabel": "Créer un nouveau snippet.",
+  "accountAriaLabel": "Accéder à mon compte",
+  "logout": "Me déconnecter",
+  "logoutAriaLabel": "Bouton de déconnexion.",
+  "serverError": "Oups ! Pas de réponse du serveur...",
+  "comments": "commentaire",
+  "reactBtn": "Réagir",
+  "ideaReaction": "Bonne idée !",
+  "likeReaction": "J'aime !",
+  "approvalReaction": "J'approuve !",
+  "commentBtn": "Commenter",
+  "shareBtn": "Partager",
+  "searchbar": "Rechercher un langage, un utilisateur, un hashtag...",
+  "edit": "Editer",
+  "delete": "Supprimer",
+  "cantSaveError": "Un (ou plusieurs) champ(s) sont invalides !"
+}

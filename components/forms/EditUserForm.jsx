@@ -23,10 +23,12 @@ import ValidationIcon from "components/ValidationIcon";
 import { InfoIcon } from "components/icons";
 import { USERNAME_REGEX, GITHUB_REGEX, URL_REGEX } from "lib/constants/validations";
 import cn from "classnames";
+import { useTranslation } from "next-i18next";
 
 const EditUserForm = ({ user, mutate, userAvatar, userId }) => {
   const router = useRouter();
   const [_, setUser] = useAtom(userAtom);
+  const { t } = useTranslation(["edit-profile", "forms"]);
 
   const [errMsg, setErrMsg] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -45,12 +47,12 @@ const EditUserForm = ({ user, mutate, userAvatar, userId }) => {
   const [validPersonal, setValidPersonal] = useState(false);
   const [personalFocus, setPersonalFocus] = useState(false);
 
-  const [btnValue, setBtnValue] = useState("Editer");
+  const [btnValue, setBtnValue] = useState(t("edit"));
   const [preferedTheme] = useAtom(preferedThemeAtom);
   const [modalOpen, setModalOpen] = useState(false);
 
   const handleDeleteAccount = () => {
-    if (confirm("Êtes-vous sûr ?\nCette action est irréversible.")) {
+    if (confirm(t("deleteConfirm"))) {
       APIManager.deleteUser();
       router.push("/");
       setUser(null);
@@ -100,7 +102,7 @@ const EditUserForm = ({ user, mutate, userAvatar, userId }) => {
 
     if (!canSave) return;
 
-    setBtnValue("Edition en cours...");
+    setBtnValue(t("savingBtn"));
 
     const data = {
       username: username.trim(),
@@ -115,7 +117,7 @@ const EditUserForm = ({ user, mutate, userAvatar, userId }) => {
       await mutate();
       setSuccess(true);
       setErrMsg(false);
-      setBtnValue("Editer");
+      setBtnValue(t("edit"));
 
       await setUser((prev) => {
         const {
@@ -139,7 +141,7 @@ const EditUserForm = ({ user, mutate, userAvatar, userId }) => {
         };
       });
     } catch (err) {
-      setBtnValue("Editer");
+      setBtnValue(t("edit"));
       setErrMsg(true);
       setSuccess(false);
     }
@@ -155,14 +157,14 @@ const EditUserForm = ({ user, mutate, userAvatar, userId }) => {
           height={128}
           width={128}
         />
-        <p>Modifier mon avatar</p>
+        <p>{t("avatar")}</p>
       </div>
       {modalOpen && (
         <EditAvatarModal closeModal={handleCloseModal} userId={userId} />
       )}
       <form className={`${form} links-form`} onSubmit={handleUpdate}>
-        {success && <p>Modifications enregistrées !</p>}
-        {errMsg && <p>Ce nom d&apos;utilisateur est déjà pris.</p>}
+        {success && <p>{t("success")}</p>}
+        {errMsg && <p>{t("usernameAlreadyTaken")}</p>}
 
         <p aria-live="assertive">{errMsg}</p>
 
@@ -181,7 +183,7 @@ const EditUserForm = ({ user, mutate, userAvatar, userId }) => {
             onFocus={() => setUsernameFocus(true)}
             onBlur={() => setUsernameFocus(false)}
           />
-          <label htmlFor="username-input">Nom d&apos;utilisateur</label>
+          <label htmlFor="username-input">{t("forms:username.value")}</label>
           <ValidationIcon isValid={validUsername} />
           <p
             id="uidnote"
@@ -190,11 +192,7 @@ const EditUserForm = ({ user, mutate, userAvatar, userId }) => {
             })}
           >
             <InfoIcon />
-            Entre 4 et 36 caractères.
-            <br />
-            Doit commencer par une lettre
-            <br />
-            Caractères autorisés: lettres, nombres, tirets (- et _).
+            {t("forms:username.instructions")}
           </p>
         </div>
 
@@ -225,7 +223,7 @@ const EditUserForm = ({ user, mutate, userAvatar, userId }) => {
             onFocus={() => setGithubFocus(true)}
             onBlur={() => setGithubFocus(false)}
           />
-          <label htmlFor="github-input">Lien Github</label>
+          <label htmlFor="github-input">{t("forms:githubLink.value")}</label>
           <ValidationIcon isValid={validGithub} />
           <p
             id="uidnote"
@@ -234,7 +232,7 @@ const EditUserForm = ({ user, mutate, userAvatar, userId }) => {
             })}
           >
             <InfoIcon />
-            Lien de profil Github au format https://github.com/username
+            {t("forms:githubLink.instructions")}
           </p>
         </div>
 
@@ -252,7 +250,7 @@ const EditUserForm = ({ user, mutate, userAvatar, userId }) => {
             onFocus={() => setPersonalFocus(true)}
             onBlur={() => setPersonalFocus(false)}
           />
-          <label htmlFor="personal-input">Autre lien</label>
+          <label htmlFor="personal-input">{t("forms:otherLink.value")}</label>
           <ValidationIcon isValid={validPersonal} />
           <p
             id="personalnote"
@@ -261,7 +259,7 @@ const EditUserForm = ({ user, mutate, userAvatar, userId }) => {
             })}
           >
             <InfoIcon />
-            Veuillez entrer une URL valide
+            {t("forms:otherLink.instructions")}
           </p>
         </div>
 
@@ -273,12 +271,12 @@ const EditUserForm = ({ user, mutate, userAvatar, userId }) => {
           value={btnValue}
         />
 
-        <p className={favoriteTheme}>Thème favori</p>
+        <p className={favoriteTheme}>{t("favoriteTheme")}</p>
         <ThemeSelect />
       </form>
 
       <p className={deleteAccount} onClick={() => handleDeleteAccount()}>
-        Supprimer mon compte
+        {t("deleteAccount")}
       </p>
     </>
   );

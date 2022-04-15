@@ -22,9 +22,12 @@ import { useAtom } from "jotai";
 import { userAtom } from "store";
 import { EyeIcon } from "components/icons";
 import { EyeOffIcon } from "components/icons";
+import { useTranslation } from "next-i18next";
 
 const EditUserImportantInfos = ({user}) => {
   const router = useRouter();
+  const { t: common } = useTranslation("common");
+  const { t } = useTranslation(["edit-pwd", "forms"])
 
   const errors = useRef();
 
@@ -41,7 +44,7 @@ const EditUserImportantInfos = ({user}) => {
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
 
-  const [btnValue, setBtnValue] = useState("Éditer mon mot de passe");
+  const [btnValue, setBtnValue] = useState(t("edit"));
 
   const canSave = [validPwd, validPwdConfirm].every(
     Boolean
@@ -67,9 +70,9 @@ const EditUserImportantInfos = ({user}) => {
   const handleEdit = async (e) => {
     e.preventDefault();
 
-    if (!canSave) return setErrMsg("Un (ou plusieurs) champs sont invalides !");
+    if (!canSave) return setErrMsg(common("cantSaveError"));
 
-    setBtnValue("Édition en cours...");
+    setBtnValue(t("savingBtn"));
 
     const data = {
       user: {
@@ -86,10 +89,10 @@ const EditUserImportantInfos = ({user}) => {
       setUser(response.data);
       router.push("/");
     } catch (err) {
-      setBtnValue("éditer mon mot de passe");
+      setBtnValue(t("edit"));
 
       if (!err?.response) {
-        setErrMsg("Oups ! Pas de réponse du serveur...");
+        setErrMsg(common("serverError"));
       } else {
         setErrMsg(err.response.data.error.message);
       }
@@ -99,11 +102,11 @@ const EditUserImportantInfos = ({user}) => {
 
   return (
     <form className={`${form} ${pwdForm}`} onSubmit={handleEdit}>
-      <h3> Modifier mon mot de passe </h3>
+      <h3>{t("title")}</h3>
 
       {success && (
         <p>
-          Édition réussie !<br />
+          {t("success")}<br />
         </p>
       )}
 
@@ -130,7 +133,7 @@ const EditUserImportantInfos = ({user}) => {
           onFocus={() => setPwdFocus(true)}
           onBlur={() => setPwdFocus(false)}
         />
-        <label htmlFor="password-input">Mot de passe actuel</label>
+        <label htmlFor="password-input">{t("forms:actualPwd.value")}</label>
         <ValidationIcon isValid={validPwd} />
         <div
           className={showPwdIcon}
@@ -149,7 +152,7 @@ const EditUserImportantInfos = ({user}) => {
             [offscreen]: !(pwdFocus && pwd && !validPwd),
           })}
         >
-          Au moins 6 caractères.
+          {t("forms:actualPwd.instructions")}
         </p>
       </div>
 
@@ -169,7 +172,7 @@ const EditUserImportantInfos = ({user}) => {
           onBlur={() => setPwdConfirmFocus(false)}
         />
         <label htmlFor="passwordConfirm-input">
-          Nouveau mot de passe
+          {t("forms:newPwd.value")}
         </label>
         <ValidationIcon isValid={validPwdConfirm} />
         <div
@@ -189,7 +192,7 @@ const EditUserImportantInfos = ({user}) => {
             [offscreen]: !(pwdConfirmFocus && pwdConfirm && !validPwdConfirm),
           })}
         >
-          Veuillez réécrire votre mot de passe.
+          {t("forms:newPwd.instructions")}
         </p>
       </div>
 

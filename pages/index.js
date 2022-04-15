@@ -8,9 +8,12 @@ import { useEffect, useRef, useState } from "react";
 import FetchPostsPage from "components/FetchPostsPage/FetchPostsPage";
 import { useRouter } from "next/router";
 import { getAbsoluteURL } from "lib/getAbsoluteURL";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 
 export default function Home() {
   const router = useRouter();
+  const { t } = useTranslation();
   const [isVisible, setIsVisible] = useState(false);
   const page = 1;
   const { data, error } = useSWR("/posts", () =>
@@ -47,13 +50,13 @@ export default function Home() {
 
   let content = <Loader />;
 
-  if (error) content = <div>Oups ! Il y a eu un problème...</div>;
+  if (error) content = <div>{t("serverError")}</div>;
 
   if (data) {
     content = (
       <>
         {data.posts.map((post) => {
-          return <PostCard post={post.post} key={post.post.id} page={page} />;
+          return <PostCard post={post.post} key={post.post.id} page={page} locale={router.locale} />;
         })}
 
         <div ref={bottomRef}></div>
@@ -90,3 +93,9 @@ export default function Home() {
     </section>
   );
 }
+
+export const getStaticProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale, ["common", "post-editor"])),
+  },
+});

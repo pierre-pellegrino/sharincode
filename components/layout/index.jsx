@@ -9,8 +9,9 @@ import SetTheme from "components/SetTheme";
 import { THEMES_HASH } from "lib/constants/themes";
 import { preferedThemeAtom } from "store";
 import Searchbar from "components/Searchbar";
+import { useTranslation } from "next-i18next";
 
-const Layout = ({ children }) => {
+const Layout = ({ children, translations }) => {
   const [user, setUser] = useAtom(userAtom);
   const [preferedTheme, setPreferedTheme] = useAtom(preferedThemeAtom);
 

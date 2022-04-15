@@ -12,6 +12,7 @@ import APIManager from "pages/api/axios";
 import { useSWRConfig } from "swr";
 import { useAtom } from "jotai";
 import { userAtom } from "store";
+import { useTranslation } from "next-i18next";
 
 const ReactionsModal = ({
   postId,
@@ -27,6 +28,7 @@ const ReactionsModal = ({
   );
   const { mutate } = useSWRConfig();
   const [closeReactions, setCloseReactions] = useState(false);
+  const { t } = useTranslation();
 
   const reacts = ["", "Light", "Love", "Check"];
 
@@ -56,7 +58,7 @@ const ReactionsModal = ({
 
   return (
     <div className={`${btn} ${openReacts}`}>
-      <p>Réagir</p>
+      <p>{t("reactBtn")}</p>
       <div className={`${reactsModal} ${closeReactions && hidden}`}>
         <div
           onClick={() => handleAddReaction(1)}
@@ -64,7 +66,7 @@ const ReactionsModal = ({
         >
           <IdeaIcon />
           <p className={`${singleReactInfo} bg-global-secondary`}>
-            Bonne idée !
+            {t("ideaReaction")}
           </p>
         </div>
         <div
@@ -73,7 +75,7 @@ const ReactionsModal = ({
         >
           <LikeIcon />
           <p className={`${singleReactInfo} bg-global-secondary`}>
-            J&apos;aime !
+            {t("likeReaction")}
           </p>
         </div>
         <div
@@ -82,7 +84,7 @@ const ReactionsModal = ({
         >
           <ApprovalIcon />
           <p className={`${singleReactInfo} bg-global-secondary`}>
-            Je valide !
+            {t("approvalReaction")}
           </p>
         </div>
       </div>

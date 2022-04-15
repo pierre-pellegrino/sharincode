@@ -11,6 +11,8 @@ import { userAtom } from "store";
 import { profileInfos, infosContainer } from "./profile.module.scss";
 import { useRouter } from "next/router";
 import { getAbsoluteURL } from "lib/getAbsoluteURL";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
+import { useTranslation } from "next-i18next";
 import ReconnectModal from "components/ReconnectModal";
 
 const ProfilePage = () => {
@@ -18,10 +20,12 @@ const ProfilePage = () => {
   const { id } = router.query;
   const { data, error, mutate } = useSWR(`profiles/${id}`, APIManager.fetcher);
   const [userData] = useAtom(userAtom);
+  const { t: common } = useTranslation("common");
+  const { t } = useTranslation("profile");
 
   let content = <Loader />;
 
-  if (error) content = <div>Oups ! Il y a eu un problème...</div>;
+  if (error) content = <div>{common("serverError")}</div>;
 
   if (error?.response.status === 401) content = <ReconnectModal />;
 
@@ -60,7 +64,7 @@ const ProfilePage = () => {
               </a>
             </p>
             <p>
-              Lien personnel&nbsp;:
+              {t("personalLink")}&nbsp;:
               <a href={data.user.personal_url} target="_blank" rel="noreferrer">
                 {data.user.personal_url}
               </a>
@@ -88,3 +92,31 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
+
+export const getStaticProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale, [
+      "common",
+      "profile",
+      "post-editor",
+      "forms",
+      "edit-profile",
+      "edit-email",
+      "edit-pwd",
+    ])),
+  },
+});
+
+export const getStaticPaths = async () => {
+  const response = await APIManager.getProfileIds();
+  const paths = response.data.users_ids.map((id) => ({
+    params: {
+      id: String(id),
+    },
+  }));
+
+  return {
+    paths,
+    fallback: true,
+  };
+};

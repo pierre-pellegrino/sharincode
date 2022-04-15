@@ -1,0 +1,9 @@
+{
+  "message": {
+    "createAccount": "Create an account",
+    "or": "or",
+    "login": "login",
+    "toCreateComment": "to leave a comment"
+  },
+  "commentBtn": "Comment"
+}

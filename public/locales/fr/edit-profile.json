@@ -1,0 +1,10 @@
+{
+  "deleteConfirm": "Êtes-vous sûr ?\nCette action est irréversible.",
+  "edit": "Editer",
+  "savingBtn": "Edition en cours...",
+  "avatar": "Modifier mon avatar",
+  "success": "Modifications enregistrées !",
+  "usernameAlreadyTaken": "Ce nom d'utilisateur est déjà pris.",
+  "favoriteTheme": "Thème favori",
+  "deleteAccount": "Supprimer mon compte"
+}

@@ -29,9 +29,12 @@ import { userAtom } from "store";
 import { EyeIcon } from "components/icons";
 import { EyeOffIcon } from "components/icons";
 import { GithubIcon } from "components/icons";
+import { useTranslation } from "next-i18next";
 
-const LoginForm = () => {
+const RegisterForm = () => {
   const router = useRouter();
+  const { t } = useTranslation(["register", "forms"]);
+  const { t: common } = useTranslation("common");
 
   const usernameRef = useRef();
   const errors = useRef();
@@ -57,7 +60,7 @@ const LoginForm = () => {
   const [errMsg, setErrMsg] = useState("");
   const [success, setSuccess] = useState(false);
 
-  const [btnValue, setBtnValue] = useState("M'inscrire");
+  const [btnValue, setBtnValue] = useState(t("register"));
 
   const canSave = [validUsername, validEmail, validPwd, validPwdConfirm].every(
     Boolean
@@ -98,9 +101,9 @@ const LoginForm = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    if (!canSave) return setErrMsg("Un (ou plusieurs) champs sont invalides !");
+    if (!canSave) return setErrMsg(common("cantSaveError"));
 
-    setBtnValue("Inscription en cours...");
+    setBtnValue(t("savingBtn"));
 
     const data = {
       user: {
@@ -116,10 +119,10 @@ const LoginForm = () => {
       setUser(response.data);
       router.push("/");
     } catch (err) {
-      setBtnValue("M'inscrire");
+      setBtnValue(t("register"));
 
       if (!err?.response) {
-        setErrMsg("Oups ! Pas de réponse du serveur...");
+        setErrMsg(common("serverError"));
       } else {
         setErrMsg(err.response.data.error.message);
       }
@@ -129,34 +132,34 @@ const LoginForm = () => {
 
   return (
     <form className={`${form} bg-global-secondary`} onSubmit={handleLogin}>
-      <h1> Inscription </h1>
+      <h1>{t("register")}</h1>
       <div className={advantages}>
         <p>
-          En créant un compte, vous pourrez&nbsp;:
+          {t("advantages.intro")}&nbsp;:
         </p>
         <ul>
           <li>
-            Partager vos meilleurs snippets au monde&nbsp;✨
+            {t("advantages.share")}&nbsp;✨
           </li>
           <li>
-            Commenter des snippets&nbsp;✍️
+            {t("advantages.comment")}&nbsp;✍️
           </li>
           <li>
-            Réagir aux snippets que vous aimez&nbsp;💡
+            {t("advantages.react")}&nbsp;💡
           </li>
           <li>
-            Enregistrer vos snippets préférés dans vos favoris&nbsp;⭐
+            {t("advantages.fav")}&nbsp;⭐
           </li>
           <li>
-            Choisir votre thème préféré&nbsp;🎨
+            {t("advantages.theme")}&nbsp;🎨
           </li>
         </ul>
       </div>
 
       {success && (
         <p>
-          Inscription réussie !<br />
-          Vous allez être redirigé sur la page d&apos;accueil...
+          {t("registerComplete")}<br />
+          {t("redirect")}
         </p>
       )}
 
@@ -184,7 +187,7 @@ const LoginForm = () => {
           onFocus={() => setUsernameFocus(true)}
           onBlur={() => setUsernameFocus(false)}
         />
-        <label htmlFor="username-input">Nom d&apos;utilisateur</label>
+        <label htmlFor="username-input">{t("forms:username.value")}</label>
         <ValidationIcon isValid={validUsername} />
         <p
           id="uidnote"
@@ -193,11 +196,7 @@ const LoginForm = () => {
           })}
         >
           <InfoIcon />
-          Entre 4 et 36 caractères.
-          <br />
-          Doit commencer par une lettre
-          <br />
-          Caractères autorisés: lettres, nombres, tirets (- et _).
+          {t("forms:username.instructions")}
         </p>
       </div>
 
@@ -216,7 +215,7 @@ const LoginForm = () => {
           onFocus={() => setEmailFocus(true)}
           onBlur={() => setEmailFocus(false)}
         />
-        <label htmlFor="email-input">Email</label>
+        <label htmlFor="email-input">{t("forms:email.value")}</label>
         <ValidationIcon isValid={validEmail} />
         <p
           id="emailnote"
@@ -224,7 +223,7 @@ const LoginForm = () => {
             [offscreen]: !(emailFocus && email && !validEmail),
           })}
         >
-          Veuillez entrer un email valide.
+          {t("forms:email.instructions")}
         </p>
       </div>
 
@@ -243,7 +242,7 @@ const LoginForm = () => {
           onFocus={() => setPwdFocus(true)}
           onBlur={() => setPwdFocus(false)}
         />
-        <label htmlFor="password-input">Mot de passe</label>
+        <label htmlFor="password-input">{t("forms:pwd.value")}</label>
         <ValidationIcon isValid={validPwd} />
         <div
           className={showPwdIcon}
@@ -262,7 +261,7 @@ const LoginForm = () => {
             [offscreen]: !(pwdFocus && pwd && !validPwd),
           })}
         >
-          Au moins 6 caractères.
+          {t("forms:pwd.instructions")}
         </p>
       </div>
 
@@ -282,7 +281,7 @@ const LoginForm = () => {
           onBlur={() => setPwdConfirmFocus(false)}
         />
         <label htmlFor="passwordConfirm-input">
-          Confirmation du mot de passe
+          {t("forms:pwdConfirm.value")}
         </label>
         <ValidationIcon isValid={validPwdConfirm && validPwd} />
         <div
@@ -302,7 +301,7 @@ const LoginForm = () => {
             [offscreen]: !(pwdConfirmFocus && pwdConfirm && !validPwdConfirm),
           })}
         >
-          Veuillez réécrire votre mot de passe.
+          {t("forms:pwdConfirm.instructions")}
         </p>
       </div>
 
@@ -316,16 +315,16 @@ const LoginForm = () => {
       />
       <a href={github_url} className={`${btn} ${github} bg-primary txt-btn`}>
         <GithubIcon />
-        Connexion avec github
+        {t("forms:github")}
       </a>
       <div className={formLink}>
-        <span>Déjà inscrit ?</span>
+        <span>{t("alreadyRegistered")}</span>
         <Link href="/login">
-          <a className="txt-primary"> Me connecter</a>
+          <a className="txt-primary"> {t("loginLink")}</a>
         </Link>
       </div>
     </form>
   );
 };
 
-export default LoginForm;
+export default RegisterForm;

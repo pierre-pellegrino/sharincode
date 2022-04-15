@@ -14,6 +14,7 @@ import {
 } from "./post_actions_modal.module.scss";
 import {useAtom} from "jotai";
 import {userAtom} from "store";
+import { useTranslation } from "next-i18next";
 
 const PostActionsModal = (props) => {
   const {
@@ -24,6 +25,8 @@ const PostActionsModal = (props) => {
     post,
     setButtonDisabled,
   } = props;
+
+  const { t } = useTranslation();
 
   const [user] = useAtom(userAtom);
   const { mutate } = useSWRConfig();
@@ -65,10 +68,10 @@ const PostActionsModal = (props) => {
       )}
       <ul className={navItems}>
         <li className={navItem} onClick={handleEditClick}>
-          Editer
+          {t("edit")}
         </li>
         <li className={navItem} onClick={handleDelete}>
-          Supprimer
+          {t("delete")}
         </li>
       </ul>
     </div>

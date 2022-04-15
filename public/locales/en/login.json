@@ -1,0 +1,9 @@
+{
+  "title": "Login | Snipshare",
+  "login": "Login",
+  "savingBtn": "Login in progress...",
+  "success": "Login completed!\nYou'll be redirected to the homepage...",
+  "noAccount": "No account yet?",
+  "registerLink": "Sign in",
+  "forgottenPwdLink": "Forgot your password?"
+}

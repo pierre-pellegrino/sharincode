@@ -1,0 +1,7 @@
+{
+  "title": "Forgotten password | Snipshare",
+  "instructions": "Please provide the email address linked to your account",
+  "submit_txt": "Send the reset link",
+  "sending_message": "Sending in progress...",
+  "success_message": "Click on the link you received by email to reset your password."
+}

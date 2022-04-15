@@ -9,6 +9,7 @@ import Loader from "components/Loader";
 import { useRouter } from "next/router";
 import { getAbsoluteURL } from "lib/getAbsoluteURL";
 import { useEffect, useRef } from "react";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 const PostDetailPage = () => {
   const router = useRouter();
@@ -41,7 +42,14 @@ const PostDetailPage = () => {
   if (post) {
     commentsSection = <Loader />;
 
-    postCard = <PostCard post={post.post} detail={true} commentRef={commentRef} />;
+    postCard = (
+      <PostCard
+        post={post.post}
+        detail={true}
+        commentRef={commentRef}
+        locale={router.locale}
+      />
+    );
   }
 
   if (comments) {
@@ -86,3 +94,25 @@ const PostDetailPage = () => {
 };
 
 export default PostDetailPage;
+
+export const getStaticProps = async ({ locale }) => ({
+  props: {
+    ...(await serverSideTranslations(locale, [
+      "common",
+      "comments",
+      "post-editor",
+    ])),
+  },
+});
+
+export const getStaticPaths = async () => {
+  const response = await APIManager.getPostIds();
+  const paths = response.data.posts_ids.map((id) => ({
+    params: { id: String(id) },
+  }));
+
+  return {
+    paths,
+    fallback: true,
+  };
+};
