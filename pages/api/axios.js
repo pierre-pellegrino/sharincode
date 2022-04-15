@@ -175,8 +175,20 @@ export default class APIManager {
   }
 
   static async removeFavorite(postId) {
-    const endpoint = `/favorite_posts/${postId}`
+    const endpoint = `/favorite_posts/${postId}`;
     const response = await APIRequest.delete(endpoint);
+    return response;
+  }
+
+  static async getPostIds() {
+    const endpoint = "/posts?filter=id";
+    const response = await APIRequest.get(endpoint);
+    return response;
+  }
+
+  static async getProfileIds() {
+    const endpoint = "/profiles?filter=id";
+    const response = await APIRequest.get(endpoint);
     return response;
   }
 

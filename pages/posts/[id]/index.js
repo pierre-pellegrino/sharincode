@@ -43,7 +43,12 @@ const PostDetailPage = () => {
     commentsSection = <Loader />;
 
     postCard = (
-      <PostCard post={post.post} detail={true} commentRef={commentRef} locale={router.locale} />
+      <PostCard
+        post={post.post}
+        detail={true}
+        commentRef={commentRef}
+        locale={router.locale}
+      />
     );
   }
 
@@ -90,8 +95,24 @@ const PostDetailPage = () => {
 
 export default PostDetailPage;
 
-export const getServerSideProps = async ({ locale }) => ({
+export const getStaticProps = async ({ locale }) => ({
   props: {
-    ...(await serverSideTranslations(locale, ["common", "comments", "post-editor"])),
+    ...(await serverSideTranslations(locale, [
+      "common",
+      "comments",
+      "post-editor",
+    ])),
   },
 });
+
+export const getStaticPaths = async () => {
+  const response = await APIManager.getPostIds();
+  const paths = response.data.posts_ids.map((id) => ({
+    params: { id: String(id) },
+  }));
+
+  return {
+    paths,
+    fallback: true,
+  };
+};

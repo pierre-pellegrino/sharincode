@@ -93,7 +93,7 @@ const ProfilePage = () => {
 
 export default ProfilePage;
 
-export const getServerSideProps = async ({ locale }) => ({
+export const getStaticProps = async ({ locale }) => ({
   props: {
     ...(await serverSideTranslations(locale, [
       "common",
@@ -106,3 +106,17 @@ export const getServerSideProps = async ({ locale }) => ({
     ])),
   },
 });
+
+export const getStaticPaths = async () => {
+  const response = await APIManager.getProfileIds();
+  const paths = response.data.users_ids.map((id) => ({
+    params: {
+      id: String(id),
+    },
+  }));
+
+  return {
+    paths,
+    fallback: true,
+  };
+};
