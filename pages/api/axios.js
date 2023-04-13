@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-const baseurl = 'snipshare-api.fly.dev'
+const baseurl = 'https://snipshare-api.fly.dev'
 
 const APIRequest = axios.create({ baseURL: baseurl });
 
