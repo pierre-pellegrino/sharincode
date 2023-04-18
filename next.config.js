@@ -5,10 +5,8 @@ const nextConfig = withPWA({
   reactStrictMode: true,
   images: {
     domains: [
-      "staging-xs3.herokuapp.com",
-      "snipshare-api-staging.herokuapp.com",
-      "snipshare-api.herokuapp.com",
-      "localhost",
+      "snipshare-api.fly.dev",
+      "localhost"
     ],
   },
   pwa: {
